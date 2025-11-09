@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Ace#1</title>
+    <link rel="stylesheet" href="/assets/css/marketplace.css">
+</head>
+<body>
+    <header style="background: #2c3e50; color: white; padding: 20px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1 style="margin: 0; font-size: 24px;"><a href="/" style="color: white; text-decoration: none;">Ace#1</a></h1>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Create Account</h1>
+            <p>Join Ace#1 Health & Wellness today</p>
+        </div>
+
+        <div id="message"></div>
+
+        <form id="register-form" onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" required placeholder="John">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" required placeholder="Doe">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password * (min. 6 characters)</label>
+                <input type="password" id="password" required minlength="6" placeholder="Create a password">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password *</label>
+                <input type="password" id="confirmPassword" required minlength="6" placeholder="Confirm your password">
+            </div>
+
+            <div class="form-group-checkbox">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I agree to the Terms & Conditions</label>
+            </div>
+
+            <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+
+        <div class="form-links">
+            <p>Already have an account? <a href="/login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script>
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const messageDiv = document.getElementById('message');
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                messageDiv.innerHTML = '<div class="error-message">Passwords do not match!</div>';
+                return;
+            }
+
+            const result = window.auth.register({
+                firstName,
+                lastName,
+                email,
+                phone,
+                password
+            });
+
+            if (result.success) {
+                messageDiv.innerHTML = '<div class="success-message">' + result.message + ' Redirecting...</div>';
+                setTimeout(() => {
+                    window.location.href = '/profile.html';
+                }, 1500);
+            } else {
+                messageDiv.innerHTML = '<div class="error-message">' + result.message + '</div>';
+            }
+        }
+
+        // Check if already logged in
+        if (window.auth.isLoggedIn()) {
+            window.location.href = '/profile.html';
+        }
+    </script>
+</body>
+</html>
