@@ -1,0 +1,55 @@
+# Ace#1 Website - Git Ignore
+
+# Environment variables (if you add backend)
+.env
+.env.local
+.env.production
+
+# Node modules (if you add backend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database files (if added)
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*-old.html
+*-backup.*
+
+# Sensitive config and credentials
+ADMIN_CREDENTIALS.md
+config.private.js
+secrets.json
+private/
+credentials/
+
+# Build files (if you add build process)
+dist/
+build/
+.cache/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

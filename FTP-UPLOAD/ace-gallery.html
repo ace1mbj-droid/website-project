@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Ace#1</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/assets/css/marketplace-theme.css">
+    <meta name="description" content="Explore Ace#1 Health & Wellness products gallery">
+    <style>
+        .gallery-page {
+            background: var(--light-bg);
+            min-height: calc(100vh - 400px);
+        }
+        
+        .gallery-hero {
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-orange) 100%);
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--dark-bg);
+        }
+        
+        .gallery-hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        
+        .gallery-hero p {
+            font-size: 18px;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: var(--light-bg);
+        }
+        
+        .gallery-caption {
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .gallery-caption h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        
+        .gallery-caption p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .placeholder-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 16px;
+            }
+            
+            .gallery-hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="marketplace-header">
+        <div class="header-container">
+            <a href="/" class="brand-logo">ace#1</a>
+            
+            <div class="search-section">
+                <select class="category-dropdown">
+                    <option>All</option>
+                    <option>Health</option>
+                    <option>Wellness</option>
+                </select>
+                <input type="text" class="search-bar" placeholder="I'm shopping for...">
+                <button class="search-btn">Search</button>
+            </div>
+            
+            <div class="header-icons">
+                <a href="/cart.html" class="icon-link">
+                    🛒
+                    <span class="icon-badge cart-count" style="display: none;">0</span>
+                </a>
+                <a href="#" class="icon-link">❤️</a>
+                <div class="auth-section">
+                    <span class="auth-link">
+                        <a href="/login.html" class="login-link">Log In<br/>Register</a>
+                    </span>
+                    <span class="user-link" style="display: none;">
+                        👤 <span class="user-name"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-bar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="/">Shop</a></li>
+                    <li><a href="/ace-gallery.html" style="color: var(--primary-yellow);">Gallery</a></li>
+                    <li><a href="/about-us.html">About</a></li>
+                    <li><a href="/contact-us.html">Contact</a></li>
+                </ul>
+                <div class="nav-right">
+                    <a href="tel:9321486256">📞 9321486256</a>
+                    <span>|</span>
+                    <a href="#">Track Order</a>
+                    <span>|</span>
+                    <a href="#">INR ₹</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Gallery Page -->
+    <div class="gallery-page">
+        <!-- Hero Section -->
+        <div class="gallery-hero">
+            <h1>Ace Gallery</h1>
+            <p>Discover our collection of health and wellness products</p>
+        </div>
+        
+        <!-- Gallery -->
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image placeholder-image">🪑</div>
+                    <div class="gallery-caption">
+                        <h3>Fleet Series Massage Chair</h3>
+                        <p>Premium comfort & therapy</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image placeholder-image">👟</div>
+                    <div class="gallery-caption">
+                        <h3>Wellness Sneakers</h3>
+                        <p>Comfort meets style</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image placeholder-image">💆</div>
+                    <div class="gallery-caption">
+                        <h3>Therapy Devices</h3>
+                        <p>Advanced wellness technology</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image placeholder-image">🎯</div>
+                    <div class="gallery-caption">
+                        <h3>Health Accessories</h3>
+                        <p>Complete your wellness journey</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image placeholder-image">🏋️</div>
+                    <div class="gallery-caption">
+                        <h3>Fitness Equipment</h3>
+                        <p>Stay active & healthy</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image placeholder-image">🧘</div>
+                    <div class="gallery-caption">
+                        <h3>Yoga & Meditation</h3>
+                        <p>Find your inner peace</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 16px; color: var(--text-dark);">
+                    Ready to Shop?
+                </h2>
+                <p style="font-size: 16px; color: var(--text-light); margin-bottom: 24px;">
+                    Explore our full collection and find the perfect products for your wellness journey
+                </p>
+                <a href="/" style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-orange) 100%); color: var(--dark-bg); text-decoration: none; border-radius: 6px; font-weight: 700; transition: transform 0.3s;">
+                    Browse Products
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="marketplace-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/">Shop</a>
+                <a href="/ace-gallery.html">Gallery</a>
+                <a href="/about-us.html">About</a>
+                <a href="/contact-us.html">Contact</a>
+                <a href="/admin.html">Admin</a>
+            </div>
+            <p class="copyright">&copy; 2025 Ace#1 Health & Wellness. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/crypto-utils.js"></script>
+    <script src="/assets/js/env-config.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Ace#1</title>
+    <link rel="stylesheet" href="/assets/css/marketplace.css">
+</head>
+<body>
+    <header style="background: #2c3e50; color: white; padding: 20px;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0; font-size: 24px;"><a href="/" style="color: white; text-decoration: none;">Ace#1</a></h1>
+            <nav style="display: flex; gap: 20px; align-items: center;">
+                <a href="/" style="color: white; text-decoration: none;">Home</a>
+                <a href="/" style="color: white; text-decoration: none;">Marketplace</a>
+                <a href="/cart.html" style="color: white; text-decoration: none;">🛒 Cart</a>
+                <a href="/profile.html" style="color: white; text-decoration: none; font-weight: bold;">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-info">
+                <h1 id="user-name">Loading...</h1>
+                <p id="user-email"></p>
+                <p id="user-phone"></p>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+
+        <div class="profile-section">
+            <h2>Order History</h2>
+            <div id="orders-content">
+                <p>Loading orders...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: #2c3e50; color: white; padding: 40px 20px; margin-top: 60px;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <p>&copy; 2025 Ace#1 Health & Wellness. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script>
+        // Require authentication
+        if (!window.auth.requireAuth('/login.html')) {
+            // Will redirect if not logged in
+        }
+
+        // Load user profile
+        const user = window.auth.getCurrentUser();
+        if (user) {
+            document.getElementById('user-name').textContent = `${user.firstName} ${user.lastName}`;
+            document.getElementById('user-email').textContent = user.email;
+            document.getElementById('user-phone').textContent = user.phone || 'No phone number';
+
+            // Load orders
+            const orders = user.orders || [];
+            const ordersContent = document.getElementById('orders-content');
+
+            if (orders.length === 0) {
+                ordersContent.innerHTML = `
+                    <p style="text-align: center; padding: 40px;">No orders yet. <a href="/">Start shopping!</a></p>
+                `;
+            } else {
+                ordersContent.innerHTML = `
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${orders.reverse().map(order => `
+                                <tr>
+                                    <td><strong>${order.id}</strong></td>
+                                    <td>${new Date(order.date).toLocaleDateString()}</td>
+                                    <td>${order.items.length} item(s)</td>
+                                    <td>$${order.total.toFixed(2)}</td>
+                                    <td><span class="order-status ${order.status.toLowerCase()}">${order.status}</span></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.auth.logout();
+            }
+        }
+    </script>
+</body>
+</html>
