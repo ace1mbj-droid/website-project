@@ -165,9 +165,18 @@ class AuthSystem {
       return { success: false, message: 'Invalid email or password' };
     }
 
-    // Verify password securely
-    const passwordHash = await this.hashPassword(password);
-    if (user.password !== passwordHash) {
+    // Verify password - for admin, allow plain password comparison
+    let passwordMatch = false;
+    if (user.role === 'admin' && user.password === password) {
+      // Admin using plain password
+      passwordMatch = true;
+    } else {
+      // Regular users - compare hashed passwords
+      const passwordHash = await this.hashPassword(password);
+      passwordMatch = user.password === passwordHash;
+    }
+
+    if (!passwordMatch) {
       if (window.configManager) {
         window.configManager.recordFailedLogin(email);
       }
