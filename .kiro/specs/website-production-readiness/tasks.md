@@ -33,7 +33,7 @@
   - Test headers using online security scanner
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.6_
 
-- [-] 1.4 Implement Content Security Policy
+- [x] 1.4 Implement Content Security Policy
   - Add CSP header to .htaccess with appropriate directives
   - Configure script-src, style-src, img-src, connect-src directives
   - Test CSP doesn't break existing functionality
@@ -43,7 +43,7 @@
 
 ## Phase 2: Backend Infrastructure Setup (Week 2-3)
 
-- [ ] 2. Initialize Node.js backend project
+- [x] 2. Initialize Node.js backend project
   - Create backend/ directory structure
   - Initialize package.json with required dependencies
   - Setup TypeScript or ES6+ configuration
