@@ -9,7 +9,7 @@
     <meta name="description" content="Get in touch with Ace#1 Health & Wellness - We're here to help!">
     <style>
         .contact-page {
-            background: var(--light-bg);
+            background: var(--bg-secondary);
             min-height: calc(100vh - 400px);
         }
         
@@ -27,13 +27,13 @@
         .contact-header h1 {
             font-size: 42px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 16px;
         }
         
         .contact-header p {
             font-size: 18px;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
         
         .contact-content {
@@ -43,10 +43,11 @@
         }
         
         .contact-form-section {
-            background: var(--white);
+            background: var(--bg-primary);
             padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
         }
         
         .form-group {
@@ -56,7 +57,7 @@
         .form-group label {
             display: block;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 8px;
             font-size: 14px;
         }
@@ -65,17 +66,20 @@
         .form-group textarea {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
             font-size: 14px;
             font-family: inherit;
             transition: all 0.3s;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
         
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-orange);
+            border-color: var(--primary-main);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
         
         .form-group textarea {
@@ -86,18 +90,20 @@
         .submit-button {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-orange) 100%);
-            color: var(--dark-bg);
+            background: var(--primary-gradient);
+            color: var(--text-inverse);
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 700;
             font-size: 16px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-md);
         }
         
         .submit-button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
         }
         
         .contact-info-section {
@@ -107,16 +113,17 @@
         }
         
         .info-card {
-            background: var(--white);
+            background: var(--bg-primary);
             padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
         }
         
         .info-card h3 {
             font-size: 20px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 20px;
         }
         
@@ -138,13 +145,18 @@
         
         .info-text strong {
             display: block;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 4px;
         }
         
         .info-text a {
-            color: var(--primary-orange);
+            color: var(--primary-main);
             text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .info-text a:hover {
+            color: var(--primary-dark);
         }
         
         @media (max-width: 768px) {
@@ -167,7 +179,7 @@
     <header class="marketplace-header">
         <div class="header-container">
             <a href="/" class="brand-logo">
-            <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 40px; width: auto;">
+            <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 30px; width: auto;">
         </a>
             
             <div class="search-section">
@@ -203,7 +215,7 @@
                     <li><a href="/">Shop</a></li>
                     <li><a href="/ace-gallery.html">Gallery</a></li>
                     <li><a href="/about-us.html">About</a></li>
-                    <li><a href="/contact-us.html" style="color: var(--primary-yellow);">Contact</a></li>
+                    <li><a href="/contact-us.html" style="color: var(--primary-light);">Contact</a></li>
                 </ul>
                 <div class="nav-right">
                     <a href="tel:9167575028">📞 9167575028</a>
@@ -227,7 +239,7 @@
             <div class="contact-content">
                 <!-- Contact Form -->
                 <div class="contact-form-section">
-                    <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text-dark);">Send Us a Message</h2>
+                    <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text-primary);">Send Us a Message</h2>
                     
                     <form action="https://formspree.io/f/xblzqkyr" method="POST">
                         <input type="hidden" name="_subject" value="New Contact Form Submission from Ace#1 Website">
@@ -297,7 +309,7 @@
                     
                     <div class="info-card">
                         <h3>Why Choose Ace#1?</h3>
-                        <p style="color: var(--text-light); line-height: 1.8;">
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
                             We're committed to providing premium health and wellness products with exceptional customer service. Our team is always ready to help you find the perfect solution for your needs.
                         </p>
                     </div>

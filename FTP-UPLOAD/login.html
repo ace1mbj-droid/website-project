@@ -81,12 +81,19 @@
                     const redirect = urlParams.get('redirect');
                     
                     setTimeout(() => {
-                        if (redirect === 'checkout') {
+                        // Check if user is admin
+                        const user = window.auth.getCurrentUser();
+                        if (user.email === 'hello@ace1.in' || user.email === 'admin@ace1.in') {
+                            window.location.href = '/admin-dashboard.html';
+                        } else if (redirect === 'checkout') {
                             window.location.href = '/checkout.html';
                         } else if (redirect === 'admin') {
-                            window.location.href = '/admin-panel.html';
+                            window.location.href = '/admin-dashboard.html';
+                        } else if (redirect === 'dashboard') {
+                            window.location.href = '/user-dashboard.html';
                         } else {
-                            window.location.href = '/marketplace.html';
+                            // Regular users go to dashboard
+                            window.location.href = '/user-dashboard.html';
                         }
                     }, 1000);
                 } else {

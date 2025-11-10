@@ -9,14 +9,14 @@
     <meta name="description" content="Learn about Ace#1 Health & Wellness - Your trusted partner in health and wellness">
     <style>
         .about-page {
-            background: var(--light-bg);
+            background: var(--bg-secondary);
         }
         
         .about-hero {
-            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--primary-orange) 100%);
+            background: var(--primary-gradient);
             padding: 80px 24px;
             text-align: center;
-            color: var(--dark-bg);
+            color: var(--text-inverse);
         }
         
         .about-hero h1 {
@@ -38,24 +38,25 @@
         }
         
         .about-section {
-            background: var(--white);
-            border-radius: 12px;
+            background: var(--bg-primary);
+            border-radius: 16px;
             padding: 40px;
             margin-bottom: 40px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
         }
         
         .about-section h2 {
             font-size: 32px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 20px;
         }
         
         .about-section p {
             font-size: 16px;
             line-height: 1.8;
-            color: var(--text-light);
+            color: var(--text-secondary);
             margin-bottom: 16px;
         }
         
@@ -67,10 +68,18 @@
         }
         
         .value-card {
-            background: var(--light-bg);
+            background: var(--bg-tertiary);
             padding: 32px;
-            border-radius: 12px;
+            border-radius: 16px;
             text-align: center;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
         }
         
         .value-icon {
@@ -81,13 +90,13 @@
         .value-card h3 {
             font-size: 20px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 12px;
         }
         
         .value-card p {
             font-size: 14px;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
         
         .stats-section {
@@ -95,16 +104,20 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 24px;
             padding: 40px;
-            background: var(--dark-bg);
-            border-radius: 12px;
-            color: var(--white);
+            background: var(--bg-dark);
+            border-radius: 16px;
+            color: var(--text-inverse);
             text-align: center;
+            box-shadow: var(--shadow-lg);
         }
         
         .stat-item h3 {
             font-size: 42px;
             font-weight: 900;
-            color: var(--primary-yellow);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 8px;
         }
         
@@ -129,7 +142,7 @@
     <header class="marketplace-header">
         <div class="header-container">
             <a href="/" class="brand-logo">
-            <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 40px; width: auto;">
+            <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 30px; width: auto;">
         </a>
             
             <div class="search-section">
@@ -164,7 +177,7 @@
                 <ul class="nav-menu">
                     <li><a href="/">Shop</a></li>
                     <li><a href="/ace-gallery.html">Gallery</a></li>
-                    <li><a href="/about-us.html" style="color: var(--primary-yellow);">About</a></li>
+                    <li><a href="/about-us.html" style="color: var(--primary-light);">About</a></li>
                     <li><a href="/contact-us.html">Contact</a></li>
                 </ul>
                 <div class="nav-right">

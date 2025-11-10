@@ -52,20 +52,22 @@ function displayProducts(products) {
     
     return `
       <div class="product-card" onclick="viewProduct('${product.id}')">
-        <img src="${product.image}" 
-             alt="${product.name}" 
-             class="product-image" 
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f8f9fa%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22system-ui%22 font-size=%2218%22 fill=%22%23718096%22%3ENo Image%3C/text%3E%3C/svg%3E'">
-        <div class="product-info">
-          <div class="product-category">${product.category}</div>
+        <div class="product-image-wrapper">
+          ${savings > 0 ? `<div class="discount-badge-card">-${savings}%</div>` : ''}
+          <img src="${product.image}" 
+               alt="${product.name}" 
+               class="product-image" 
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f8f9fa%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22system-ui%22 font-size=%2218%22 fill=%22%23718096%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+        </div>
+        <div class="product-details">
           <h3 class="product-name">${product.name}</h3>
           <p class="product-description">${product.description}</p>
           ${ratingDisplay}
           <div class="product-footer">
-            <div class="product-price">
-              <div class="price-current">₹${product.price.toLocaleString('en-IN')}</div>
+            <div class="product-price-section">
+              <div class="current-price">₹${product.price.toLocaleString('en-IN')}</div>
               ${product.originalPrice ? 
-                `<div class="price-original">₹${product.originalPrice.toLocaleString('en-IN')}</div>` : 
+                `<div class="original-price">₹${product.originalPrice.toLocaleString('en-IN')}</div>` : 
                 ''}
             </div>
             <button class="btn-add-cart" 

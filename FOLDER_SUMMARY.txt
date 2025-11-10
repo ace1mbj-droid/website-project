@@ -1,0 +1,231 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                  ACE#1 WEBSITE - FOLDER ORGANIZATION               ║
+║                        Quick Reference Guide                        ║
+╚════════════════════════════════════════════════════════════════════╝
+
+📁 PROJECT STRUCTURE
+═══════════════════════════════════════════════════════════════════════
+
+website-project/
+│
+├── 📤 FTP-UPLOAD/                    ✅ UPLOAD TO SERVER
+│   │
+│   ├── 📄 HTML Pages (14 files)
+│   │   ├── index.html                → Homepage (Step Up Health)
+│   │   ├── ace-gallery.html          → Gallery with YouTube videos
+│   │   ├── about-us.html             → About page
+│   │   ├── contact-us.html           → Contact form
+│   │   ├── cart.html                 → Shopping cart
+│   │   ├── checkout.html             → Checkout
+│   │   ├── login.html                → User login
+│   │   ├── register.html             → User registration
+│   │   ├── profile.html              → User profile
+│   │   ├── product-detail.html       → Product details
+│   │   ├── order-confirmation.html   → Order confirmation
+│   │   ├── thank-you.html            → Thank you page
+│   │   ├── admin.html                → Admin interface
+│   │   └── admin-panel.html          → Admin dashboard
+│   │
+│   ├── 📁 assets/
+│   │   ├── css/                      → Stylesheets (NEW COLOR THEME)
+│   │   │   ├── marketplace-theme.css → Main styles
+│   │   │   ├── marketplace.css
+│   │   │   ├── mobile.css
+│   │   │   └── modern-marketplace.css
+│   │   │
+│   │   ├── js/                       → JavaScript files
+│   │   │   ├── marketplace.js        → Product display
+│   │   │   ├── cart.js               → Shopping cart
+│   │   │   ├── auth.js               → Authentication
+│   │   │   ├── config.js             → Configuration
+│   │   │   ├── crypto-utils.js       → Encryption
+│   │   │   ├── env-config.js         → Environment
+│   │   │   └── paytm-config.js       → Payment
+│   │   │
+│   │   ├── images/                   → All images
+│   │   │   ├── ace-logo.svg          → Logo (30px height)
+│   │   │   ├── product-1.jpg         → Fleet Series Aqua
+│   │   │   ├── product-2.jpg         → Fleet Series Orange
+│   │   │   ├── product-3.jpg         → Fleet Series Pink
+│   │   │   ├── product-4.png         → Fleet Series Peach
+│   │   │   ├── product-5.png         → Wellness White
+│   │   │   └── product-6.png         → Wellness Black
+│   │   │
+│   │   ├── data/                     → Data files
+│   │   │   └── products.json         → Product database
+│   │   │
+│   │   └── fonts/                    → Font files
+│   │
+│   ├── 📁 templates/
+│   │   ├── header.html               → Reusable header
+│   │   └── footer.html               → Reusable footer
+│   │
+│   ├── ⚙️ Configuration Files
+│   │   ├── .htaccess                 → Apache config
+│   │   ├── manifest.webmanifest      → PWA manifest
+│   │   ├── sw.js                     → Service worker
+│   │   └── contact-handler.php       → Contact form handler
+│   │
+│   └── 📖 Instructions
+│       ├── README.txt                → Deployment instructions
+│       └── FTP_UPLOAD_INSTRUCTIONS.txt
+│
+├── 🔒 DO-NOT-UPLOAD/                 ❌ KEEP LOCAL ONLY
+│   │
+│   ├── 📋 Documentation
+│   │   ├── ADMIN_CREDENTIALS.md      → Login credentials
+│   │   ├── SECURITY_AUDIT_REPORT.md  → Security docs
+│   │   ├── ENCRYPTION_SECURITY_GUIDE.md
+│   │   ├── PAYMENT_SETUP.md          → Payment integration
+│   │   ├── PAYTM_INTEGRATION_GUIDE.md
+│   │   ├── FTP_DEPLOYMENT_GUIDE.md   → Deployment guide
+│   │   ├── MARKETPLACE_IMPLEMENTATION.md
+│   │   ├── DESIGN_SYSTEM.md          → Design docs
+│   │   ├── MANUAL_ORDER_SYSTEM.md
+│   │   ├── QUICK_START.md
+│   │   └── [other .md files]
+│   │
+│   ├── 🔐 Sensitive Files
+│   │   ├── .env.example              → Environment template
+│   │   └── website.gitignore         → Git ignore rules
+│   │
+│   └── 📦 Backups
+│       └── .backup-20251110/         → Backup folder
+│
+├── 📦 website/                       📋 BACKUP/REFERENCE
+│   └── [Mirror of website files]
+│
+└── 📚 Root Documentation
+    ├── README.md                     → Main project readme
+    ├── DEPLOYMENT_GUIDE.md           → Complete deployment guide
+    ├── FOLDER_STRUCTURE.md           → Detailed folder structure
+    ├── QUICK_REFERENCE.md            → Quick reference
+    ├── FTP_UPLOAD_GUIDE.md           → FTP upload tutorial
+    ├── SECURITY_PAYMENT_STATUS.md    → Security status
+    └── LICENSE                       → License file
+
+═══════════════════════════════════════════════════════════════════════
+
+🎯 SIMPLE RULE
+═══════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  FTP-UPLOAD/     →  ✅ Upload to your web server               │
+│                                                                 │
+│  DO-NOT-UPLOAD/  →  ❌ Keep on your local computer only        │
+│                                                                 │
+│  website/        →  📦 Backup/reference copy                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+
+🚀 DEPLOYMENT (3 STEPS)
+═══════════════════════════════════════════════════════════════════════
+
+Step 1: Open FileZilla (or your FTP client)
+
+Step 2: Connect to your server
+        Host: ftp.yourdomain.com
+        Username: your_username
+        Password: your_password
+        Port: 21
+
+Step 3: Upload FTP-UPLOAD/* to public_html/
+        → Drag and drop all files
+        → Wait for completion (56 files, ~4.1 MB)
+        → Done!
+
+═══════════════════════════════════════════════════════════════════════
+
+✨ LATEST UPDATES (v2.0 - Nov 10, 2025)
+═══════════════════════════════════════════════════════════════════════
+
+🎨 New Color Theme
+   • Blue-purple gradient (#6366F1 → #8B5CF6)
+   • Accent colors: Coral, Teal, Pink
+   • Modern, professional appearance
+   • Perfect for shoes marketplace
+
+📐 Layout Updates
+   • Logo: 30px height (all pages)
+   • Videos: Moved to Gallery page
+   • Products: Square cards (1:1 ratio)
+   • Descriptions: Added below product titles
+   • Effects: Enhanced shadows and hover animations
+   • Design: Improved responsive layout
+
+═══════════════════════════════════════════════════════════════════════
+
+📊 WEBSITE STATISTICS
+═══════════════════════════════════════════════════════════════════════
+
+Total Files:        56 files
+Total Size:         ~4.1 MB
+HTML Pages:         14 pages
+CSS Files:          4 stylesheets
+JavaScript Files:   7 scripts
+Products:           12 products
+Product Images:     6 high-quality photos
+Features:           Shopping cart, user auth, ratings, admin panel
+
+═══════════════════════════════════════════════════════════════════════
+
+🔐 ADMIN ACCESS
+═══════════════════════════════════════════════════════════════════════
+
+URL:      https://yourdomain.com/admin-panel.html
+Email:    hello@ace1.in
+Password: Mobilaeiou@9898
+
+═══════════════════════════════════════════════════════════════════════
+
+📞 SUPPORT
+═══════════════════════════════════════════════════════════════════════
+
+Phone: 9167575028
+Email: hello@ace1.in
+UPI:   paytmqr5na93v@ptys
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ UPLOAD CHECKLIST
+═══════════════════════════════════════════════════════════════════════
+
+Before Upload:
+☐ FTP credentials ready
+☐ FileZilla installed
+☐ Hosting account active
+☐ Backup existing site (if any)
+
+During Upload:
+☐ Upload ALL files from FTP-UPLOAD/
+☐ Maintain folder structure
+☐ Wait for completion
+
+After Upload:
+☐ Website loads at domain
+☐ All pages accessible
+☐ Images display correctly
+☐ Admin panel works
+☐ Test on mobile
+
+═══════════════════════════════════════════════════════════════════════
+
+🎉 YOU'RE READY!
+═══════════════════════════════════════════════════════════════════════
+
+Your Ace#1 website is production-ready!
+
+Simply upload FTP-UPLOAD/ contents to your server and go live!
+
+For detailed instructions, see: DEPLOYMENT_GUIDE.md
+
+═══════════════════════════════════════════════════════════════════════
+
+Last Updated: November 10, 2025
+Version: 2.0 - Modern Color Theme
+Status: Production Ready ✅
+
+═══════════════════════════════════════════════════════════════════════
