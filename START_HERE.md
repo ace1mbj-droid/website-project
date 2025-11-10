@@ -15,7 +15,8 @@
 3. Sign in with **GitHub**
 4. Select **"Deploy from GitHub repo"**
 5. Choose: **ace1mbj-droid/website-project**
-6. Railway will automatically deploy!
+6. Railway will detect your backend in the `backend/` folder
+7. Railway will automatically deploy!
 
 **Detailed instructions**: See `DEPLOY_BACKEND_NOW.md`
 
