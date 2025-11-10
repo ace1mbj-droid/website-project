@@ -60,7 +60,13 @@ const HOST = process.env.HOST || 'localhost';
 
 if (require.main === module) {
   // Test database and Redis connections before starting server
-  Promise.all([testConnection(), testRedis()])
+  Promise.all([
+    testConnection(),
+    testRedis().catch(err => {
+      console.warn('⚠️  Redis not available, continuing without it');
+      return false;
+    })
+  ])
     .then(() => {
       app.listen(PORT, HOST, () => {
         console.log(`🚀 Server running on http://${HOST}:${PORT}`);
@@ -70,7 +76,7 @@ if (require.main === module) {
     })
     .catch((error) => {
       console.error('❌ Failed to start server:', error.message);
-      console.error('💡 Make sure MySQL and Redis are running');
+      console.error('💡 Make sure MySQL is running');
       process.exit(1);
     });
 }

@@ -65,8 +65,9 @@ const testConnection = async () => {
     console.log('✅ Redis connection successful');
     return true;
   } catch (error) {
-    console.error('❌ Redis connection failed:', error.message);
-    throw error;
+    console.warn('⚠️  Redis connection failed:', error.message);
+    console.warn('⚠️  App will continue without Redis (sessions will use memory)');
+    return false;
   }
 };
 
@@ -235,9 +236,15 @@ const hDel = async (key, field) => {
  * @returns {Promise<Object>} Health status
  */
 const healthCheck = async () => {
+  if (!client || !client.isOpen) {
+    return {
+      status: 'not configured',
+      healthy: false,
+    };
+  }
+  
   try {
-    const redisClient = await connect();
-    await redisClient.ping();
+    await client.ping();
     
     return {
       status: 'connected',

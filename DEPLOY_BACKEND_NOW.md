@@ -90,15 +90,19 @@ SMTP_FROM=noreply@ace1.in
 Open your browser or use curl:
 
 ```bash
-# Test health endpoint
-curl https://your-backend-url.railway.app/api/health
+# Test health endpoint (note: /health not /api/health)
+curl https://your-backend-url.railway.app/health
 ```
 
 Expected response:
 ```json
 {
   "status": "healthy",
-  "database": "connected"
+  "timestamp": "2025-11-10T12:00:00Z",
+  "uptime": 123,
+  "environment": "production",
+  "database": "connected",
+  "redis": "not configured"
 }
 ```
 
