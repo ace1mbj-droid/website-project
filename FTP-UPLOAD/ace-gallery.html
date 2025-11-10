@@ -60,9 +60,14 @@
         
         .gallery-image {
             width: 100%;
-            aspect-ratio: 4/3;
+            aspect-ratio: 1/1;
             object-fit: cover;
             background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
         }
         
         .gallery-caption {
@@ -90,6 +95,65 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
         
+        /* Video Grid Styles */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+        
+        .video-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #F7FAFC;
+        }
+        
+        .video-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .video-item iframe {
+            width: 100%;
+            height: 315px;
+            display: block;
+        }
+        
+        .video-caption {
+            padding: 20px;
+            text-align: center;
+            background: white;
+        }
+        
+        .video-caption h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .video-caption p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+            
+            .video-item iframe {
+                height: 250px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -98,6 +162,15 @@
             
             .gallery-hero h1 {
                 font-size: 32px;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .video-item iframe {
+                height: 220px;
             }
         }
     </style>
@@ -146,9 +219,9 @@
                     <li><a href="/contact-us.html">Contact</a></li>
                 </ul>
                 <div class="nav-right">
-                    <a href="tel:9167575028">📞 9167575028</a>
+                    <a href="mailto:hello@ace1.in">📧 hello@ace1.in</a>
                     <span>|</span>
-                    <a href="#">Track Order</a>
+                    <a href="/track-order.html">Track Order</a>
                     <span>|</span>
                     <a href="#">INR ₹</a>
                 </div>
@@ -160,8 +233,9 @@
     <div class="gallery-page">
         <!-- Hero Section -->
         <div class="gallery-hero">
-            <h1>Ace Gallery</h1>
-            <p>Discover our collection of health and wellness products</p>
+            <h1>Ace#1 Gallery</h1>
+            <p>Explore our premium collection of health and wellness footwear</p>
+            <p style="margin-top: 12px; font-size: 16px; opacity: 0.9;">Step Up Health with Terahertz Technology</p>
         </div>
         
         <!-- Video Gallery Section -->
@@ -175,34 +249,45 @@
             
             <div class="video-grid">
                 <div class="video-item">
-                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                            title="Ace#1 Fleet Series Demo" frameborder="0" 
+                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/QvilrHBjBLw" 
+                            title="Ace#1 Health & Wellness Shoes" frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen></iframe>
                     <div class="video-caption">
-                        <h3>Fleet Series Product Demo</h3>
-                        <p>See our premium health shoes in action</p>
+                        <h3>Ace#1 Health & Wellness Shoes</h3>
+                        <p>Discover the power of Terahertz technology</p>
                     </div>
                 </div>
                 
                 <div class="video-item">
-                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/jNQXAC9IVRw" 
-                            title="Wellness Collection Overview" frameborder="0" 
+                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/O2cYQ-KZxbE" 
+                            title="Fleet Series Collection" frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen></iframe>
                     <div class="video-caption">
-                        <h3>Wellness Collection Overview</h3>
-                        <p>Comfortable and stylish everyday wear</p>
+                        <h3>Fleet Series Collection</h3>
+                        <p>Premium health shoes for active lifestyles</p>
                     </div>
                 </div>
                 
                 <div class="video-item">
-                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/9bZkp7q19f0" 
-                            title="Customer Testimonials" frameborder="0" 
+                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/DRD0WSg7vIc" 
+                            title="Wellness Technology Features" frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen></iframe>
                     <div class="video-caption">
-                        <h3>Customer Testimonials</h3>
+                        <h3>Wellness Technology Features</h3>
+                        <p>Advanced features for optimal health benefits</p>
+                    </div>
+                </div>
+                
+                <div class="video-item">
+                    <iframe width="100%" height="280" src="https://www.youtube.com/embed/KIiVM77ZWHY" 
+                            title="Customer Experience & Reviews" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Customer Experience & Reviews</h3>
                         <p>Hear from our satisfied customers</p>
                     </div>
                 </div>
@@ -214,70 +299,144 @@
             <div class="section-header" style="margin-bottom: 40px;">
                 <div>
                     <h2 class="section-title">Product Gallery</h2>
-                    <p style="color: #718096; margin-top: 8px; font-size: 14px;">Browse our collection of health and wellness products</p>
+                    <p style="color: var(--text-secondary); margin-top: 8px; font-size: 14px;">Browse our collection of health and wellness products</p>
                 </div>
             </div>
             
             <div class="gallery-grid">
+                <!-- Fleet Series Products -->
                 <div class="gallery-item">
-                    <div class="gallery-image placeholder-image">🪑</div>
+                    <img src="/assets/images/product-1.jpg" alt="Fleet Series Aqua Blue Runner" class="gallery-image">
                     <div class="gallery-caption">
-                        <h3>Fleet Series Massage Chair</h3>
-                        <p>Premium comfort & therapy</p>
+                        <h3>Fleet Series - Aqua Blue Runner</h3>
+                        <p>Premium health shoes with Terahertz technology</p>
                     </div>
                 </div>
                 
                 <div class="gallery-item">
-                    <div class="gallery-image placeholder-image">👟</div>
+                    <img src="/assets/images/product-2.jpg" alt="Fleet Series Sunset Orange Sport" class="gallery-image">
                     <div class="gallery-caption">
-                        <h3>Wellness Sneakers</h3>
-                        <p>Comfort meets style</p>
+                        <h3>Fleet Series - Sunset Orange Sport</h3>
+                        <p>Energizing design for active lifestyles</p>
                     </div>
                 </div>
                 
                 <div class="gallery-item">
-                    <div class="gallery-image placeholder-image">💆</div>
+                    <img src="/assets/images/product-3.jpg" alt="Fleet Series Pink Gradient Comfort" class="gallery-image">
                     <div class="gallery-caption">
-                        <h3>Therapy Devices</h3>
-                        <p>Advanced wellness technology</p>
+                        <h3>Fleet Series - Pink Gradient Comfort</h3>
+                        <p>Stylish comfort for everyday wellness</p>
                     </div>
                 </div>
                 
                 <div class="gallery-item">
-                    <div class="gallery-image placeholder-image">🎯</div>
+                    <img src="/assets/images/product-4.png" alt="Fleet Series Peach Pearl Premium" class="gallery-image">
                     <div class="gallery-caption">
-                        <h3>Health Accessories</h3>
-                        <p>Complete your wellness journey</p>
+                        <h3>Fleet Series - Peach Pearl Premium</h3>
+                        <p>Elegant design meets health technology</p>
+                    </div>
+                </div>
+                
+                <!-- Wellness Sneakers -->
+                <div class="gallery-item">
+                    <img src="/assets/images/product-5.png" alt="Wellness Sneaker Classic White" class="gallery-image">
+                    <div class="gallery-caption">
+                        <h3>Wellness Sneaker - Classic White</h3>
+                        <p>Timeless style with comfort technology</p>
                     </div>
                 </div>
                 
                 <div class="gallery-item">
-                    <div class="gallery-image placeholder-image">🏋️</div>
+                    <img src="/assets/images/product-6.png" alt="Wellness Sneaker Urban Black" class="gallery-image">
                     <div class="gallery-caption">
-                        <h3>Fitness Equipment</h3>
-                        <p>Stay active & healthy</p>
+                        <h3>Wellness Sneaker - Urban Black</h3>
+                        <p>Sleek design for modern living</p>
+                    </div>
+                </div>
+                
+                <!-- Fleet Series Additional -->
+                <div class="gallery-item">
+                    <img src="/assets/images/fleet-series-2.png" alt="Fleet Series Collection" class="gallery-image">
+                    <div class="gallery-caption">
+                        <h3>Fleet Series Collection</h3>
+                        <p>Advanced wellness footwear technology</p>
                     </div>
                 </div>
                 
                 <div class="gallery-item">
-                    <div class="gallery-image placeholder-image">🧘</div>
+                    <img src="/assets/images/fleet-series-3.png" alt="Fleet Series Lifestyle" class="gallery-image">
                     <div class="gallery-caption">
-                        <h3>Yoga & Meditation</h3>
-                        <p>Find your inner peace</p>
+                        <h3>Fleet Series Lifestyle</h3>
+                        <p>Health meets fashion</p>
+                    </div>
+                </div>
+                
+                <!-- Logo Display -->
+                <div class="gallery-item">
+                    <div class="gallery-image" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary-main) 0%, var(--primary-dark) 100%);">
+                        <img src="/assets/images/ace-logo.svg" alt="Ace#1 Logo" style="width: 60%; height: auto; filter: brightness(0) invert(1);">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Ace#1 - Health | Comfort | Innovation</h3>
+                        <p>Your trusted wellness partner</p>
                     </div>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 60px;">
-                <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 16px; color: var(--text-primary);">
-                    Ready to Shop?
-                </h2>
-                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 24px;">
-                    Explore our full collection and find the perfect products for your wellness journey
-                </p>
-                <a href="/" style="display: inline-block; padding: 16px 32px; background: var(--primary-gradient); color: var(--text-inverse); text-decoration: none; border-radius: 8px; font-weight: 700; transition: transform 0.3s; box-shadow: var(--shadow-md);">
-                    Browse Products
-                </a>
+
+        </div>
+        
+        <!-- About Our Products Section -->
+        <div class="gallery-container" style="margin-top: 80px;">
+            <div style="background: var(--bg-primary); border-radius: 16px; padding: 48px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-light);">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 16px; color: var(--text-primary);">
+                        Why Choose Ace#1?
+                    </h2>
+                    <p style="font-size: 18px; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">
+                        Experience the perfect blend of health, comfort, and innovation with our premium footwear collection
+                    </p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin-bottom: 40px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">⚡</div>
+                        <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Terahertz Technology</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Advanced wellness technology integrated into every pair for optimal health benefits</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">👟</div>
+                        <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Premium Comfort</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Engineered for all-day comfort with superior cushioning and support</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
+                        <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Stylish Design</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Modern aesthetics that complement any outfit, from casual to active wear</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🏆</div>
+                        <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Quality Assured</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Premium materials and craftsmanship in every product we offer</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 48px;">
+                    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 16px; color: var(--text-primary);">
+                        Ready to Step Up Your Health?
+                    </h3>
+                    <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 24px;">
+                        Explore our full collection and find the perfect products for your wellness journey
+                    </p>
+                    <a href="/" style="display: inline-block; padding: 16px 40px; background: var(--primary-gradient); color: var(--text-inverse); text-decoration: none; border-radius: 8px; font-weight: 700; transition: all 0.3s; box-shadow: var(--shadow-md); font-size: 16px;">
+                        Browse Products
+                    </a>
+                    <a href="/contact-us.html" style="display: inline-block; padding: 16px 40px; background: transparent; color: var(--primary-main); text-decoration: none; border-radius: 8px; font-weight: 700; transition: all 0.3s; border: 2px solid var(--primary-main); margin-left: 16px; font-size: 16px;">
+                        Contact Us
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -4,64 +4,403 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - Ace#1</title>
-    <link rel="stylesheet" href="/assets/css/marketplace.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/assets/css/marketplace-theme.css">
+    <meta name="description" content="Your shopping cart at Ace#1 Health & Wellness">
+    <style>
+        .cart-page {
+            background: #F7FAFC;
+            min-height: calc(100vh - 400px);
+            padding: 40px 0;
+        }
+        
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .cart-header {
+            margin-bottom: 32px;
+        }
+        
+        .cart-header h1 {
+            font-size: 32px;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cart-breadcrumb {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        
+        .cart-breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 32px;
+        }
+        
+        .cart-items-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 2px solid #F7FAFC;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #F7FAFC;
+        }
+        
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .cart-item-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .cart-item-sku {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #F7FAFC;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+        
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: white;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--primary-color);
+        }
+        
+        .qty-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .qty-display {
+            font-size: 16px;
+            font-weight: 700;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #EF4444;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .remove-btn:hover {
+            color: #DC2626;
+            text-decoration: underline;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F7FAFC;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            padding-top: 16px;
+            margin-top: 16px;
+            border-top: 2px solid #F7FAFC;
+        }
+        
+        .summary-row.total span:last-child {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+        
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 16px;
+        }
+        
+        .cart-empty-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+        
+        .cart-empty h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .cart-empty p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+        
+        .free-shipping-banner {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #065F46;
+        }
+        
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-summary {
+                position: static;
+            }
+            
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                gap: 16px;
+            }
+            
+            .cart-item-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header style="background: #2c3e50; color: white; padding: 20px;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-            <h1 style="margin: 0; font-size: 24px;"><a href="/" style="color: white; text-decoration: none;">Ace#1</a></h1>
-            <nav style="display: flex; gap: 20px; align-items: center;">
-                <a href="/" style="color: white; text-decoration: none;">Home</a>
-                <a href="/" style="color: white; text-decoration: none;">Marketplace</a>
-                <a href="/cart.html" style="color: white; text-decoration: none; font-weight: bold;">🛒 Cart</a>
-                <a href="/login.html" class="auth-link" style="color: white; text-decoration: none;">Login</a>
-                <a href="/profile.html" class="user-link" style="display: none; color: white; text-decoration: none;">
-                    👤 <span class="user-name"></span>
+    <!-- Header -->
+    <header class="marketplace-header">
+        <div class="header-container">
+            <a href="/" class="brand-logo">
+                <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 30px; width: auto;">
+            </a>
+            
+            <div class="search-section">
+                <select class="category-dropdown">
+                    <option>All</option>
+                    <option>Health</option>
+                    <option>Wellness</option>
+                    <option>Accessories</option>
+                </select>
+                <input type="text" class="search-bar" placeholder="I'm shopping for...">
+                <button class="search-btn">Search</button>
+            </div>
+            
+            <div class="header-icons">
+                <a href="/cart.html" class="icon-link" title="Shopping Cart" style="color: var(--primary-color);">
+                    🛒
+                    <span class="icon-badge cart-count" style="display: none;">0</span>
                 </a>
-            </nav>
+                <div class="auth-section">
+                    <span class="auth-link">
+                        <a href="/login.html" class="login-link">Log In<br/>Register</a>
+                    </span>
+                    <span class="user-link" style="display: none;">
+                        <a href="/user-dashboard.html" style="color: inherit; text-decoration: none;">
+                            👤 <span class="user-name"></span>
+                        </a>
+                    </span>
+                </div>
+            </div>
         </div>
+        
+        <nav class="nav-bar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="/">Shop</a></li>
+                    <li><a href="/ace-gallery.html">Gallery</a></li>
+                    <li><a href="/about-us.html">About</a></li>
+                    <li><a href="/contact-us.html">Contact</a></li>
+                </ul>
+                <div class="nav-right">
+                    <a href="mailto:hello@ace1.in">📧 hello@ace1.in</a>
+                    <span>|</span>
+                    <a href="/track-order.html">Track Order</a>
+                    <span>|</span>
+                    <a href="#">INR ₹</a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <div class="cart-container">
-        <div class="cart-header">
-            <h1>Shopping Cart</h1>
-        </div>
+    <!-- Cart Page -->
+    <div class="cart-page">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h1>Shopping Cart</h1>
+                <div class="cart-breadcrumb">
+                    <a href="/">Home</a> / Shopping Cart
+                </div>
+            </div>
 
-        <div id="cart-content">
-            <!-- Cart items will be loaded here -->
-        </div>
-
-        <div id="cart-summary-section" style="display: none;">
-            <div class="cart-summary">
-                <h2>Order Summary</h2>
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span id="cart-subtotal">₹0</span>
-                </div>
-                <div class="summary-row">
-                    <span>Shipping:</span>
-                    <span id="cart-shipping">₹99</span>
-                </div>
-                <div class="summary-row">
-                    <span>GST (18%):</span>
-                    <span id="cart-tax">₹0</span>
-                </div>
-                <div class="summary-row total">
-                    <span>Total:</span>
-                    <span id="cart-total">₹0</span>
-                </div>
-                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
-                <a href="/" class="continue-shopping">Continue Shopping</a>
+            <div id="cart-content">
+                <!-- Cart items will be loaded here -->
             </div>
         </div>
     </div>
 
-    <footer style="background: #2c3e50; color: white; padding: 40px 20px; margin-top: 60px;">
-        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-            <p>&copy; 2025 Ace#1 Health & Wellness. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="marketplace-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/">Shop</a>
+                <a href="/ace-gallery.html">Gallery</a>
+                <a href="/about-us.html">About</a>
+                <a href="/contact-us.html">Contact</a>
+                <a href="/admin.html">Admin</a>
+            </div>
+            <p class="copyright">&copy; 2025 Ace#1 Health & Wellness. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="/assets/js/crypto-utils.js"></script>
+    <script src="/assets/js/env-config.js"></script>
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/cart.js"></script>
     <script src="/assets/js/auth.js"></script>
@@ -75,11 +414,10 @@
                     <div class="cart-empty">
                         <div class="cart-empty-icon">🛒</div>
                         <h2>Your cart is empty</h2>
-                        <p>Add some products to get started!</p>
-                        <a href="/" class="btn-primary" style="display: inline-block; text-decoration: none; margin-top: 20px;">Shop Now</a>
+                        <p>Add some amazing products to get started!</p>
+                        <a href="/" class="btn-primary">Start Shopping</a>
                     </div>
                 `;
-                document.getElementById('cart-summary-section').style.display = 'none';
                 return;
             }
 
@@ -88,42 +426,70 @@
             const tax = subtotal * CONFIG.tax.rate;
             const total = subtotal + shipping + tax;
 
+            const shippingBanner = subtotal >= CONFIG.shipping.freeShippingThreshold 
+                ? '<div class="free-shipping-banner">🎉 You qualify for FREE shipping!</div>'
+                : `<div class="free-shipping-banner">Add ₹${Math.round(CONFIG.shipping.freeShippingThreshold - subtotal).toLocaleString('en-IN')} more for FREE shipping!</div>`;
+
             cartContent.innerHTML = `
-                <div class="cart-items">
-                    ${cartItems.map(item => `
-                        <div class="cart-item">
-                            <img src="${item.image}" alt="${item.name}" class="cart-item-image" 
-                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect fill=%22%23f5f5f5%22 width=%22120%22 height=%22120%22/%3E%3C/svg%3E'">
-                            <div class="cart-item-details">
-                                <h3>${item.name}</h3>
-                                <p>Price: ₹${item.price.toLocaleString('en-IN')}</p>
+                <div class="cart-content">
+                    <div class="cart-items-section">
+                        ${cartItems.map(item => `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}" class="cart-item-image" 
+                                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23f7fafc%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22system-ui%22 font-size=%2212%22 fill=%22%23718096%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                                <div class="cart-item-details">
+                                    <div>
+                                        <div class="cart-item-name">${item.name}</div>
+                                        <div class="cart-item-sku">SKU: ${item.sku || item.id}</div>
+                                    </div>
+                                    <div class="cart-item-price">₹${(item.price * item.quantity).toLocaleString('en-IN')}</div>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <button class="remove-btn" onclick="removeItem('${item.id}')">✕ Remove</button>
+                                    <div class="quantity-controls">
+                                        <button class="qty-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">−</button>
+                                        <span class="qty-display">${item.quantity}</span>
+                                        <button class="qty-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="cart-item-price">₹${(item.price * item.quantity).toLocaleString('en-IN')}</div>
-                            <div class="quantity-controls">
-                                <button class="qty-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
-                                <span class="qty-display">${item.quantity}</span>
-                                <button class="qty-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
-                            </div>
-                            <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h2 class="summary-title">Order Summary</h2>
+                        ${shippingBanner}
+                        <div class="summary-row">
+                            <span>Subtotal (${cartItems.length} items)</span>
+                            <span>₹${Math.round(subtotal).toLocaleString('en-IN')}</span>
                         </div>
-                    `).join('')}
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span>${shipping === 0 ? 'FREE' : '₹' + Math.round(shipping).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>GST (18%)</span>
+                            <span>₹${Math.round(tax).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>₹${Math.round(total).toLocaleString('en-IN')}</span>
+                        </div>
+                        <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                        <a href="/" class="continue-shopping">← Continue Shopping</a>
+                    </div>
                 </div>
             `;
-
-            document.getElementById('cart-subtotal').textContent = '₹' + Math.round(subtotal).toLocaleString('en-IN');
-            document.getElementById('cart-shipping').textContent = shipping === 0 ? 'FREE' : '₹' + Math.round(shipping).toLocaleString('en-IN');
-            document.getElementById('cart-tax').textContent = '₹' + Math.round(tax).toLocaleString('en-IN');
-            document.getElementById('cart-total').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
-            document.getElementById('cart-summary-section').style.display = 'block';
         }
 
         function updateQuantity(productId, newQuantity) {
+            if (newQuantity < 1) return;
             window.cart.updateQuantity(productId, newQuantity);
             renderCart();
         }
 
         function removeItem(productId) {
-            if (confirm('Remove this item from cart?')) {
+            if (confirm('Remove this item from your cart?')) {
                 window.cart.removeItem(productId);
                 renderCart();
             }
@@ -131,8 +497,9 @@
 
         function proceedToCheckout() {
             if (!window.auth.isLoggedIn()) {
-                alert('Please login to continue');
-                window.location.href = '/login.html?redirect=checkout';
+                if (confirm('Please log in to continue with checkout. Go to login page?')) {
+                    window.location.href = '/login.html?redirect=checkout';
+                }
                 return;
             }
             window.location.href = '/checkout.html';

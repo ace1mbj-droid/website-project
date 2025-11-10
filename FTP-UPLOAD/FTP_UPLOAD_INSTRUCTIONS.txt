@@ -114,7 +114,7 @@ These should be kept locally and NOT uploaded to server.
 After upload, login at:
 URL: yourdomain.com/login.html
 Email: hello@ace1.in
-Password: Mobilaeiou@9898
+Password: [Contact administrator]
 
 Admin Panel: yourdomain.com/admin-panel.html
 

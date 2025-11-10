@@ -1,12 +1,22 @@
 [
   {
     "id": "prod-001",
+    "sku": "ACE-FS-001-ABR",
+    "model": "FS-ABR-2025",
     "name": "Fleet Series - Aqua Blue Runner",
     "category": "Fleet Series",
     "price": 9999,
     "originalPrice": 12999,
-    "description": "Advanced health shoe with Terahertz technology inside. Features advanced cushioning system, breathable mesh upper, and ergonomic support for all-day comfort. Perfect for walking and daily wellness activities.",
+    "description": "Advanced health shoe with Terahertz technology inside. Features advanced cushioning system, breathable mesh upper, and ergonomic support for all-day comfort.",
     "image": "/assets/images/product-1.jpg",
+    "sizes": [6, 7, 8, 9, 10, 11],
+    "colors": ["Aqua Blue", "Blue"],
+    "specifications": {
+      "weight": "280g",
+      "material": "Breathable Mesh + EVA",
+      "technology": "Terahertz Inside",
+      "warranty": "1 Year"
+    },
     "features": [
       "Terahertz Inside technology",
       "Advanced cushioning system",
@@ -16,17 +26,29 @@
       "Magnetic foot massage function"
     ],
     "inStock": true,
+    "stock": 45,
+    "isNew": false,
     "rating": 4.8,
     "reviews": 342
   },
   {
     "id": "prod-002",
+    "sku": "ACE-FS-002-SOS",
+    "model": "FS-SOS-2025",
     "name": "Fleet Series - Sunset Orange Sport",
     "category": "Fleet Series",
     "price": 9999,
     "originalPrice": 12999,
-    "description": "High-performance health shoe with Terahertz technology. Designed for active lifestyles with superior cushioning and lightweight construction. Step up your health with every stride.",
+    "description": "High-performance health shoe with Terahertz technology. Designed for active lifestyles with superior cushioning and lightweight construction.",
     "image": "/assets/images/product-2.jpg",
+    "sizes": [6, 7, 8, 9, 10, 11],
+    "colors": ["Sunset Orange", "Red"],
+    "specifications": {
+      "weight": "275g",
+      "material": "Breathable Mesh + EVA",
+      "technology": "Terahertz Inside",
+      "warranty": "1 Year"
+    },
     "features": [
       "Terahertz Inside technology",
       "Ultra-lightweight design",
@@ -36,17 +58,25 @@
       "Magnetic foot massage function"
     ],
     "inStock": true,
+    "stock": 32,
+    "isNew": true,
     "rating": 4.9,
     "reviews": 456
   },
   {
     "id": "prod-003",
+    "sku": "ACE-FS-003-PGC",
+    "modelNumber": "FS-PGC-2025",
     "name": "Fleet Series - Pink Gradient Comfort",
     "category": "Fleet Series",
     "price": 9999,
     "originalPrice": 12999,
-    "description": "Stylish health shoe featuring Terahertz technology with beautiful gradient design. Combines fashion with wellness for complete foot health and comfort throughout the day.",
+    "description": "Stylish health shoe featuring Terahertz technology with beautiful gradient design. Combines fashion with wellness for complete foot health.",
     "image": "/assets/images/product-3.jpg",
+    "sizes": ["6", "7", "8", "9", "10", "11"],
+    "colors": ["Pink Gradient"],
+    "weight": "285g",
+    "material": "Premium Mesh + Memory Foam",
     "features": [
       "Terahertz Inside technology",
       "Gradient color design",
@@ -61,12 +91,18 @@
   },
   {
     "id": "prod-004",
+    "sku": "ACE-FS-004-PPP",
+    "modelNumber": "FS-PPP-2025",
     "name": "Fleet Series - Peach Pearl Premium",
     "category": "Fleet Series",
     "price": 9999,
     "originalPrice": 12999,
-    "description": "Premium health footwear with Terahertz technology. Advanced cushioning system and breathable mesh design ensure maximum comfort and health benefits for your feet.",
+    "description": "Premium health footwear with Terahertz technology. Advanced cushioning system and breathable mesh design ensure maximum comfort and health benefits.",
     "image": "/assets/images/product-4.png",
+    "sizes": ["6", "7", "8", "9", "10", "11"],
+    "colors": ["Peach Pearl"],
+    "weight": "290g",
+    "material": "Premium Mesh + EVA Sole",
     "features": [
       "Terahertz Inside technology",
       "Advanced cushioning system",
@@ -81,12 +117,18 @@
   },
   {
     "id": "prod-005",
+    "sku": "ACE-WS-005-CW",
+    "modelNumber": "WS-CW-2025",
     "name": "Wellness Sneaker - Classic White",
     "category": "Sneakers",
     "price": 7599,
     "originalPrice": 9999,
-    "description": "Premium wellness sneakers designed for everyday comfort and style. Features ultra-light sole, breathable material, and ergonomic design for all-day wear.",
+    "description": "Premium wellness sneakers designed for everyday comfort and style. Features ultra-light sole, breathable material, and ergonomic design.",
     "image": "/assets/images/product-5.png",
+    "sizes": ["6", "7", "8", "9", "10", "11", "12"],
+    "colors": ["Classic White"],
+    "weight": "250g",
+    "material": "Breathable Knit + Rubber Sole",
     "features": [
       "Ultra light sole",
       "Breathable and non-odorous",
@@ -100,12 +142,18 @@
   },
   {
     "id": "prod-006",
+    "sku": "ACE-WS-006-UB",
+    "modelNumber": "WS-UB-2025",
     "name": "Wellness Sneaker - Urban Black",
     "category": "Sneakers",
     "price": 7599,
     "originalPrice": 9999,
-    "description": "Stylish urban sneakers with health-focused design. Perfect blend of fashion and function with superior comfort and support for active lifestyles.",
+    "description": "Stylish urban sneakers with health-focused design. Perfect blend of fashion and function with superior comfort and support.",
     "image": "/assets/images/product-6.png",
+    "sizes": ["6", "7", "8", "9", "10", "11", "12"],
+    "colors": ["Urban Black"],
+    "weight": "255g",
+    "material": "Premium Mesh + Rubber Sole",
     "features": [
       "Premium cushioning system",
       "Breathable mesh design",
@@ -119,50 +167,22 @@
   },
   {
     "id": "prod-007",
-    "name": "Wellness Sneaker - Sport Gray",
-    "category": "Sneakers",
-    "price": 7599,
-    "originalPrice": 9999,
-    "description": "High-performance wellness sneakers for sports and active wear. Combines comfort technology with athletic design for optimal foot health.",
-    "image": "/drive.google.com/thumbnail%20(4).jpg",
-    "features": [
-      "Superior shock absorption",
-      "Moisture-wicking interior",
-      "Breathable upper material",
-      "Enhanced arch support",
-      "Durable construction"
-    ],
-    "inStock": true,
-    "rating": 4.8,
-    "reviews": 389
-  },
-  {
-    "id": "prod-008",
-    "name": "Wellness Sneaker - Navy Blue",
-    "category": "Sneakers",
-    "price": 7599,
-    "originalPrice": 9999,
-    "description": "Classic navy sneakers with modern wellness features. Perfect for casual wear while maintaining foot health and comfort throughout the day.",
-    "image": "/drive.google.com/thumbnail%20(5).jpg",
-    "features": [
-      "Breathable knit upper",
-      "Memory foam insole",
-      "Lightweight EVA sole",
-      "Flexible design",
-      "Easy slip-on style"
-    ],
-    "inStock": true,
-    "rating": 4.5,
-    "reviews": 298
-  },
-  {
-    "id": "prod-009",
+    "sku": "ACE-ACC-007-MTI",
+    "model": "ACC-MTI-2025",
     "name": "Magnetic Therapy Insoles",
     "category": "Accessories",
     "price": 999,
     "originalPrice": 1499,
-    "description": "Premium magnetic therapy insoles with foot massage function. Compatible with all Fleet Series and Sneaker products. Features ultra-light sole and breathable material for enhanced wellness.",
-    "image": "/drive.google.com/thumbnail%20(6).jpg",
+    "description": "Premium magnetic therapy insoles with foot massage function. Compatible with all Fleet Series and Sneaker products.",
+    "image": "/assets/images/insoles-placeholder.jpg",
+    "sizes": ["Universal"],
+    "colors": ["Black"],
+    "specifications": {
+      "weight": "50g per pair",
+      "material": "Memory Foam + Magnetic",
+      "technology": "Magnetic Therapy",
+      "warranty": "6 Months"
+    },
     "features": [
       "Magnetic foot massage function",
       "Ultra light sole",
@@ -171,17 +191,29 @@
       "Trimmable to size"
     ],
     "inStock": true,
+    "stock": 150,
+    "isNew": false,
     "rating": 4.6,
     "reviews": 521
   },
   {
-    "id": "prod-010",
+    "id": "prod-008",
+    "sku": "ACE-ACC-008-SCK",
+    "model": "ACC-SCK-2025",
     "name": "Shoe Care Kit",
     "category": "Accessories",
     "price": 599,
     "originalPrice": 899,
-    "description": "Complete care kit for your health shoes. Includes premium cleaner, protector spray, and microfiber cloth to keep your shoes in perfect condition.",
-    "image": "/drive.google.com/thumbnail%20(7).jpg",
+    "description": "Complete care kit for your health shoes. Includes premium cleaner, protector spray, and microfiber cloth.",
+    "image": "/assets/images/care-kit-placeholder.jpg",
+    "sizes": ["One Size"],
+    "colors": ["N/A"],
+    "specifications": {
+      "weight": "200g",
+      "material": "Eco-friendly Solution",
+      "technology": "Premium Care",
+      "warranty": "N/A"
+    },
     "features": [
       "Premium shoe cleaner",
       "Protector spray",
@@ -190,45 +222,9 @@
       "Eco-friendly formula"
     ],
     "inStock": true,
+    "stock": 200,
+    "isNew": false,
     "rating": 4.5,
     "reviews": 167
-  },
-  {
-    "id": "prod-011",
-    "name": "Compression Wellness Socks",
-    "category": "Accessories",
-    "price": 499,
-    "originalPrice": 799,
-    "description": "High-performance compression socks designed to complement your wellness footwear. Improves blood circulation and reduces fatigue during extended wear.",
-    "image": "/drive.google.com/thumbnail%20(8).jpg",
-    "features": [
-      "Graduated compression design",
-      "Moisture-wicking fabric",
-      "Anti-bacterial treatment",
-      "Arch support band",
-      "Pack of 3 pairs"
-    ],
-    "inStock": true,
-    "rating": 4.7,
-    "reviews": 412
-  },
-  {
-    "id": "prod-012",
-    "name": "Ace#1 Gift Card",
-    "category": "Gift Cards",
-    "price": 5000,
-    "originalPrice": 5000,
-    "description": "Give the gift of health and comfort! Ace#1 gift card can be used towards any product in our store. Perfect for friends and family who value wellness.",
-    "image": "/drive.google.com/thumbnail%20(9).jpg",
-    "features": [
-      "Valid for 12 months",
-      "No expiration fees",
-      "Redeemable online and in-store",
-      "Digital delivery available",
-      "Can be combined with offers"
-    ],
-    "inStock": true,
-    "rating": 5.0,
-    "reviews": 89
   }
 ]

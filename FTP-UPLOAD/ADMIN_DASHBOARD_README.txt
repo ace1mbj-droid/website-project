@@ -11,7 +11,7 @@
 
 URL:      https://yourdomain.com/admin-dashboard.html
 Email:    hello@ace1.in
-Password: Mobilaeiou@9898
+Password: [Contact administrator]
 
 Alternative URLs:
 • /admin.html (auto-redirects to dashboard)
@@ -90,7 +90,7 @@ Alternative URLs:
 1. LOGIN
    → Visit /login.html
    → Enter: hello@ace1.in
-   → Password: Mobilaeiou@9898
+   → Password: [Contact administrator]
    → Auto-redirects to dashboard
 
 2. NAVIGATE

@@ -125,7 +125,7 @@ website-project/
 ```
 URL:      https://yourdomain.com/admin-panel.html
 Email:    hello@ace1.in
-Password: Mobilaeiou@9898
+Password: [See DO-NOT-UPLOAD/ADMIN_CREDENTIALS.md]
 ```
 
 ---

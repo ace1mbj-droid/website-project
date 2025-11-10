@@ -176,7 +176,7 @@ Protection:
 
 4. ADMIN LOGIN
    Email: hello@ace1.in
-   Password: Mobilaeiou@9898
+   Password: [Contact administrator]
    Admin Panel: yoursite.com/admin-panel.html
 
 5. OPTIONAL: SETUP SSL
