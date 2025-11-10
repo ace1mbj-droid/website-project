@@ -194,15 +194,14 @@
         </div>
     </div>
 
-    <!-- Deals Section -->
+    <!-- Functional Shoes Section -->
     <div class="deals-section" id="products">
         <div class="section-header">
             <div>
-                <h2 class="section-title">Today's Premium Collection</h2>
-                <p style="color: #718096; margin-top: 8px; font-size: 14px;">Handpicked quality products rated by our community</p>
+                <h2 class="section-title">Functional Shoes</h2>
+                <p style="color: #718096; margin-top: 8px; font-size: 14px;">Advanced health and wellness footwear engineered for your lifestyle</p>
             </div>
             <div style="display: flex; gap: 16px; align-items: center;">
-                <span class="timer-badge" id="countdown">Ends in 17:21:30</span>
                 <a href="#products" class="view-all-link">View All →</a>
             </div>
         </div>
@@ -236,24 +235,6 @@
     <script src="/assets/js/marketplace.js"></script>
     
     <script>
-        // Countdown Timer
-        function updateCountdown() {
-            const now = new Date();
-            const endOfDay = new Date();
-            endOfDay.setHours(23, 59, 59, 999);
-            
-            const diff = endOfDay - now;
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('countdown').textContent = 
-                `Ends in ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-        
         // Search function
         function searchProducts() {
             const searchTerm = document.getElementById('search-input').value;
