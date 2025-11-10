@@ -31,6 +31,10 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 # Permissions-Policy: Control browser features
 Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
+# Content-Security-Policy: Control what resources can be loaded
+# This is a comprehensive CSP that allows your website to function while blocking malicious content
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+
 # ============================================
 # URL REWRITING
 # ============================================
