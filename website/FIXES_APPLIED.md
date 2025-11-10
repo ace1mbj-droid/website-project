@@ -9,7 +9,7 @@
 
 ### 2. **Updated Bank Details**
 - ✅ Changed UPI ID from `jaidas1994-4@okic` to `jaidas1994-1@okicici`
-- ✅ Changed phone number from `9321486256` to `9167575028`
+- ✅ Changed phone number from `9167575028` to `9167575028`
 - **File:** `assets/js/config.js`
 
 ### 3. **Created Security Audit Report**

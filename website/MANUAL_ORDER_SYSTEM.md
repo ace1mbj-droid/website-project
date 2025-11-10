@@ -1,7 +1,7 @@
 # Manual Order Processing System - Privacy Compliant
 
 **Business:** Ace#1 - Jai Das  
-**Phone:** 9167575121  
+**Phone:** 9167575028  
 **UPI:** paytmqr5na93v@ptys  
 **Status:** ✅ **100% PRIVACY COMPLIANT**
 
@@ -92,7 +92,7 @@ Result: **ZERO customer data on website = ZERO privacy issues!**
 ### For Each Product, Add This Button:
 
 ```html
-<a href="https://wa.me/919167575121?text=Hi!%20I%20want%20to%20order%20Fleet%20Series%20Aqua%20Blue%20-%20₹9,999.%0A%0APlease%20send%20payment%20details." 
+<a href="https://wa.me/919167575028?text=Hi!%20I%20want%20to%20order%20Fleet%20Series%20Aqua%20Blue%20-%20₹9,999.%0A%0APlease%20send%20payment%20details." 
    class="btn-whatsapp-order"
    style="background: #25D366; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: bold; text-align: center; width: 100%; box-sizing: border-box;">
   📱 Order via WhatsApp - ₹9,999
@@ -117,10 +117,10 @@ Result: **ZERO customer data on website = ZERO privacy issues!**
 ### Add Call Button:
 
 ```html
-<a href="tel:+919167575121" 
+<a href="tel:+919167575028" 
    class="btn-call-order"
    style="background: #2c3e50; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: bold; text-align: center; width: 100%; box-sizing: border-box; margin-top: 10px;">
-  📞 Call to Order - 9167575121
+  📞 Call to Order - 9167575028
 </a>
 ```
 
@@ -230,7 +230,7 @@ Tracking: AWB123
     </ul>
     
     <h2>Contact</h2>
-    <p>For privacy concerns: <strong>9167575121</strong> or <strong>hello@ace1.in</strong></p>
+    <p>For privacy concerns: <strong>9167575028</strong> or <strong>hello@ace1.in</strong></p>
     
     <h2>Data Retention</h2>
     <p>We retain order information only as long as necessary for business purposes and legal requirements (typically 3 years for tax purposes).</p>
@@ -263,7 +263,7 @@ Tracking: AWB123
 <p>See our Privacy Policy for how we handle your information.</p>
 
 <h2>6. Contact</h2>
-<p>WhatsApp: 9167575121 | Email: hello@ace1.in</p>
+<p>WhatsApp: 9167575028 | Email: hello@ace1.in</p>
 ```
 
 ---

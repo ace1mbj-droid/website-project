@@ -1,6 +1,6 @@
 # Paytm Business Integration Guide - Ace#1
 
-**Business Phone:** 9167575121  
+**Business Phone:** 9167575028  
 **Business Email:** hello@ace1.in  
 **Date:** November 9, 2025
 
@@ -41,7 +41,7 @@ You have **TWO OPTIONS** to integrate Paytm:
 ### Step 1: Access Paytm Business Dashboard (2 minutes)
 
 1. Go to: https://business.paytm.com/
-2. Login with your registered number: **9167575121**
+2. Login with your registered number: **9167575028**
 3. Navigate to **"Payment Links"** in the menu
 
 ---
@@ -62,7 +62,7 @@ Link Name: fleet-aqua-blue
 ```
 https://paytm.me/fleet-aqua-blue
 OR
-https://paytm.me/9167575121/fleet-aqua-blue
+https://paytm.me/9167575028/fleet-aqua-blue
 ```
 
 #### Product 2: Fleet Series - Sunset Orange Sport
@@ -205,7 +205,7 @@ Save this for your records:
 
 ```javascript
 // PAYTM PAYMENT LINKS - ACE#1
-// Business Phone: 9167575121
+// Business Phone: 9167575028
 
 const PAYMENT_LINKS = {
   'prod-001': {
@@ -248,7 +248,7 @@ When customer pays:
 ### When Order Received:
 
 **1. Notification** (Instant)
-- SMS to 9167575121
+- SMS to 9167575028
 - Email to hello@ace1.in
 - Paytm app notification
 
@@ -343,7 +343,7 @@ prod-002: https://paytm.me/your-link-2
 3. Later, add separate shipping checkout
 
 ### Customer Support:
-- WhatsApp: +91 9167575121
+- WhatsApp: +91 9167575028
 - Email: hello@ace1.in
 - Response time: Within 24 hours
 
@@ -398,7 +398,7 @@ prod-002: https://paytm.me/your-link-2
 ## 📄 Summary
 
 **What We'll Do:**
-1. ✅ Phone updated to 9167575121
+1. ✅ Phone updated to 9167575028
 2. ⏳ You create Paytm payment links
 3. ⏳ I update website with payment buttons  
 4. ⏳ Test payment flow

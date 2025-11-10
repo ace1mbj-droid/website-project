@@ -1,7 +1,7 @@
 # Paytm QR Code - Production Ready Implementation
 
 **Business Name:** Jai Das  
-**Phone:** 9167575121  
+**Phone:** 9167575028  
 **UPI ID:** paytmqr5na93v@ptys  
 **Status:** ✅ READY TO GO LIVE!
 
@@ -15,7 +15,7 @@ You already have a **Paytm Business QR Code** set up! This means you can start a
 
 ## ✅ What's Already Done
 
-1. ✅ **Paytm Business account active** (9167575121)
+1. ✅ **Paytm Business account active** (9167575028)
 2. ✅ **UPI ID ready:** `paytmqr5na93v@ptys`
 3. ✅ **QR Code generated** (the image you shared)
 4. ✅ **Configuration files created** (`paytm-config.js`)
@@ -140,7 +140,7 @@ To buy:
 1. Click this link: [Website Link]
 2. Click "Buy Now with UPI"
 3. Pay via Google Pay/PhonePe/Paytm
-4. WhatsApp payment screenshot to 9167575121
+4. WhatsApp payment screenshot to 9167575028
 
 FREE Shipping! Delivery in 5-7 days.
 ```
@@ -180,7 +180,7 @@ Add this to product pages:
 
 ### Option B: WhatsApp Direct
 ```html
-<a href="https://wa.me/919167575121?text=Hi! I want to order Fleet Aqua Blue - ₹9,999" 
+<a href="https://wa.me/919167575028?text=Hi! I want to order Fleet Aqua Blue - ₹9,999" 
    style="background: #25D366; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; display: inline-block;">
   📱 Order via WhatsApp
 </a>
@@ -204,7 +204,7 @@ Add this to product pages:
 - Gets instant confirmation
 
 **2. You Get Notified** (Your side - Instant!)
-- SMS to 9167575121: "₹9,999 received"
+- SMS to 9167575028: "₹9,999 received"
 - Paytm app notification
 - Email notification
 
@@ -249,7 +249,7 @@ Add this to product pages:
 👉 Scan QR to Buy Now
 [Your Paytm QR Code Image]
 
-Or WhatsApp: 9167575121
+Or WhatsApp: 9167575028
 ```
 
 ### For WhatsApp Status:
@@ -419,7 +419,7 @@ Year 1: ₹3,832,320 🎯
 
 **Your Paytm Setup:**
 - **UPI ID:** paytmqr5na93v@ptys
-- **Phone:** 9167575121
+- **Phone:** 9167575028
 - **Business:** Jai Das
 - **Fee:** 0% for UPI, 1.99% for cards
 - **Settlement:** T+1 to T+3 days

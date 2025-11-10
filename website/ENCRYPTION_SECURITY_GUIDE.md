@@ -262,7 +262,7 @@ function decrypt(encryptedData) {
 }
 
 // Usage
-const sensitive = { upiId: 'paytmqr5na93v@ptys', phone: '9167575121' };
+const sensitive = { upiId: 'paytmqr5na93v@ptys', phone: '9167575028' };
 const encrypted = encrypt(JSON.stringify(sensitive));
 // Store encrypted data in database
 

@@ -23,7 +23,7 @@ The checkout now supports **4 payment methods**:
 
 ### 2. 📱 UPI / Wallet
 - **UPI ID:** jaidas1994-4@okic
-- **Phone Number:** 9321486256
+- **Phone Number:** 9167575028
 - Supports PhonePe, Google Pay, Paytm
 - Customers can copy UPI ID directly
 
@@ -190,4 +190,4 @@ To test the new payment options:
 
 For payment-related queries:
 - Email: hello@ace1.in
-- Phone: 9321486256
+- Phone: 9167575028

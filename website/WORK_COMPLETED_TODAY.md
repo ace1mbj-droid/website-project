@@ -7,8 +7,8 @@
 ## 🔧 Changes Made
 
 ### 1. **Contact Information Updated** ✅
-- **Business Phone:** Updated to `9167575121` (Paytm Business number)
-- **UPI Phone:** Updated to `9167575121`
+- **Business Phone:** Updated to `9167575028` (Paytm Business number)
+- **UPI Phone:** Updated to `9167575028`
 - **UPI ID:** Updated to `jaidas1994-1@okicici`
 - **Files Modified:** `assets/js/config.js`, `checkout.html`
 
@@ -67,7 +67,7 @@
 **Option: Paytm Payment Links** (Recommended!)
 
 1. Login to Paytm Business: https://business.paytm.com/
-2. Phone: 9167575121
+2. Phone: 9167575028
 3. Create payment links for all products
 4. Share links with me → I'll update website
 5. **RESULT: Production-ready payment system!**
@@ -174,7 +174,7 @@ SSL/HTTPS: ✅ Handled by Paytm payment page
 ### To Go Live with Paytm Payment Links:
 
 **Step 1: Create Payment Links** (20 minutes)
-- [ ] Login to Paytm Business (9167575121)
+- [ ] Login to Paytm Business (9167575028)
 - [ ] Create link for Fleet Aqua Blue (₹9,999)
 - [ ] Create link for Fleet Orange (₹9,999)
 - [ ] Create link for Fleet Pink (₹9,999)
@@ -208,7 +208,7 @@ SSL/HTTPS: ✅ Handled by Paytm payment page
 **Business Details:**
 - Name: Ace#1 - Health | Comfort | Innovation
 - Email: hello@ace1.in
-- Phone: 9167575121 (Paytm Business)
+- Phone: 9167575028 (Paytm Business)
 - UPI ID: jaidas1994-1@okicici
 
 **Bank Details:**

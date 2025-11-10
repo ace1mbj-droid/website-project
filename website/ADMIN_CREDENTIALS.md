@@ -24,13 +24,13 @@ Password: Mobilaeiou@9898
 ### Contact Details:
 ```
 Business Name: Ace#1 - Health | Comfort | Innovation
-Business Phone: 9167575121
+Business Phone: 9167575028
 Business Email: hello@ace1.in
 ```
 
 ### Payment Information:
 ```
-Paytm Business Phone: 9167575121
+Paytm Business Phone: 9167575028
 UPI ID: paytmqr5na93v@ptys
 Transaction Fee: 0% for UPI (FREE!)
 ```
@@ -147,7 +147,7 @@ Branch: Dombivili
 
 ### For Customers:
 ```
-WhatsApp: 9167575121
+WhatsApp: 9167575028
 Email: hello@ace1.in
 Website: [Your Domain]
 ```
@@ -208,7 +208,7 @@ Password: Mobilaeiou@9898
 
 ### Payment:
 ```
-Phone: 9167575121
+Phone: 9167575028
 UPI: paytmqr5na93v@ptys
 ```
 
