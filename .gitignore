@@ -63,6 +63,7 @@ dist/
 build/
 *.zip
 *.tar.gz
+*.pdf
 
 # FTP configurations (may contain credentials)
 *.ftp
