@@ -14,10 +14,11 @@ eval "*"
 # Sensitive directories
 LOCAL-ONLY-DO-NOT-UPLOAD/
 secure-ready/
-backend/
 ftp-ready/
 UPLOAD-TO-SERVER/
 extracted/
+
+# Note: backend/ is now tracked (removed from ignore list)
 
 # Node modules (if using Node.js)
 node_modules/
