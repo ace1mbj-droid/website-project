@@ -133,6 +133,7 @@ class AuthSystem {
         balance: 0,
         transactions: []
       },
+      ratings: [],
       createdAt: new Date().toISOString(),
       orders: []
     };
@@ -400,6 +401,122 @@ class AuthSystem {
       authLinks.forEach(link => link.style.display = 'inline-block');
       userLinks.forEach(link => link.style.display = 'none');
     }
+  }
+
+  // Add product rating
+  async addRating(productId, rating, reviewText = '') {
+    if (!this.isLoggedIn()) {
+      return { success: false, message: 'Not logged in' };
+    }
+
+    // Validate rating (1-5 stars)
+    if (rating < 1 || rating > 5) {
+      return { success: false, message: 'Rating must be between 1 and 5' };
+    }
+
+    const userIndex = this.users.findIndex(u => u.id === this.currentUser.id);
+    if (userIndex === -1) {
+      return { success: false, message: 'User not found' };
+    }
+
+    // Initialize ratings if it doesn't exist
+    if (!this.users[userIndex].ratings) {
+      this.users[userIndex].ratings = [];
+    }
+
+    // Check if user already rated this product
+    const existingRating = this.users[userIndex].ratings.find(r => r.productId === productId);
+    if (existingRating) {
+      // Update existing rating
+      existingRating.rating = rating;
+      existingRating.reviewText = reviewText;
+      existingRating.date = new Date().toISOString();
+    } else {
+      // Add new rating
+      const newRating = {
+        id: 'rating_' + Date.now(),
+        productId: productId,
+        rating: rating,
+        reviewText: reviewText,
+        userName: this.currentUser.firstName || this.currentUser.email,
+        date: new Date().toISOString(),
+        verified: false // Only show verified reviews (user who bought the product)
+      };
+      this.users[userIndex].ratings.push(newRating);
+    }
+
+    await this.saveUsers();
+
+    // Update session
+    const updatedUser = { ...this.users[userIndex] };
+    delete updatedUser.password;
+    await this.saveSession(updatedUser);
+
+    return { success: true, message: 'Rating added successfully' };
+  }
+
+  // Get all ratings for a product (only verified/factual ones)
+  getAllRatingsForProduct(productId) {
+    let allRatings = [];
+    
+    // Collect ratings from all users
+    this.users.forEach(user => {
+      if (user.ratings && Array.isArray(user.ratings)) {
+        user.ratings.forEach(rating => {
+          if (rating.productId === productId) {
+            allRatings.push(rating);
+          }
+        });
+      }
+    });
+
+    // Filter out non-factual/non-verified ratings
+    const verifiedRatings = allRatings.filter(r => {
+      // Keep ratings that are:
+      // 1. Verified (user purchased the product)
+      // 2. Have meaningful review text
+      // 3. Are not spam (rating + review should be substantial)
+      const hasReview = r.reviewText && r.reviewText.trim().length > 10;
+      return r.verified || hasReview;
+    });
+
+    return verifiedRatings.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  // Get average rating for a product
+  getAverageRating(productId) {
+    const ratings = this.getAllRatingsForProduct(productId);
+    if (ratings.length === 0) return 0;
+    
+    const sum = ratings.reduce((acc, r) => acc + r.rating, 0);
+    return (sum / ratings.length).toFixed(1);
+  }
+
+  // Get user's rating for a product (if any)
+  getUserRatingForProduct(productId) {
+    if (!this.isLoggedIn()) {
+      return null;
+    }
+    
+    if (!this.currentUser.ratings) {
+      return null;
+    }
+
+    return this.currentUser.ratings.find(r => r.productId === productId) || null;
+  }
+
+  // Get all user ratings
+  getUserRatings() {
+    if (!this.isLoggedIn()) {
+      return [];
+    }
+    
+    // Initialize ratings if it doesn't exist (for old users)
+    if (!this.currentUser.ratings) {
+      this.currentUser.ratings = [];
+    }
+    
+    return this.currentUser.ratings || [];
   }
 
   // Require authentication (redirect if not logged in)

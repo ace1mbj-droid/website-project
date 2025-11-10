@@ -15,7 +15,7 @@ async function loadProducts() {
   }
 }
 
-// Display products
+// Display products with ratings
 function displayProducts(products) {
   const grid = document.getElementById('product-grid');
   
@@ -28,6 +28,28 @@ function displayProducts(products) {
     const savings = product.originalPrice ? 
       Math.round((1 - product.price / product.originalPrice) * 100) : 0;
     
+    // Get average rating for this product
+    const avgRating = window.auth ? window.auth.getAverageRating(product.id) : 0;
+    const ratingCount = window.auth ? window.auth.getAllRatingsForProduct(product.id).length : 0;
+    
+    // Generate star display
+    const fullStars = Math.floor(avgRating);
+    const hasHalfStar = avgRating % 1 >= 0.5;
+    let stars = '';
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars += '★';
+      } else if (i === fullStars && hasHalfStar) {
+        stars += '✦';
+      } else {
+        stars += '☆';
+      }
+    }
+    
+    const ratingDisplay = ratingCount > 0 ? 
+      `<div class="product-rating">${stars} <span class="rating-value">${avgRating}</span> (${ratingCount})</div>` : 
+      '<div class="product-rating">★☆☆☆☆ <span class="rating-value">No ratings yet</span></div>';
+    
     return `
       <div class="product-card" onclick="viewProduct('${product.id}')">
         <img src="${product.image}" 
@@ -38,6 +60,7 @@ function displayProducts(products) {
           <div class="product-category">${product.category}</div>
           <h3 class="product-name">${product.name}</h3>
           <p class="product-description">${product.description}</p>
+          ${ratingDisplay}
           <div class="product-footer">
             <div class="product-price">
               <div class="price-current">₹${product.price.toLocaleString('en-IN')}</div>
