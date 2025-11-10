@@ -996,99 +996,144 @@ emailQueue.add('send-email', {
 
 ## Deployment Architecture
 
-### Infrastructure Setup
+### Hybrid Deployment Model
 
-**Server Requirements:**
-- **CPU**: 2 cores minimum (4 cores recommended)
-- **RAM**: 4GB minimum (8GB recommended)
-- **Storage**: 50GB SSD
-- **OS**: Ubuntu 22.04 LTS
-- **Network**: Static IP, domain with SSL
+The system uses a **hybrid deployment architecture** that separates frontend and backend hosting:
 
-**Software Stack:**
-- Node.js 18 LTS
-- MySQL 8.0 or PostgreSQL 14
-- Redis 7.0
-- Nginx 1.24
-- PM2 process manager
-- Let's Encrypt SSL
+**Frontend Hosting (Existing FTP Host):**
+- Static HTML, CSS, JavaScript files
+- Served from your existing domain (ace1.in)
+- No server-side processing required
+- Uses existing hosting infrastructure
+
+**Backend Hosting (Railway or Render):**
+- Node.js + Express API server
+- MySQL database (managed service)
+- Redis for sessions (optional)
+- Automatic scaling and monitoring
+- Free tier available for starting
+
+**Benefits:**
+- **Cost-Effective**: Use existing FTP hosting + free backend tier = $0/month to start
+- **Simple Deployment**: No server management, automatic deployments
+- **Scalable**: Easy to upgrade when traffic grows
+- **Reliable**: Managed infrastructure with automatic backups
+- **Fast Setup**: Deploy in hours, not days
+
+### Infrastructure Components
+
+**Frontend (FTP Host):**
+- Domain: ace1.in (your existing domain)
+- Static file hosting
+- HTTPS via existing SSL certificate
+- .htaccess for security headers
+
+**Backend (Railway/Render):**
+- Platform: Railway.app (recommended) or Render.com
+- Runtime: Node.js 18 LTS
+- Database: MySQL 8.0 (Railway) or PostgreSQL 14 (Render)
+- Redis: Optional, for session storage
+- URL: Provided by platform (e.g., your-app.up.railway.app)
+- Custom domain: Optional (api.ace1.in)
 
 ### Deployment Process
 
-**1. Server Setup:**
+#### Option 1: Railway Deployment (Recommended)
+
+**1. Prepare Backend:**
 ```bash
-# Update system
-sudo apt update && sudo apt upgrade -y
-
-# Install Node.js
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# Install MySQL
-sudo apt install -y mysql-server
-sudo mysql_secure_installation
-
-# Install Redis
-sudo apt install -y redis-server
-
-# Install Nginx
-sudo apt install -y nginx
-
-# Install PM2
-sudo npm install -g pm2
-
-# Install Certbot for SSL
-sudo apt install -y certbot python3-certbot-nginx
+# Ensure railway.json exists in backend/
+cd backend
+cat railway.json
 ```
 
-**2. Database Setup:**
+**2. Deploy to Railway:**
 ```bash
-# Create database
-mysql -u root -p
-CREATE DATABASE ace1_production;
-CREATE USER 'ace1_user'@'localhost' IDENTIFIED BY 'secure_password';
-GRANT ALL PRIVILEGES ON ace1_production.* TO 'ace1_user'@'localhost';
-FLUSH PRIVILEGES;
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login to Railway
+railway login
+
+# Initialize project
+railway init
+
+# Deploy backend
+railway up
+
+# Add MySQL database
+# (Done via Railway dashboard: New → Database → MySQL)
 
 # Run migrations
-npm run migrate:up
+railway run node migrations/run.js
 ```
 
-**3. Application Deployment:**
-```bash
-# Clone repository
-git clone https://github.com/yourusername/ace1-website.git
-cd ace1-website/backend
-
-# Install dependencies
-npm install --production
-
-# Set environment variables
-cp .env.example .env
-nano .env  # Edit with production values
-
-# Build application
-npm run build
-
-# Start with PM2
-pm2 start ecosystem.config.js --env production
-pm2 save
-pm2 startup
+**3. Configure Environment Variables:**
+In Railway dashboard → Variables:
+```env
+NODE_ENV=production
+PORT=3000
+JWT_SECRET=your_secure_random_string_min_32_chars
+JWT_EXPIRES_IN=7d
+ENCRYPTION_KEY=your_32_character_encryption_key
+FRONTEND_URL=https://ace1.in
+PAYTM_MERCHANT_ID=your_merchant_id
+PAYTM_MERCHANT_KEY=your_merchant_key
+SMTP_HOST=smtp.sendgrid.net
+SMTP_USER=apikey
+SMTP_PASSWORD=your_sendgrid_api_key
 ```
 
-**4. Nginx Configuration:**
-```bash
-# Create Nginx config
-sudo nano /etc/nginx/sites-available/ace1
+**4. Get Backend URL:**
+Railway provides: `https://your-backend-production.up.railway.app`
 
-# Enable site
-sudo ln -s /etc/nginx/sites-available/ace1 /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
+#### Option 2: Render Deployment (Alternative)
 
-# Setup SSL
-sudo certbot --nginx -d ace1.in -d www.ace1.in
+**1. Create Web Service:**
+- Go to render.com → New → Web Service
+- Connect GitHub repository
+- Configure:
+  - Name: ace1-backend
+  - Environment: Node
+  - Build Command: `npm install`
+  - Start Command: `node migrations/run.js && node src/app.js`
+  - Plan: Free
+
+**2. Add Database:**
+- Dashboard → New → PostgreSQL (or MySQL add-on)
+- Render auto-connects to web service
+
+**3. Set Environment Variables:**
+Same as Railway configuration above
+
+**4. Get Backend URL:**
+Render provides: `https://ace1-backend.onrender.com`
+
+#### Frontend Deployment (FTP)
+
+**1. Update API Configuration:**
+```javascript
+// docs/assets/js/config.js
+const API_BASE_URL = 'https://your-backend-url.railway.app';
 ```
+
+**2. Update CORS in Backend:**
+```javascript
+// backend/src/app.js
+app.use(cors({
+  origin: [
+    'https://ace1.in',
+    'http://ace1.in',
+    'https://www.ace1.in'
+  ],
+  credentials: true
+}));
+```
+
+**3. Upload via FTP:**
+- Upload updated JavaScript files
+- Upload .htaccess with security headers
+- Test frontend loads correctly
 
 ### PM2 Ecosystem Configuration
 

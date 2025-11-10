@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Ace#1</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/assets/css/marketplace-theme.css">
+    <link rel="stylesheet" href="/assets/css/user-dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="marketplace-header">
+        <div class="header-container">
+            <a href="/" class="brand-logo">
+                <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 30px; width: auto;">
+            </a>
+            
+            <div class="search-section">
+                <select class="category-dropdown">
+                    <option>All</option>
+                    <option>Health</option>
+                    <option>Wellness</option>
+                </select>
+                <input type="text" class="search-bar" placeholder="I'm shopping for...">
+                <button class="search-btn">Search</button>
+            </div>
+            
+            <div class="header-icons">
+                <a href="/cart.html" class="icon-link">
+                    🛒
+                    <span class="icon-badge cart-count" style="display: none;">0</span>
+                </a>
+                <a href="#" class="icon-link">❤️</a>
+                <div class="auth-section">
+                    <span class="auth-link">
+                        <a href="/login.html" class="login-link">Log In<br/>Register</a>
+                    </span>
+                    <span class="user-link" style="display: none;">
+                        👤 <span class="user-name"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-bar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="/">Shop</a></li>
+                    <li><a href="/ace-gallery.html">Gallery</a></li>
+                    <li><a href="/about-us.html">About</a></li>
+                    <li><a href="/contact-us.html">Contact</a></li>
+                </ul>
+                <div class="nav-right">
+                    <a href="mailto:hello@ace1.in">📧 hello@ace1.in</a>
+                    <span>|</span>
+                    <a href="/track-order.html">Track Order</a>
+                    <span>|</span>
+                    <a href="#">INR ₹</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="user-profile-card">
+                <div class="user-avatar">
+                    <span id="user-avatar-text">U</span>
+                </div>
+                <div class="user-info">
+                    <h3 id="user-display-name">User</h3>
+                    <p id="user-display-email">user@email.com</p>
+                </div>
+            </div>
+
+            
+            <nav class="dashboard-nav">
+                <a href="#overview" class="nav-item active" onclick="showDashboardSection('overview')">
+                    <span class="nav-icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="#orders" class="nav-item" onclick="showDashboardSection('orders')">
+                    <span class="nav-icon">📦</span>
+                    <span>My Orders</span>
+                </a>
+                <a href="#reviews" class="nav-item" onclick="showDashboardSection('reviews')">
+                    <span class="nav-icon">⭐</span>
+                    <span>My Reviews</span>
+                </a>
+                <a href="#profile" class="nav-item" onclick="showDashboardSection('profile')">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile Settings</span>
+                </a>
+                <a href="#wishlist" class="nav-item" onclick="showDashboardSection('wishlist')">
+                    <span class="nav-icon">❤️</span>
+                    <span>Wishlist</span>
+                </a>
+                <a href="#addresses" class="nav-item" onclick="showDashboardSection('addresses')">
+                    <span class="nav-icon">📍</span>
+                    <span>Addresses</span>
+                </a>
+            </nav>
+            
+            <button class="logout-button" onclick="handleLogout()">
+                <span>🚪</span> Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Overview Section -->
+            <section id="section-overview" class="dashboard-section active">
+                <div class="section-header">
+                    <h1>Welcome Back, <span id="welcome-name">User</span>! 👋</h1>
+                    <p>Here's what's happening with your account</p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">📦</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Orders</div>
+                            <div class="stat-value" id="total-orders-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">⭐</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Reviews Given</div>
+                            <div class="stat-value" id="total-reviews-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">❤️</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Wishlist Items</div>
+                            <div class="stat-value" id="wishlist-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">🎁</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Member Since</div>
+                            <div class="stat-value" id="member-since" style="font-size: 16px;">2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+                    <h2>Recent Activity</h2>
+                    <div id="recent-activity">
+                        <div class="empty-state">
+                            <span class="empty-icon">📋</span>
+                            <p>No recent activity</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="section-orders" class="dashboard-section">
+                <div class="section-header">
+                    <h1>My Orders</h1>
+                    <p>Track and manage your orders</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="orders-filter">
+                        <button class="filter-btn active" onclick="filterOrders('all')">All Orders</button>
+                        <button class="filter-btn" onclick="filterOrders('pending')">Pending</button>
+                        <button class="filter-btn" onclick="filterOrders('completed')">Completed</button>
+                        <button class="filter-btn" onclick="filterOrders('cancelled')">Cancelled</button>
+                    </div>
+                    
+                    <div id="orders-list">
+                        <div class="empty-state">
+                            <span class="empty-icon">📦</span>
+                            <p>No orders yet</p>
+                            <a href="/" class="btn-primary">Start Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Reviews Section -->
+            <section id="section-reviews" class="dashboard-section">
+                <div class="section-header">
+                    <h1>My Reviews</h1>
+                    <p>Share your experience with our products</p>
+                </div>
+
+                <!-- Add Review Card -->
+                <div class="dashboard-card">
+                    <h2>Write a Review</h2>
+                    <form id="review-form" onsubmit="submitReview(event)">
+                        <div class="form-group">
+                            <label>Select Product</label>
+                            <select id="review-product" required>
+                                <option value="">Choose a product...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <div class="star-rating" id="star-rating">
+                                <span class="star" data-rating="1">☆</span>
+                                <span class="star" data-rating="2">☆</span>
+                                <span class="star" data-rating="3">☆</span>
+                                <span class="star" data-rating="4">☆</span>
+                                <span class="star" data-rating="5">☆</span>
+                            </div>
+                            <input type="hidden" id="rating-value" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Your Review (minimum 10 characters)</label>
+                            <textarea id="review-text" rows="4" minlength="10" required placeholder="Share your experience with this product..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Submit Review</button>
+                    </form>
+                </div>
+
+                <!-- My Reviews List -->
+                <div class="dashboard-card">
+                    <h2>Your Reviews</h2>
+                    <div id="reviews-list">
+                        <div class="empty-state">
+                            <span class="empty-icon">⭐</span>
+                            <p>You haven't written any reviews yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="section-profile" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Profile Settings</h1>
+                    <p>Manage your account information</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h2>Personal Information</h2>
+                    <form id="profile-form" onsubmit="updateProfile(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="profile-firstname" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="profile-lastname" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="profile-email" disabled>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="profile-phone" placeholder="+91">
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <div class="dashboard-card">
+                    <h2>Change Password</h2>
+                    <form id="password-form" onsubmit="changePassword(event)">
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="current-password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>New Password (minimum 6 characters)</label>
+                            <input type="password" id="new-password" minlength="6" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="confirm-password" minlength="6" required>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Wishlist Section -->
+            <section id="section-wishlist" class="dashboard-section">
+                <div class="section-header">
+                    <h1>My Wishlist</h1>
+                    <p>Your favorite products</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div id="wishlist-grid" class="product-grid">
+                        <div class="empty-state">
+                            <span class="empty-icon">❤️</span>
+                            <p>Your wishlist is empty</p>
+                            <a href="/" class="btn-primary">Browse Products</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Addresses Section -->
+            <section id="section-addresses" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Saved Addresses</h1>
+                    <p>Manage your delivery addresses</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="addresses-header">
+                        <h2>Your Addresses</h2>
+                        <button class="btn-primary" onclick="showAddAddressModal()">+ Add New Address</button>
+                    </div>
+                    
+                    <div id="addresses-list">
+                        <div class="empty-state">
+                            <span class="empty-icon">📍</span>
+                            <p>No saved addresses</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="marketplace-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/">Shop</a>
+                <a href="/ace-gallery.html">Gallery</a>
+                <a href="/about-us.html">About</a>
+                <a href="/contact-us.html">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Ace#1 Health & Wellness. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="/assets/js/crypto-utils.js"></script>
+    <script src="/assets/js/env-config.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    
+    <script>
+        // Check authentication
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.auth.isLoggedIn()) {
+                window.location.href = '/login.html?redirect=dashboard';
+                return;
+            }
+            
+            loadUserDashboard();
+        });
+
+        // Load dashboard data
+        function loadUserDashboard() {
+            const user = window.auth.getCurrentUser();
+            
+            // Update user info
+            document.getElementById('user-display-name').textContent = user.firstName + ' ' + user.lastName;
+            document.getElementById('user-display-email').textContent = user.email;
+            document.getElementById('welcome-name').textContent = user.firstName;
+            document.getElementById('user-avatar-text').textContent = user.firstName.charAt(0).toUpperCase();
+            
+            // Update profile form
+            document.getElementById('profile-firstname').value = user.firstName || '';
+            document.getElementById('profile-lastname').value = user.lastName || '';
+            document.getElementById('profile-email').value = user.email || '';
+            document.getElementById('profile-phone').value = user.phone || '';
+            
+            // Load stats
+            const orders = window.auth.getOrders();
+            const reviews = window.auth.getUserRatings();
+            
+            document.getElementById('total-orders-count').textContent = orders.length;
+            document.getElementById('total-reviews-count').textContent = reviews.length;
+            
+            // Member since
+            if (user.createdAt) {
+                const date = new Date(user.createdAt);
+                document.getElementById('member-since').textContent = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            }
+            
+            // Load sections
+            loadOrders();
+            loadReviews();
+            loadProducts();
+        }
+
+        // Navigation
+        function showDashboardSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active from nav items
+            document.querySelectorAll('.dashboard-nav .nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById('section-' + sectionName).classList.add('active');
+            
+            // Add active to nav item
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        // Load orders
+        function loadOrders() {
+            const orders = window.auth.getOrders();
+            const ordersList = document.getElementById('orders-list');
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="empty-state">
+                        <span class="empty-icon">📦</span>
+                        <p>No orders yet</p>
+                        <a href="/" class="btn-primary">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            ordersList.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <h3>Order #${order.id}</h3>
+                            <p>${new Date(order.date).toLocaleDateString()}</p>
+                        </div>
+                        <span class="status-badge ${order.status}">${order.status}</span>
+                    </div>
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                <img src="${item.image}" alt="${item.name}">
+                                <div>
+                                    <h4>${item.name}</h4>
+                                    <p>Qty: ${item.quantity} × ₹${item.price.toLocaleString('en-IN')}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-footer">
+                        <div class="order-total">Total: ₹${order.total.toLocaleString('en-IN')}</div>
+                        <button class="btn-secondary" onclick="viewOrder('${order.id}')">View Details</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load reviews
+        function loadReviews() {
+            const reviews = window.auth.getUserRatings();
+            const reviewsList = document.getElementById('reviews-list');
+            
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = `
+                    <div class="empty-state">
+                        <span class="empty-icon">⭐</span>
+                        <p>You haven't written any reviews yet</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            reviewsList.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+                        <span class="review-date">${new Date(review.date).toLocaleDateString()}</span>
+                    </div>
+                    <h4>${review.productId}</h4>
+                    <p>${review.reviewText}</p>
+                </div>
+            `).join('');
+        }
+
+        // Load products for review dropdown
+        async function loadProducts() {
+            try {
+                const response = await fetch('/assets/data/products.json');
+                const products = await response.json();
+                
+                const select = document.getElementById('review-product');
+                select.innerHTML = '<option value="">Choose a product...</option>' +
+                    products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        // Star rating
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.dataset.rating;
+                    document.getElementById('rating-value').value = rating;
+                    
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.textContent = '★';
+                            s.classList.add('active');
+                        } else {
+                            s.textContent = '☆';
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+
+        // Submit review
+        async function submitReview(event) {
+            event.preventDefault();
+            
+            const productId = document.getElementById('review-product').value;
+            const rating = parseInt(document.getElementById('rating-value').value);
+            const reviewText = document.getElementById('review-text').value;
+            
+            const result = await window.auth.addRating(productId, rating, reviewText);
+            
+            if (result.success) {
+                alert('✅ Review submitted successfully!');
+                document.getElementById('review-form').reset();
+                document.querySelectorAll('.star').forEach(s => {
+                    s.textContent = '☆';
+                    s.classList.remove('active');
+                });
+                loadReviews();
+                loadUserDashboard();
+            } else {
+                alert('❌ ' + result.message);
+            }
+        }
+
+        // Update profile
+        async function updateProfile(event) {
+            event.preventDefault();
+            
+            const updates = {
+                firstName: document.getElementById('profile-firstname').value,
+                lastName: document.getElementById('profile-lastname').value,
+                phone: document.getElementById('profile-phone').value
+            };
+            
+            const result = await window.auth.updateProfile(updates);
+            
+            if (result.success) {
+                alert('✅ Profile updated successfully!');
+                loadUserDashboard();
+            } else {
+                alert('❌ ' + result.message);
+            }
+        }
+
+        // Change password
+        async function changePassword(event) {
+            event.preventDefault();
+            
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (newPassword !== confirmPassword) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+            
+            alert('⚠️ Password change feature coming soon!');
+            document.getElementById('password-form').reset();
+        }
+
+        // Logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.auth.logout();
+            }
+        }
+
+        // Filter orders
+        function filterOrders(status) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Filter logic here
+        }
+
+        // View order details
+        function viewOrder(orderId) {
+            alert('Order details for: ' + orderId);
+        }
+
+        // Add address modal
+        function showAddAddressModal() {
+            alert('Add address feature coming soon!');
+        }
+    </script>
+</body>
+</html>

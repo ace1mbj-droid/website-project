@@ -1,0 +1,63 @@
+<!-- Lifestyle Bold Navigation -->
+<nav class="navbar">
+    <div class="nav-content">
+        <div class="logo" onclick="window.location.href='/'">ACE<span class="logo-accent">#1</span></div>
+        <div class="nav-menu">
+            <a href="/" class="nav-item">Shop</a>
+            <a href="/ace-gallery.html" class="nav-item">Lifestyle</a>
+            <a href="/about-us.html" class="nav-item">About</a>
+            <a href="/contact-us.html" class="nav-item">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="toggleSearch()" title="Search">🔍</button>
+            <button class="icon-btn" onclick="toggleWishlist()" title="Wishlist">❤️</button>
+            <a href="/cart.html" class="icon-btn cart-btn" title="Cart">
+                🛒
+                <span class="badge cart-count" style="display: none;">0</span>
+            </a>
+            <button class="btn-primary" onclick="handleJoinUs()">Join Us</button>
+        </div>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu" style="display: none;">
+    <div class="mobile-menu-content">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">×</button>
+        <a href="/" class="mobile-nav-item">Shop</a>
+        <a href="/ace-gallery.html" class="mobile-nav-item">Lifestyle</a>
+        <a href="/about-us.html" class="mobile-nav-item">About</a>
+        <a href="/contact-us.html" class="mobile-nav-item">Contact</a>
+        <a href="/cart.html" class="mobile-nav-item">Cart</a>
+        <a href="/login.html" class="mobile-nav-item">Login</a>
+    </div>
+</div>
+
+<script>
+function handleJoinUs() {
+    const isLoggedIn = localStorage.getItem('authToken');
+    if (isLoggedIn) {
+        window.location.href = '/user-dashboard.html';
+    } else {
+        window.location.href = '/register.html';
+    }
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleSearch() {
+    // Implement search functionality
+    const searchTerm = prompt('What are you looking for?');
+    if (searchTerm) {
+        window.location.href = `/shop.html?search=${encodeURIComponent(searchTerm)}`;
+    }
+}
+
+function toggleWishlist() {
+    window.location.href = '/user-dashboard.html#wishlist';
+}
+</script>

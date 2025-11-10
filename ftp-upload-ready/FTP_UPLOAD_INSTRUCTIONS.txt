@@ -1,0 +1,193 @@
+========================================
+ACE#1 WEBSITE - FTP UPLOAD INSTRUCTIONS
+========================================
+
+📦 FOLDER STRUCTURE
+All files in this folder should be uploaded to your root web directory.
+
+🚀 UPLOAD STEPS (Using FileZilla):
+
+1. CONNECT TO YOUR SERVER
+   - Open FileZilla
+   - Host: Your FTP server address
+   - Username: Your FTP username
+   - Password: Your FTP password
+   - Port: 21 (or 22 for SFTP)
+   - Click "Quickconnect"
+
+2. UPLOAD FILES
+   - Left panel: Navigate to FTP-UPLOAD folder on your computer
+   - Right panel: Should show your server's root directory
+   - Select ALL files in FTP-UPLOAD (Cmd+A)
+   - Drag to right panel to upload
+   - OR: Right-click → Upload
+
+3. VERIFY UPLOAD
+   - All files should appear in your server's root directory
+   - Check file count: Should have ~55 files
+   - Key folders: assets/, templates/
+
+4. SET FILE PERMISSIONS
+   - Directories: 755 (drwxr-xr-x)
+   - Files: 644 (-rw-r--r--)
+   - Right-click folder → File Attributes → Set to 755
+   - In FileZilla: Right-click → File permissions
+
+📁 FOLDER STRUCTURE AFTER UPLOAD:
+
+/
+├── assets/
+│   ├── css/
+│   ├── data/
+│   ├── images/
+│   ├── js/
+│   └── fonts/
+├── templates/
+│   ├── header.html
+│   └── footer.html
+├── *.html files (index.html, about-us.html, etc.)
+├── contact-handler.php (if needed)
+├── manifest.webmanifest
+├── sw.js (service worker)
+└── .htaccess (if applicable)
+
+🔧 IMPORTANT FILES
+
+index.html - Homepage (Step Up Health)
+about-us.html - About page
+contact-us.html - Contact form
+ace-gallery.html - Gallery with videos
+admin-panel.html - Admin dashboard
+profile.html - User profile with ratings
+login.html - Login page
+register.html - Registration page
+shop.html - Product shop (formerly Marketplace)
+cart.html - Shopping cart
+checkout.html - Checkout page
+
+📁 ASSETS DIRECTORY
+
+/assets/css/
+- marketplace-theme.css (main styling)
+
+/assets/js/
+- config.js (configuration)
+- auth.js (authentication & ratings system)
+- cart.js (shopping cart)
+- marketplace.js (product display)
+- crypto-utils.js (encryption)
+- env-config.js (environment config)
+
+/assets/data/
+- products.json (all products with images)
+
+/assets/images/
+- product-1.jpg through product-6.png (product images)
+
+✅ WHAT'S INCLUDED
+
+✓ Step Up Health hero section
+✓ Functional Shoes product section with square images
+✓ YouTube video gallery (3 videos)
+✓ User rating system
+✓ Admin panel with image editing
+✓ Modern marketplace theme
+✓ All product images (6 high-quality photos)
+✓ Contact form
+✓ User authentication & profiles
+✓ Shopping cart & checkout
+✓ Service worker for offline access
+✓ PWA manifest
+
+⚠️ WHAT'S NOT INCLUDED (SENSITIVE FILES)
+
+- .env files
+- ADMIN_CREDENTIALS.md
+- .backup files
+- Documentation files
+- .gitignore
+
+These should be kept locally and NOT uploaded to server.
+
+🔑 ADMIN ACCESS
+
+After upload, login at:
+URL: yourdomain.com/login.html
+Email: hello@ace1.in
+Password: [Contact administrator]
+
+Admin Panel: yourdomain.com/admin-panel.html
+
+🛒 SHOP FEATURES
+
+- Square product card images
+- Star ratings (1-5 stars)
+- User reviews (10+ character minimum)
+- Add to cart functionality
+- Checkout with multiple payment options
+- UPI payment integration
+- Search & filter
+- Responsive design
+
+📞 CONTACT INFO
+
+Phone: 9167575028
+Email: hello@ace1.in
+UPI: paytmqr5na93v@ptys
+
+🎥 VIDEO GALLERY
+
+3 YouTube videos embedded:
+1. Fleet Series Product Demo
+2. Wellness Collection Overview
+3. Customer Testimonials
+
+💳 PAYMENT METHODS
+
+1. UPI (Google Pay, PhonePe, Paytm)
+2. Bank Transfer (Details in checkout)
+3. Debit/Credit Card
+4. Cash on Delivery (COD)
+
+🔒 SECURITY FEATURES
+
+- AES-256 encryption
+- SHA-256 password hashing
+- PBKDF2 with 100,000 iterations
+- Rate limiting
+- Account lockout after failed attempts
+- XSS/CSRF protection
+- Secure session management
+
+📊 PERFORMANCE
+
+- Lazy loading images
+- Service worker caching
+- PWA support
+- Mobile responsive
+- Fast load times
+
+✨ FINAL CHECKLIST
+
+Before going live:
+☐ Upload all files via FTP
+☐ Set correct permissions (755 for dirs, 644 for files)
+☐ Test homepage loads correctly
+☐ Test product pages display with images
+☐ Test admin login
+☐ Test shopping cart
+☐ Test checkout
+☐ Test contact form
+☐ Check mobile responsiveness
+☐ Verify SSL certificate (https://)
+☐ Test ratings system
+☐ Test video gallery
+
+🎉 YOU'RE READY!
+
+Your Ace#1 website is production-ready!
+
+For support or issues, contact: hello@ace1.in
+
+Last Updated: November 10, 2025
+Version: 1.0

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Athletic - Ace#1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+            color: #000;
+            background: #fff;
+        }
+
+        /* Header - Bold Puma Style */
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffcc00;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .nav-icons span {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .nav-icons span:hover {
+            transform: scale(1.2);
+        }
+
+        /* Hero - Split Screen */
+        .hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 90vh;
+        }
+
+        .hero-left {
+            background: #ffcc00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .hero-content {
+            max-width: 500px;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .hero-right {
+            background: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800') center/cover;
+        }
+
+        .cta-large {
+            padding: 1.25rem 3rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            font-weight: 900;
+            font-size: 1.25rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .cta-large:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
+
+        /* Featured Banner */
+        .featured-banner {
+            background: #000;
+            color: #fff;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .featured-banner h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .featured-banner p {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Products - Bold Grid */
+        .products {
+            max-width: 1600px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .products-header {
+            margin-bottom: 3rem;
+        }
+
+        .products-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+        }
+
+        .products-subtitle {
+            font-size: 1.25rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .product-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .product-image-container {
+            position: relative;
+            background: #f5f5f5;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-item:hover .product-image-container img {
+            transform: scale(1.1);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: #ffcc00;
+            color: #000;
+            padding: 0.75rem 1.5rem;
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quick-add {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #000;
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .product-item:hover .quick-add {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .quick-add:hover {
+            background: #ffcc00;
+            color: #000;
+        }
+
+        .product-details {
+            padding: 1.5rem 0;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        /* Lifestyle Section */
+        .lifestyle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin: 4rem 0;
+        }
+
+        .lifestyle-item {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lifestyle-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .lifestyle-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .lifestyle-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: #fff;
+        }
+
+        .lifestyle-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .lifestyle-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ffcc00;
+            color: #000;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .lifestyle-cta:hover {
+            background: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-bottom {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #666;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-split {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .hero-left {
+                padding: 3rem 2rem;
+            }
+
+            .hero-right {
+                height: 400px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lifestyle {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .products-title {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">ACE#1</a>
+            
+            <div class="nav-links">
+                <a href="#">Men</a>
+                <a href="#">Women</a>
+                <a href="#">Kids</a>
+                <a href="#">Sports</a>
+                <a href="#">Sale</a>
+            </div>
+
+            <div class="nav-icons">
+                <span>🔍</span>
+                <span>❤️</span>
+                <span>🛒</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Split -->
+    <section class="hero-split">
+        <div class="hero-left">
+            <div class="hero-content">
+                <h1>FOREVER FASTER</h1>
+                <p>Discover the latest collection designed for peak performance and style</p>
+                <button class="cta-large">Shop Now</button>
+            </div>
+        </div>
+        <div class="hero-right"></div>
+    </section>
+
+    <!-- Featured Banner -->
+    <section class="featured-banner">
+        <h2>NEW ARRIVALS</h2>
+        <p>The latest drops from our premium collection</p>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+        <div class="products-header">
+            <h2 class="products-title">TRENDING NOW</h2>
+            <p class="products-subtitle">The most wanted styles of the season</p>
+        </div>
+
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-item">
+                <div class="product-image-container">
+                    <span class="product-tag">NEW</span>
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" alt="Product">
+                    <button class="quick-add">Quick Add</button>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Speed Runner Pro</div>
+                    <div class="product-desc">Men's Running Shoes</div>
+                    <div class="product-price">₹12,999</div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-item">
+                <div class="product-image-container">
+                    <span class="product-tag" style="background: #000; color: #ffcc00">HOT</span>
+                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600" alt="Product">
+                    <button class="quick-add">Quick Add</button>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Performance Tee</div>
+                    <div class="product-desc">Training Apparel</div>
+                    <div class="product-price">₹2,999</div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-item">
+                <div class="product-image-container">
+                    <span class="product-tag" style="background: #ff0000; color: #fff">SALE</span>
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600" alt="Product">
+                    <button class="quick-add">Quick Add</button>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Ultra Boost</div>
+                    <div class="product-desc">Running Collection</div>
+                    <div class="product-price">₹14,999</div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-item">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600" alt="Product">
+                    <button class="quick-add">Quick Add</button>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Training Shorts</div>
+                    <div class="product-desc">Men's Fitness</div>
+                    <div class="product-price">₹3,499</div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-item">
+                <div class="product-image-container">
+                    <span class="product-tag">NEW</span>
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600" alt="Product">
+                    <button class="quick-add">Quick Add</button>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Classic Sneakers</div>
+                    <div class="product-desc">Lifestyle</div>
+                    <div class="product-price">₹8,999</div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-item">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=600" alt="Product">
+                    <button class="quick-add">Quick Add</button>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Sport Watch</div>
+                    <div class="product-desc">Accessories</div>
+                    <div class="product-price">₹15,999</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifestyle Grid -->
+    <section class="lifestyle">
+        <div class="lifestyle-item">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800" alt="Lifestyle">
+            <div class="lifestyle-overlay">
+                <div class="lifestyle-title">TRAIN HARD</div>
+                <a href="#" class="lifestyle-cta">Explore Training</a>
+            </div>
+        </div>
+        <div class="lifestyle-item">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800" alt="Lifestyle">
+            <div class="lifestyle-overlay">
+                <div class="lifestyle-title">RUN FREE</div>
+                <a href="#" class="lifestyle-cta">Explore Running</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Products</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Shoes</a></li>
+                    <li><a href="#">Clothing</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Sale</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Sports</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Running</a></li>
+                    <li><a href="#">Training</a></li>
+                    <li><a href="#">Basketball</a></li>
+                    <li><a href="#">Football</a></li>
+                    <li><a href="#">Lifestyle</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ACE#1. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Quick add functionality
+        document.querySelectorAll('.quick-add').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.textContent = 'ADDED ✓';
+                this.style.background = '#00cc00';
+                setTimeout(() => {
+                    this.textContent = 'Quick Add';
+                    this.style.background = '#000';
+                }, 2000);
+            });
+        });
+
+        // Product click
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('quick-add')) {
+                    console.log('Product details');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

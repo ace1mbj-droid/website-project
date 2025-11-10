@@ -1,0 +1,91 @@
+╔════════════════════════════════════════════════════════════╗
+║              DEPLOYMENT CHECKLIST                          ║
+╚════════════════════════════════════════════════════════════╝
+
+PRE-DEPLOYMENT
+□ Test everything locally
+□ Run all tests: ./test-all.sh
+□ Backup current production (if updating)
+□ Generate new JWT secrets
+□ Generate new encryption key (32 chars)
+□ Update Paytm to production credentials
+□ Configure production email SMTP
+
+UPLOAD FILES
+□ Upload public_html/ to web root
+□ Upload backend/ outside public_html
+□ Verify .htaccess is uploaded
+□ Check file permissions (644 for files, 755 for dirs)
+
+BACKEND SETUP
+□ SSH into server
+□ Navigate to backend directory
+□ Run: npm install --production
+□ Copy .env.production to .env
+□ Edit .env with production values
+□ Run: node scripts/setup-database.js
+□ Run: node migrations/run.js up
+□ Test: node scripts/test-connection.js
+□ Start: npm start (or PM2)
+
+FRONTEND CONFIGURATION
+□ Update API URLs in JavaScript files
+□ Change localhost:3000 to production domain
+□ Test all pages load
+□ Verify images load
+□ Check console for errors
+
+SECURITY
+□ Enable HTTPS (SSL certificate)
+□ Test security headers
+□ Verify .htaccess working
+□ Test rate limiting
+□ Check CORS settings
+□ Verify authentication works
+□ Test admin panel access
+
+DATABASE
+□ Create production database
+□ Run all migrations
+□ Verify all tables created
+□ Test database connection
+□ Setup automated backups
+
+TESTING
+□ Test user registration
+□ Test user login
+□ Test product browsing
+□ Test add to cart
+□ Test checkout process
+□ Test payment (with test mode first!)
+□ Test admin dashboard
+□ Test order management
+□ Test email notifications
+
+POST-DEPLOYMENT
+□ Monitor error logs
+□ Check server resources
+□ Verify backups running
+□ Test from different devices
+□ Test from different browsers
+□ Monitor payment transactions
+□ Check email delivery
+
+MONITORING
+□ Setup uptime monitoring
+□ Configure error alerts
+□ Monitor database performance
+□ Check disk space
+□ Monitor API response times
+□ Review security logs
+
+DOCUMENTATION
+□ Document server details
+□ Save all credentials securely
+□ Document deployment process
+□ Create rollback plan
+□ Update team on changes
+
+═══════════════════════════════════════════════════════════
+                    READY TO DEPLOY!
+═══════════════════════════════════════════════════════════

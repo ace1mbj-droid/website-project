@@ -44,3 +44,7 @@ build/
 tmp/
 temp/
 *.tmp
+
+# Logs
+logs/*.log
+!logs/.gitkeep

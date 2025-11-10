@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="300" height="80">
+  <!-- Horizontal logo for light backgrounds (transparent) -->
+  
+  <!-- ACE Text -->
+  <text x="20" y="55" font-family="Arial Black, sans-serif" font-size="48" font-weight="900" fill="#000" letter-spacing="3">
+    ACE
+  </text>
+  
+  <!-- #1 Badge -->
+  <circle cx="230" cy="40" r="30" fill="#FFD700" stroke="#000" stroke-width="2"/>
+  <text x="230" y="52" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" fill="#000" text-anchor="middle">
+    #1
+  </text>
+  
+  <!-- Accent line -->
+  <line x1="150" y1="40" x2="190" y2="40" stroke="#FFD700" stroke-width="4" stroke-linecap="round"/>
+</svg>

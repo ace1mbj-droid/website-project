@@ -1,0 +1,5 @@
+# Don't commit FTP upload directory to git
+*
+!.gitignore
+!README.md
+!DEPLOYMENT_CHECKLIST.txt

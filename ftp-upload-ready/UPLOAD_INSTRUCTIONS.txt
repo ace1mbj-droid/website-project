@@ -1,0 +1,111 @@
+═══════════════════════════════════════════════════════════
+  📦 ACE#1 WEBSITE - FTP UPLOAD INSTRUCTIONS
+═══════════════════════════════════════════════════════════
+
+🎯 WHAT TO DO:
+
+1. Connect to your FTP server using:
+   - FileZilla (recommended)
+   - WinSCP
+   - Cyberduck
+   - Or any FTP client
+
+2. Navigate to your web root directory:
+   - Usually: public_html/
+   - Or: www/
+   - Or: htdocs/
+
+3. Upload ALL files from THIS folder to your web root
+
+4. Visit your domain to see the new design!
+
+═══════════════════════════════════════════════════════════
+
+📁 FOLDER STRUCTURE:
+
+This folder contains:
+✅ 7 Updated HTML pages (index, shop, about, contact, cart, login, register)
+✅ Design system (marketplace-templates/)
+✅ All assets (css, js, images)
+✅ Templates (nav, footer)
+✅ Other pages (checkout, product-detail, etc.)
+
+═══════════════════════════════════════════════════════════
+
+🚀 QUICK UPLOAD STEPS:
+
+FileZilla:
+1. File → Site Manager → New Site
+2. Enter your FTP details
+3. Connect
+4. Drag ALL files from this folder to /public_html/
+5. Wait for upload to complete
+
+WinSCP:
+1. New Session → Enter FTP details
+2. Login
+3. Navigate to /public_html/
+4. Drag ALL files from left panel to right panel
+5. Wait for upload
+
+═══════════════════════════════════════════════════════════
+
+✅ AFTER UPLOAD:
+
+1. Visit: https://yourdomain.com
+2. Check homepage has new design
+3. Test navigation works
+4. Verify shop page loads
+5. Test cart functionality
+6. Check mobile responsive
+
+═══════════════════════════════════════════════════════════
+
+📊 UPLOAD INFO:
+
+Total Files: ~50-100 files
+Total Size: ~15-25 MB
+Upload Time: 2-10 minutes (depending on connection)
+
+═══════════════════════════════════════════════════════════
+
+🔧 FILE PERMISSIONS:
+
+After upload, set:
+- Folders: 755
+- Files: 644
+
+Most FTP clients do this automatically.
+
+═══════════════════════════════════════════════════════════
+
+❓ TROUBLESHOOTING:
+
+CSS not loading?
+→ Check marketplace-templates/ folder uploaded
+→ Clear browser cache
+
+Images not showing?
+→ Check assets/images/ folder uploaded
+→ Verify file permissions
+
+404 errors?
+→ Check .htaccess file uploaded
+→ Verify you're in correct directory
+
+═══════════════════════════════════════════════════════════
+
+📞 NEED HELP?
+
+Check these files in your project:
+- FTP_UPLOAD_PACKAGE.md (detailed guide)
+- DEPLOYMENT_READY.md (deployment steps)
+- COMPLETE_DEPLOYMENT_PLAN.md (full plan)
+
+═══════════════════════════════════════════════════════════
+
+🎉 YOU'RE READY TO GO LIVE!
+
+Upload these files and your modern website will be live!
+
+═══════════════════════════════════════════════════════════

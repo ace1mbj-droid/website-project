@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Ace#1</title>
+    <link rel="stylesheet" href="/assets/css/marketplace.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <header style="background: #2c3e50; color: white; padding: 20px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1 style="margin: 0; font-size: 24px;"><a href="/" style="color: white; text-decoration: none;">Ace#1</a></h1>
+        </div>
+    </header>
+
+    <div class="checkout-container">
+        <!-- DEMO MODE WARNING -->
+        <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa07a 100%); border: 3px solid #ff4444; padding: 20px; margin: 0 0 30px 0; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h2 style="margin: 0 0 10px 0; color: white; font-size: 24px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 32px;">⚠️</span> DEMO MODE - TEST ONLY
+            </h2>
+            <p style="margin: 0; color: white; font-size: 16px; line-height: 1.5;">
+                <strong>This is a demonstration website.</strong> Payment processing is not fully implemented. 
+                DO NOT enter real payment information. For testing purposes only.
+            </p>
+            <p style="margin: 10px 0 0 0; color: white; font-size: 14px; opacity: 0.9;">
+                💡 To place a real order, please contact us at <strong>hello@ace1.in</strong> or call <strong>9167575028</strong>
+            </p>
+        </div>
+        
+        <h1 style="margin-bottom: 40px;">Checkout</h1>
+        
+        <div class="checkout-grid">
+            <div>
+                <div class="checkout-section">
+                    <h2>Shipping Information</h2>
+                    <form id="checkout-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" id="ship-firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" id="ship-lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="ship-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone *</label>
+                            <input type="tel" id="ship-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address *</label>
+                            <input type="text" id="ship-address" required placeholder="Street address">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>City *</label>
+                                <input type="text" id="ship-city" required>
+                            </div>
+                            <div class="form-group">
+                                <label>State *</label>
+                                <input type="text" id="ship-state" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>ZIP Code *</label>
+                                <input type="text" id="ship-zip" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Country *</label>
+                                <input type="text" id="ship-country" value="USA" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="checkout-section">
+                    <h2>Shipping Method</h2>
+                    <div class="payment-methods">
+                        <label class="payment-method selected" style="cursor: pointer;">
+                            <input type="radio" name="shipping" value="standard" checked style="margin-right: 10px;">
+                            <div>
+                                <strong id="standard-shipping-name">Standard Shipping</strong>
+                                <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;" id="standard-shipping-details">5-7 business days - ₹99</p>
+                            </div>
+                        </label>
+                        <label class="payment-method" style="cursor: pointer;">
+                            <input type="radio" name="shipping" value="express" style="margin-right: 10px;">
+                            <div>
+                                <strong id="express-shipping-name">Express Shipping</strong>
+                                <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;" id="express-shipping-details">2-3 business days - ₹199</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h2>Payment Method</h2>
+                    <div class="payment-methods" style="margin-bottom: 20px;">
+                        <label class="payment-method selected" style="cursor: pointer;">
+                            <input type="radio" name="payment" value="card" checked style="margin-right: 10px;">
+                            <div>
+                                <strong>💳 Credit/Debit Card</strong>
+                                <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Pay securely with Visa, Mastercard, or RuPay</p>
+                            </div>
+                        </label>
+                        <label class="payment-method" style="cursor: pointer;">
+                            <input type="radio" name="payment" value="upi" style="margin-right: 10px;">
+                            <div>
+                                <strong>📱 UPI / Wallet</strong>
+                                <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Pay via UPI, PhonePe, Google Pay, Paytm</p>
+                            </div>
+                        </label>
+                        <label class="payment-method" style="cursor: pointer;">
+                            <input type="radio" name="payment" value="bank" style="margin-right: 10px;">
+                            <div>
+                                <strong>🏦 Bank Transfer</strong>
+                                <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Direct bank transfer (NEFT/RTGS/IMPS)</p>
+                            </div>
+                        </label>
+                        <label class="payment-method" style="cursor: pointer;">
+                            <input type="radio" name="payment" value="cod" style="margin-right: 10px;">
+                            <div>
+                                <strong>💵 Cash on Delivery</strong>
+                                <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Pay when you receive your order</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Card Payment Details -->
+                    <div id="card-payment" class="payment-details">
+                        <div id="card-element"></div>
+                        <div id="card-errors" style="color: #ff4444; margin-top: 10px;"></div>
+                        <p style="margin-top: 15px; font-size: 14px; color: #666;">
+                            🔒 Your payment information is secure and encrypted.
+                        </p>
+                    </div>
+
+                    <!-- UPI Payment Details -->
+                    <div id="upi-payment" class="payment-details" style="display: none;">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px dashed #667eea;">
+                            <h3 style="margin: 0 0 15px 0;">📱 UPI Payment Details</h3>
+                            <div style="margin-bottom: 15px;">
+                                <strong>UPI ID:</strong>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                    <code id="upi-id" style="background: white; padding: 8px 12px; border-radius: 4px; flex: 1;"></code>
+                                    <button onclick="copyToClipboard('upi-id')" style="padding: 8px 12px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">Copy</button>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong>Phone Number:</strong>
+                                <div style="background: white; padding: 8px 12px; border-radius: 4px; margin-top: 5px;" id="upi-phone"></div>
+                            </div>
+                            <div style="background: #fff3cd; padding: 12px; border-radius: 4px; border-left: 4px solid #ffc107;">
+                                <p style="margin: 0; font-size: 14px;" id="upi-instructions"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank Transfer Details -->
+                    <div id="bank-payment" class="payment-details" style="display: none;">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px dashed #28a745;">
+                            <h3 style="margin: 0 0 15px 0;">🏦 Bank Account Details</h3>
+                            <div style="display: grid; gap: 12px;">
+                                <div>
+                                    <strong>Bank Name:</strong>
+                                    <div style="background: white; padding: 8px 12px; border-radius: 4px; margin-top: 5px;" id="bank-name"></div>
+                                </div>
+                                <div>
+                                    <strong>Account Holder:</strong>
+                                    <div style="background: white; padding: 8px 12px; border-radius: 4px; margin-top: 5px;" id="bank-holder"></div>
+                                </div>
+                                <div>
+                                    <strong>Account Number:</strong>
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                        <code id="bank-account" style="background: white; padding: 8px 12px; border-radius: 4px; flex: 1;"></code>
+                                        <button onclick="copyToClipboard('bank-account')" style="padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Copy</button>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div>
+                                        <strong>IFSC Code:</strong>
+                                        <div style="background: white; padding: 8px 12px; border-radius: 4px; margin-top: 5px; font-family: monospace;" id="bank-ifsc"></div>
+                                    </div>
+                                    <div>
+                                        <strong>Account Type:</strong>
+                                        <div style="background: white; padding: 8px 12px; border-radius: 4px; margin-top: 5px;" id="bank-type"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Branch:</strong>
+                                    <div style="background: white; padding: 8px 12px; border-radius: 4px; margin-top: 5px;" id="bank-branch"></div>
+                                </div>
+                            </div>
+                            <div style="background: #d1ecf1; padding: 12px; border-radius: 4px; border-left: 4px solid #17a2b8; margin-top: 15px;">
+                                <p style="margin: 0; font-size: 14px;" id="bank-instructions"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COD Notice -->
+                    <div id="cod-payment" class="payment-details" style="display: none;">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px dashed #ffc107;">
+                            <h3 style="margin: 0 0 15px 0;">💵 Cash on Delivery</h3>
+                            <p style="margin: 0; font-size: 14px;">You can pay in cash when your order is delivered to your doorstep.</p>
+                            <div style="background: #fff3cd; padding: 12px; border-radius: 4px; border-left: 4px solid #ffc107; margin-top: 15px;">
+                                <p style="margin: 0; font-size: 13px;">⚠️ Please keep exact change ready. COD orders may take longer to process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="order-items"></div>
+                <hr style="margin: 20px 0;">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="summary-subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="summary-shipping">₹99</span>
+                </div>
+                <div class="summary-row">
+                    <span>GST (18%):</span>
+                    <span id="summary-tax">₹0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="summary-total">₹0</span>
+                </div>
+                <button class="place-order-btn" onclick="handleCheckout()">Place Order</button>
+                <p style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
+                    By placing this order, you agree to our Terms & Conditions
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script>
+        // Require authentication
+        if (!window.auth.requireAuth('/login.html?redirect=checkout')) {
+            // Will redirect if not logged in
+        }
+
+        // Initialize Stripe
+        const stripe = Stripe(CONFIG.stripe.publishableKey);
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#32325d',
+                    '::placeholder': {
+                        color: '#aab7c4'
+                    }
+                }
+            }
+        });
+        cardElement.mount('#card-element');
+
+        // Pre-fill form with user data
+        const user = window.auth.getCurrentUser();
+        if (user) {
+            document.getElementById('ship-firstName').value = user.firstName || '';
+            document.getElementById('ship-lastName').value = user.lastName || '';
+            document.getElementById('ship-email').value = user.email || '';
+            document.getElementById('ship-phone').value = user.phone || '';
+        }
+
+        // Populate payment details from config
+        if (CONFIG.bankAccount && CONFIG.bankAccount.enabled) {
+            document.getElementById('bank-name').textContent = CONFIG.bankAccount.bankName;
+            document.getElementById('bank-holder').textContent = CONFIG.bankAccount.accountHolder;
+            document.getElementById('bank-account').textContent = CONFIG.bankAccount.accountNumber;
+            document.getElementById('bank-ifsc').textContent = CONFIG.bankAccount.ifscCode;
+            document.getElementById('bank-type').textContent = CONFIG.bankAccount.accountType;
+            document.getElementById('bank-branch').textContent = CONFIG.bankAccount.branch;
+            document.getElementById('bank-instructions').textContent = CONFIG.bankAccount.instructions;
+        }
+
+        if (CONFIG.upi && CONFIG.upi.enabled) {
+            document.getElementById('upi-id').textContent = CONFIG.upi.upiId;
+            document.getElementById('upi-phone').textContent = CONFIG.upi.phoneNumber;
+            document.getElementById('upi-instructions').textContent = CONFIG.upi.instructions;
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.style.background = '#28a745';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Handle payment method selection
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Update selected style
+                document.querySelectorAll('label.payment-method').forEach(label => {
+                    if (label.querySelector('input[name="payment"]') === this) {
+                        label.classList.add('selected');
+                    } else {
+                        label.classList.remove('selected');
+                    }
+                });
+
+                // Show/hide payment details
+                document.querySelectorAll('.payment-details').forEach(div => {
+                    div.style.display = 'none';
+                });
+
+                const paymentMethod = this.value;
+                if (paymentMethod === 'card') {
+                    document.getElementById('card-payment').style.display = 'block';
+                } else if (paymentMethod === 'upi') {
+                    document.getElementById('upi-payment').style.display = 'block';
+                } else if (paymentMethod === 'bank') {
+                    document.getElementById('bank-payment').style.display = 'block';
+                } else if (paymentMethod === 'cod') {
+                    document.getElementById('cod-payment').style.display = 'block';
+                }
+            });
+        });
+
+        // Update shipping labels from config
+        document.getElementById('standard-shipping-name').textContent = CONFIG.shipping.standard.name;
+        document.getElementById('standard-shipping-details').textContent = `${CONFIG.shipping.standard.days} - ₹${Math.round(CONFIG.shipping.standard.price).toLocaleString('en-IN')}`;
+        document.getElementById('express-shipping-name').textContent = CONFIG.shipping.express.name;
+        document.getElementById('express-shipping-details').textContent = `${CONFIG.shipping.express.days} - ₹${Math.round(CONFIG.shipping.express.price).toLocaleString('en-IN')}`;
+
+        // Render order summary
+        function renderOrderSummary() {
+            const cartItems = window.cart.getItems();
+            const subtotal = window.cart.getTotal();
+            
+            const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
+            const shipping = shippingMethod === 'express' ? CONFIG.shipping.express.price : CONFIG.shipping.standard.price;
+            const tax = subtotal * CONFIG.tax.rate;
+            const total = subtotal + shipping + tax;
+
+            document.getElementById('order-items').innerHTML = cartItems.map(item => `
+                <div class="order-item">
+                    <img src="${item.image}" alt="${item.name}" class="order-item-image"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23f5f5f5%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'">
+                    <div class="order-item-details">
+                        <h4>${item.name}</h4>
+                        <p>Qty: ${item.quantity} × ₹${item.price.toLocaleString('en-IN')}</p>
+                    </div>
+                    <div style="font-weight: 600;">₹${(item.price * item.quantity).toLocaleString('en-IN')}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('summary-subtotal').textContent = '₹' + Math.round(subtotal).toLocaleString('en-IN');
+            document.getElementById('summary-shipping').textContent = '₹' + Math.round(shipping).toLocaleString('en-IN');
+            document.getElementById('summary-tax').textContent = '₹' + Math.round(tax).toLocaleString('en-IN');
+            document.getElementById('summary-total').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
+        }
+
+        // Listen for shipping method changes
+        document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                this.closest('.payment-method').classList.add('selected');
+                renderOrderSummary();
+            });
+        });
+
+        // Handle checkout
+        async function handleCheckout() {
+            const form = document.getElementById('checkout-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const button = event.target;
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+
+            // Compute order details first
+            const cartItems = window.cart.getItems();
+            const subtotal = window.cart.getTotal();
+            const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
+            const shipping = shippingMethod === 'express' ? CONFIG.shipping.express.price : CONFIG.shipping.standard.price;
+            const tax = subtotal * CONFIG.tax.rate;
+            const total = subtotal + shipping + tax;
+
+            try {
+                // Server-side Stripe (industry standard) if API is configured
+                if (selectedPayment === 'card' && window.ENV && window.ENV.API_BASE_URL) {
+                    const email = document.getElementById('ship-email').value;
+                    const name = `${document.getElementById('ship-firstName').value} ${document.getElementById('ship-lastName').value}`.trim();
+                    const phone = document.getElementById('ship-phone').value;
+
+                    const resp = await fetch(`${window.ENV.API_BASE_URL}/api/checkout/create-payment-intent`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            amount: Math.round(total * 100),
+                            currency: (CONFIG.currency.code || 'INR').toLowerCase(),
+                            receipt_email: email,
+                            metadata: { orderId: 'ORD-' + Date.now() }
+                        })
+                    });
+                    if (!resp.ok) throw new Error('Failed to initialize payment');
+                    const { clientSecret } = await resp.json();
+
+                    const { error } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: { name, email, phone }
+                        }
+                    });
+                    if (error) {
+                        document.getElementById('card-errors').textContent = error.message || 'Payment failed';
+                        button.disabled = false;
+                        button.textContent = 'Place Order';
+                        return;
+                    }
+                } else if (selectedPayment === 'card') {
+                    // Demo-only fallback (no server) – validates card element
+                    const { error } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
+                    if (error) {
+                        document.getElementById('card-errors').textContent = error.message;
+                        button.disabled = false;
+                        button.textContent = 'Place Order';
+                        return;
+                    }
+                }
+
+                const order = {
+                    id: 'ORD-' + Date.now(),
+                    date: new Date().toISOString(),
+                    items: cartItems,
+                    subtotal,
+                    shipping,
+                    shippingMethod,
+                    tax,
+                    total,
+                    paymentMethod: selectedPayment,
+                    status: selectedPayment === 'cod' ? 'Confirmed - Awaiting Delivery'
+                          : (selectedPayment === 'card' && window.ENV && window.ENV.API_BASE_URL) ? 'Paid - Processing'
+                          : (selectedPayment === 'card' ? 'Processing (Demo)' : 'Awaiting Payment Confirmation'),
+                    shippingAddress: {
+                        firstName: document.getElementById('ship-firstName').value,
+                        lastName: document.getElementById('ship-lastName').value,
+                        email: document.getElementById('ship-email').value,
+                        phone: document.getElementById('ship-phone').value,
+                        address: document.getElementById('ship-address').value,
+                        city: document.getElementById('ship-city').value,
+                        state: document.getElementById('ship-state').value,
+                        zip: document.getElementById('ship-zip').value,
+                        country: document.getElementById('ship-country').value
+                    }
+                };
+
+                // Save order locally (front-end demo persistence)
+                window.auth.addOrder(order);
+                // Clear cart
+                window.cart.clearCart();
+                // Redirect to confirmation
+                window.location.href = '/order-confirmation.html?orderId=' + order.id;
+            } catch (err) {
+                console.error(err);
+                alert('Payment failed. Please try again.');
+                button.disabled = false;
+                button.textContent = 'Place Order';
+            }
+        }
+
+        // Initial render
+        renderOrderSummary();
+
+        // Check if cart is empty
+        if (window.cart.getItemCount() === 0) {
+            alert('Your cart is empty!');
+            window.location.href = '/marketplace.html';
+        }
+    </script>
+</body>
+</html>

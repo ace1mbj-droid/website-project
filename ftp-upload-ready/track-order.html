@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Ace#1</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/assets/css/marketplace-theme.css">
+    <meta name="description" content="Track your order at Ace#1 Health & Wellness">
+    <style>
+        .track-page {
+            background: linear-gradient(180deg, #F7FAFC 0%, #FFFFFF 100%);
+            min-height: calc(100vh - 400px);
+            padding: 60px 0;
+        }
+        
+        .track-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .track-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .track-header h1 {
+            font-size: 40px;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        
+        .track-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        .track-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+        
+        .btn-track {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-track:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+        
+        .order-result {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #F7FAFC;
+            margin-bottom: 32px;
+        }
+        
+        .order-id {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .order-date {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        
+        .order-status-badge {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-processing {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .status-shipped {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+        
+        .status-delivered {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .tracking-timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 40px 0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -40px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #E2E8F0;
+        }
+        
+        .timeline-item.active .timeline-dot {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: -31px;
+            top: 20px;
+            bottom: -40px;
+            width: 2px;
+            background: #E2E8F0;
+        }
+        
+        .timeline-item.active .timeline-line {
+            background: var(--primary-color);
+        }
+        
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+        
+        .timeline-content {
+            background: #F7FAFC;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .timeline-item.active .timeline-content {
+            background: linear-gradient(135deg, #F0F4FF 0%, #E0E7FF 100%);
+        }
+        
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .timeline-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .timeline-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .order-items {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid #F7FAFC;
+        }
+        
+        .order-items-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: #F7FAFC;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .order-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .order-item-details {
+            flex: 1;
+        }
+        
+        .order-item-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .order-item-qty {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .order-item-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .help-section {
+            background: linear-gradient(135deg, #F0F4FF 0%, #E0E7FF 100%);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .help-section h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .help-section p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .help-section a {
+            display: inline-block;
+            padding: 12px 32px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .help-section a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .track-header h1 {
+                font-size: 32px;
+            }
+            
+            .track-form,
+            .order-result {
+                padding: 24px;
+            }
+            
+            .order-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="marketplace-header">
+        <div class="header-container">
+            <a href="/" class="brand-logo">
+                <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 30px; width: auto;">
+            </a>
+            
+            <div class="search-section">
+                <select class="category-dropdown">
+                    <option>All</option>
+                    <option>Health</option>
+                    <option>Wellness</option>
+                    <option>Accessories</option>
+                </select>
+                <input type="text" class="search-bar" placeholder="I'm shopping for...">
+                <button class="search-btn">Search</button>
+            </div>
+            
+            <div class="header-icons">
+                <a href="/cart.html" class="icon-link" title="Shopping Cart">
+                    🛒
+                    <span class="icon-badge cart-count" style="display: none;">0</span>
+                </a>
+                <div class="auth-section">
+                    <span class="auth-link">
+                        <a href="/login.html" class="login-link">Log In<br/>Register</a>
+                    </span>
+                    <span class="user-link" style="display: none;">
+                        <a href="/user-dashboard.html" style="color: inherit; text-decoration: none;">
+                            👤 <span class="user-name"></span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-bar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="/">Shop</a></li>
+                    <li><a href="/ace-gallery.html">Gallery</a></li>
+                    <li><a href="/about-us.html">About</a></li>
+                    <li><a href="/contact-us.html">Contact</a></li>
+                </ul>
+                <div class="nav-right">
+                    <a href="mailto:hello@ace1.in">📧 hello@ace1.in</a>
+                    <span>|</span>
+                    <a href="/track-order.html" style="color: var(--primary-light);">Track Order</a>
+                    <span>|</span>
+                    <a href="#">INR ₹</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Track Order Page -->
+    <div class="track-page">
+        <div class="track-container">
+            <div class="track-header">
+                <h1>Track Your Order</h1>
+                <p>Enter your order ID and email to track your shipment</p>
+            </div>
+
+            <!-- Track Form -->
+            <div class="track-form">
+                <form id="track-form" onsubmit="trackOrder(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="order-id">Order ID</label>
+                        <input type="text" id="order-id" class="form-input" placeholder="e.g., ACE-2025-001234" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-track">Track Order</button>
+                </form>
+            </div>
+
+            <!-- Order Result (Hidden by default) -->
+            <div class="order-result" id="order-result">
+                <div class="order-header">
+                    <div>
+                        <div class="order-id">Order ID: <strong id="result-order-id"></strong></div>
+                        <div class="order-date" id="result-order-date"></div>
+                    </div>
+                    <div class="order-status-badge" id="result-status-badge"></div>
+                </div>
+
+                <!-- Tracking Timeline -->
+                <div class="tracking-timeline" id="tracking-timeline">
+                    <!-- Timeline items will be inserted here -->
+                </div>
+
+                <!-- Order Items -->
+                <div class="order-items">
+                    <h3 class="order-items-title">Order Items</h3>
+                    <div id="order-items-list">
+                        <!-- Order items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <h3>Need Help?</h3>
+                <p>If you have any questions about your order, feel free to contact us</p>
+                <a href="/contact-us.html">Contact Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="marketplace-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/">Shop</a>
+                <a href="/ace-gallery.html">Gallery</a>
+                <a href="/about-us.html">About</a>
+                <a href="/contact-us.html">Contact</a>
+                <a href="/admin.html">Admin</a>
+            </div>
+            <p class="copyright">&copy; 2025 Ace#1 Health & Wellness. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/crypto-utils.js"></script>
+    <script src="/assets/js/env-config.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script>
+        // Demo tracking data
+        const demoOrders = {
+            'ACE-2025-001234': {
+                orderId: 'ACE-2025-001234',
+                date: 'November 8, 2025',
+                status: 'shipped',
+                timeline: [
+                    { title: 'Order Placed', date: 'Nov 8, 2025 - 10:30 AM', description: 'Your order has been received and is being processed', active: true },
+                    { title: 'Order Confirmed', date: 'Nov 8, 2025 - 11:15 AM', description: 'Payment confirmed and order is being prepared', active: true },
+                    { title: 'Shipped', date: 'Nov 9, 2025 - 2:45 PM', description: 'Your order has been shipped via Blue Dart. Tracking: BD123456789', active: true },
+                    { title: 'Out for Delivery', date: 'Expected: Nov 11, 2025', description: 'Your order will be delivered soon', active: false },
+                    { title: 'Delivered', date: 'Pending', description: 'Order will be delivered to your address', active: false }
+                ],
+                items: [
+                    { name: 'Fleet Series - Aqua Blue Runner', qty: 1, price: 9999, image: '/assets/images/product-1.jpg' },
+                    { name: 'Magnetic Therapy Insoles', qty: 2, price: 999, image: '/assets/images/product-3.jpg' }
+                ]
+            }
+        };
+
+        function trackOrder(event) {
+            event.preventDefault();
+            
+            const orderId = document.getElementById('order-id').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            // Check if order exists in demo data
+            const order = demoOrders[orderId];
+            
+            if (!order) {
+                alert('Order not found. Please check your Order ID and try again.\n\nDemo Order ID: ACE-2025-001234');
+                return;
+            }
+            
+            // Display order result
+            displayOrderResult(order);
+        }
+
+        function displayOrderResult(order) {
+            const resultDiv = document.getElementById('order-result');
+            
+            // Update order header
+            document.getElementById('result-order-id').textContent = order.orderId;
+            document.getElementById('result-order-date').textContent = order.date;
+            
+            // Update status badge
+            const statusBadge = document.getElementById('result-status-badge');
+            statusBadge.textContent = order.status.toUpperCase();
+            statusBadge.className = 'order-status-badge status-' + order.status;
+            
+            // Update timeline
+            const timeline = document.getElementById('tracking-timeline');
+            timeline.innerHTML = order.timeline.map((item, index) => `
+                <div class="timeline-item ${item.active ? 'active' : ''}">
+                    <div class="timeline-dot"></div>
+                    ${index < order.timeline.length - 1 ? '<div class="timeline-line"></div>' : ''}
+                    <div class="timeline-content">
+                        <div class="timeline-title">${item.title}</div>
+                        <div class="timeline-date">${item.date}</div>
+                        <div class="timeline-description">${item.description}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update order items
+            const itemsList = document.getElementById('order-items-list');
+            itemsList.innerHTML = order.items.map(item => `
+                <div class="order-item">
+                    <img src="${item.image}" alt="${item.name}" class="order-item-image"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23f7fafc%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'">
+                    <div class="order-item-details">
+                        <div class="order-item-name">${item.name}</div>
+                        <div class="order-item-qty">Quantity: ${item.qty}</div>
+                    </div>
+                    <div class="order-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
+                </div>
+            `).join('');
+            
+            // Show result and scroll to it
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Check URL parameters for order ID
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            
+            if (orderId) {
+                document.getElementById('order-id').value = orderId;
+            }
+        });
+    </script>
+</body>
+</html>

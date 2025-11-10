@@ -58,17 +58,23 @@ cp .env.example .env
 
 ## Database Setup
 
-1. Create database:
+### Quick Setup (Recommended)
+
 ```bash
-mysql -u root -p
-CREATE DATABASE ace1_development;
-CREATE USER 'ace1_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON ace1_development.* TO 'ace1_user'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
+# Run automated setup script
+npm run db:setup
+
+# Test connection
+npm run db:test
 ```
 
-2. Run migrations:
+### Manual Setup
+
+See [DATABASE_SETUP_GUIDE.md](./DATABASE_SETUP_GUIDE.md) for detailed instructions.
+
+### Run Migrations
+
+After database is set up:
 ```bash
 npm run migrate:up
 ```

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Ace#1</title>
+    <link rel="stylesheet" href="/assets/css/marketplace-theme.css">
+    <link rel="stylesheet" href="/assets/css/admin-dashboard.css">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="/assets/images/ace-logo.svg" alt="Ace#1" style="height: 35px;">
+            <h2>Admin Panel</h2>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard')">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#orders" class="nav-item" onclick="showSection('orders')">
+                <span class="nav-icon">🛒</span>
+                <span>Orders</span>
+            </a>
+            <a href="#products" class="nav-item" onclick="showSection('products')">
+                <span class="nav-icon">📦</span>
+                <span>Products</span>
+            </a>
+            <a href="#customers" class="nav-item" onclick="showSection('customers')">
+                <span class="nav-icon">👥</span>
+                <span>Customers</span>
+            </a>
+            <a href="#wallet" class="nav-item" onclick="showSection('wallet')">
+                <span class="nav-icon">💰</span>
+                <span>Wallet</span>
+            </a>
+            <a href="#analytics" class="nav-item" onclick="showSection('analytics')">
+                <span class="nav-icon">📈</span>
+                <span>Analytics</span>
+            </a>
+            <a href="#settings" class="nav-item" onclick="showSection('settings')">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="admin-profile">
+                <div class="admin-avatar">👤</div>
+                <div class="admin-info">
+                    <div class="admin-name" id="admin-name">Admin</div>
+                    <div class="admin-email" id="admin-email">admin@ace1.in</div>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">
+                <span>🚪</span> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title" id="page-title">Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search..." id="admin-search">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <button class="notification-btn">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="content-section active">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">💰</div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-value" id="total-revenue">₹0</div>
+                        <div class="stat-change positive">+12.5% from last month</div>
+                    </div>
+                </div>
+
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🛒</div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Orders</div>
+                        <div class="stat-value" id="total-orders">0</div>
+                        <div class="stat-change positive">+8.2% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Customers</div>
+                        <div class="stat-value" id="total-customers">0</div>
+                        <div class="stat-change positive">+15.3% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">📦</div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Products</div>
+                        <div class="stat-value" id="total-products">12</div>
+                        <div class="stat-change">No change</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Revenue Overview</h3>
+                    <div class="chart-placeholder">
+                        📊 Revenue chart will be displayed here
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>Top Products</h3>
+                    <div class="chart-placeholder">
+                        📈 Top products chart will be displayed here
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Recent Orders</h3>
+                    <div class="table-actions">
+                        <button class="btn-action btn-secondary">Filter</button>
+                        <button class="btn-action">View All</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-orders-table">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-tertiary);">
+                                No orders yet
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- Wallet Section -->
+        <section id="section-wallet" class="content-section">
+            <div class="wallet-header">
+                <div class="wallet-balance">Total Balance</div>
+                <div class="wallet-amount" id="wallet-balance">₹0.00</div>
+                <div class="wallet-actions">
+                    <button class="wallet-btn" onclick="showWithdrawModal()">💸 Withdraw</button>
+                    <button class="wallet-btn" onclick="showAddFundsModal()">➕ Add Funds</button>
+                    <button class="wallet-btn" onclick="showTransferModal()">🔄 Transfer</button>
+                </div>
+            </div>
+
+            <div class="wallet-grid">
+                <div class="wallet-card">
+                    <h3>Recent Transactions</h3>
+                    <div id="transactions-list">
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: rgba(16, 185, 129, 0.1);">
+                                    ✅
+                                </div>
+                                <div class="transaction-details">
+                                    <h4>Payment Received</h4>
+                                    <p>Order #12345 • Today, 10:30 AM</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount credit">+₹7,599</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: rgba(239, 68, 68, 0.1);">
+                                    ❌
+                                </div>
+                                <div class="transaction-details">
+                                    <h4>Refund Processed</h4>
+                                    <p>Order #12344 • Yesterday, 3:45 PM</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount debit">-₹5,999</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: rgba(16, 185, 129, 0.1);">
+                                    ✅
+                                </div>
+                                <div class="transaction-details">
+                                    <h4>Payment Received</h4>
+                                    <p>Order #12343 • 2 days ago</p>
+                                </div>
+                            </div>
+                            <div class="transaction-amount credit">+₹12,999</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wallet-card">
+                    <h3>Quick Stats</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="padding: 16px; background: var(--bg-tertiary); border-radius: 12px;">
+                            <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">This Month</div>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--success-color);">+₹45,000</div>
+                        </div>
+                        <div style="padding: 16px; background: var(--bg-tertiary); border-radius: 12px;">
+                            <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">Pending</div>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--warning-color);">₹8,500</div>
+                        </div>
+                        <div style="padding: 16px; background: var(--bg-tertiary); border-radius: 12px;">
+                            <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">Available</div>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--primary-main);">₹36,500</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="wallet-card">
+                <h3>Payment Methods</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                    <div style="padding: 20px; border: 2px solid var(--border-light); border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                        <div style="font-size: 32px;">💳</div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--text-primary);">UPI</div>
+                            <div style="font-size: 12px; color: var(--text-tertiary);">paytmqr5na93v@ptys</div>
+                        </div>
+                    </div>
+                    <div style="padding: 20px; border: 2px solid var(--border-light); border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                        <div style="font-size: 32px;">🏦</div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Bank Transfer</div>
+                            <div style="font-size: 12px; color: var(--text-tertiary);">HDFC Bank ****1234</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Orders Section -->
+        <section id="section-orders" class="content-section">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>All Orders</h3>
+                    <div class="table-actions">
+                        <button class="btn-action btn-secondary">Export</button>
+                        <button class="btn-action">Add Order</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table">
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 40px; color: var(--text-tertiary);">
+                                No orders found
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="section-products" class="content-section">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>All Products</h3>
+                    <div class="table-actions">
+                        <button class="btn-action btn-secondary">Import</button>
+                        <button class="btn-action" onclick="window.location.href='/admin-panel.html'">Manage Products</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: var(--text-tertiary);">
+                                Loading products...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Customers Section -->
+        <section id="section-customers" class="content-section">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>All Customers</h3>
+                    <div class="table-actions">
+                        <button class="btn-action btn-secondary">Export</button>
+                        <button class="btn-action">Add Customer</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Orders</th>
+                            <th>Total Spent</th>
+                            <th>Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customers-table">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: var(--text-tertiary);">
+                                No customers found
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="section-analytics" class="content-section">
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Sales Analytics</h3>
+                    <div class="chart-placeholder">
+                        📊 Sales analytics chart will be displayed here
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>Customer Growth</h3>
+                    <div class="chart-placeholder">
+                        📈 Customer growth chart will be displayed here
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Performance Metrics</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>This Month</th>
+                            <th>Last Month</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conversion Rate</td>
+                            <td>3.2%</td>
+                            <td>2.8%</td>
+                            <td><span class="status-badge success">+14.3%</span></td>
+                        </tr>
+                        <tr>
+                            <td>Average Order Value</td>
+                            <td>₹8,450</td>
+                            <td>₹7,890</td>
+                            <td><span class="status-badge success">+7.1%</span></td>
+                        </tr>
+                        <tr>
+                            <td>Customer Retention</td>
+                            <td>68%</td>
+                            <td>65%</td>
+                            <td><span class="status-badge success">+4.6%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="section-settings" class="content-section">
+            <div class="wallet-card" style="margin-bottom: 24px;">
+                <h3>General Settings</h3>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div>
+                        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Store Name</label>
+                        <input type="text" value="Ace#1 Health & Wellness" style="width: 100%; padding: 12px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Contact Email</label>
+                        <input type="email" value="hello@ace1.in" style="width: 100%; padding: 12px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Contact Phone</label>
+                        <input type="tel" value="9167575028" style="width: 100%; padding: 12px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 14px;">
+                    </div>
+                    <button class="btn-action" style="width: fit-content;">Save Changes</button>
+                </div>
+            </div>
+
+            <div class="wallet-card">
+                <h3>Security Settings</h3>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div>
+                        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Change Password</label>
+                        <input type="password" placeholder="New Password" style="width: 100%; padding: 12px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 14px; margin-bottom: 12px;">
+                        <input type="password" placeholder="Confirm Password" style="width: 100%; padding: 12px; border: 2px solid var(--border-light); border-radius: 8px; font-size: 14px;">
+                    </div>
+                    <button class="btn-action" style="width: fit-content;">Update Password</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- Scripts -->
+    <script src="/assets/js/crypto-utils.js"></script>
+    <script src="/assets/js/env-config.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    
+    <script>
+        // Check if user is logged in and is admin
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.auth.isLoggedIn()) {
+                window.location.href = '/login.html?redirect=admin';
+                return;
+            }
+            
+            const user = window.auth.getCurrentUser();
+            if (user.email !== 'hello@ace1.in' && user.email !== 'admin@ace1.in') {
+                alert('Access denied. Admin privileges required.');
+                window.location.href = '/';
+                return;
+            }
+            
+            // Set admin info
+            document.getElementById('admin-name').textContent = user.firstName || 'Admin';
+            document.getElementById('admin-email').textContent = user.email;
+            
+            // Load dashboard data
+            loadDashboardData();
+            loadProducts();
+        });
+
+        // Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById('section-' + sectionName).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard',
+                'orders': 'Orders',
+                'products': 'Products',
+                'customers': 'Customers',
+                'wallet': 'Wallet',
+                'analytics': 'Analytics',
+                'settings': 'Settings'
+            };
+            document.getElementById('page-title').textContent = titles[sectionName];
+        }
+
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('open');
+        }
+
+        // Logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.auth.logout();
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Load dashboard data
+        function loadDashboardData() {
+            // Get all users
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const customers = users.filter(u => u.email !== 'hello@ace1.in' && u.email !== 'admin@ace1.in');
+            
+            // Calculate stats
+            document.getElementById('total-customers').textContent = customers.length;
+            document.getElementById('total-orders').textContent = '0'; // Will be updated when orders are implemented
+            document.getElementById('total-revenue').textContent = '₹0'; // Will be updated when orders are implemented
+            document.getElementById('total-products').textContent = '12';
+            
+            // Wallet balance (mock data)
+            document.getElementById('wallet-balance').textContent = '₹36,500.00';
+        }
+
+        // Load products
+        async function loadProducts() {
+            try {
+                const response = await fetch('/assets/data/products.json');
+                const products = await response.json();
+                
+                const tbody = document.getElementById('products-table');
+                if (products.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px; color: var(--text-tertiary);">No products found</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = products.map(product => `
+                    <tr>
+                        <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"></td>
+                        <td style="font-weight: 600;">${product.name}</td>
+                        <td>${product.category}</td>
+                        <td style="font-weight: 700; color: var(--primary-main);">₹${product.price.toLocaleString('en-IN')}</td>
+                        <td>${product.inStock ? '<span class="status-badge success">In Stock</span>' : '<span class="status-badge failed">Out of Stock</span>'}</td>
+                        <td>${product.inStock ? '<span class="status-badge success">Active</span>' : '<span class="status-badge failed">Inactive</span>'}</td>
+                        <td>
+                            <button class="btn-action btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="window.location.href='/admin-panel.html'">Edit</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        // Wallet functions
+        function showWithdrawModal() {
+            alert('Withdraw functionality coming soon!');
+        }
+
+        function showAddFundsModal() {
+            alert('Add funds functionality coming soon!');
+        }
+
+        function showTransferModal() {
+            alert('Transfer functionality coming soon!');
+        }
+    </script>
+</body>
+</html>

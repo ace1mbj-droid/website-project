@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: ace1-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node migrations/run.js && node src/app.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: ENCRYPTION_KEY
+        generateValue: true
+    healthCheckPath: /health
+
+databases:
+  - name: ace1-database
+    plan: free
+    databaseName: ace1_db
+    user: ace1_user
