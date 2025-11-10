@@ -3,8 +3,10 @@ services:
     name: ace1-backend
     env: node
     plan: free
+    region: oregon
     buildCommand: npm install
     startCommand: node migrations/run.js && node src/app.js
+    healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
@@ -12,11 +14,20 @@ services:
         value: 10000
       - key: JWT_SECRET
         generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
       - key: JWT_EXPIRES_IN
         value: 7d
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
       - key: ENCRYPTION_KEY
         generateValue: true
-    healthCheckPath: /health
+      - key: FRONTEND_URL
+        value: https://ace1.in
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ace1-database
+          property: connectionString
 
 databases:
   - name: ace1-database
