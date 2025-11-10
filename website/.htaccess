@@ -65,14 +65,20 @@ Options -Indexes
     Deny from all
 </FilesMatch>
 
-# Protect configuration files
-<FilesMatch "\.(env|json|md|log|txt)$">
+# Protect configuration files (but allow necessary JSON files)
+<FilesMatch "\.(env|md|log)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Allow specific files that need to be accessible
-<FilesMatch "^(products\.json|manifest\.webmanifest|README\.txt)$">
+# Block sensitive .txt files but allow others
+<FilesMatch "^(CREDENTIALS|ADMIN|PAYMENT|BANK|SECRET).*\.txt$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Explicitly allow necessary data files
+<FilesMatch "^(products|manifest)\.json$">
     Order allow,deny
     Allow from all
 </FilesMatch>
