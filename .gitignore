@@ -77,9 +77,17 @@ recentservers.xml
 # Credentials and sensitive docs
 *CREDENTIALS*.md
 *_CREDENTIALS.md
+ADMIN_*.md
+*_ADMIN.md
+*PAYMENT*.md
+*BANK*.md
+
+# Sensitive directories
+DO-NOT-UPLOAD/
+LOCAL-ONLY/
+PRIVATE/
 
 # Deployment artifacts
-*.sh
 ftp-ready/
 UPLOAD-TO-SERVER/
 
