@@ -65,11 +65,18 @@
         </div>
     </div>
 
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/cart.js"></script>
-    <script src="/assets/js/auth.js"></script>
+    <!-- Security Scripts (Load in correct order!) -->
+    <script src="/js/crypto-utils.js"></script>
+    <script src="/js/env-config.js"></script>
+    <script src="/js/auth.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/cart.js"></script>
+    
     <script>
-        function handleRegister(event) {
+        // Handle registration with async/await
+        async function handleRegister(event) {
             event.preventDefault();
             
             const firstName = document.getElementById('firstName').value;
@@ -79,6 +86,7 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const messageDiv = document.getElementById('message');
+            const submitButton = event.target.querySelector('button[type="submit"]');
 
             // Validate passwords match
             if (password !== confirmPassword) {
@@ -86,28 +94,47 @@
                 return;
             }
 
-            const result = window.auth.register({
-                firstName,
-                lastName,
-                email,
-                phone,
-                password
-            });
+            // Disable button during registration
+            submitButton.disabled = true;
+            submitButton.textContent = 'Creating account...';
 
-            if (result.success) {
-                messageDiv.innerHTML = '<div class="success-message">' + result.message + ' Redirecting...</div>';
-                setTimeout(() => {
-                    window.location.href = '/profile.html';
-                }, 1500);
-            } else {
-                messageDiv.innerHTML = '<div class="error-message">' + result.message + '</div>';
+            try {
+                // Use await since register is now async
+                const result = await window.auth.register({
+                    firstName,
+                    lastName,
+                    email,
+                    phone,
+                    password
+                });
+
+                if (result.success) {
+                    messageDiv.innerHTML = '<div class="success-message">' + result.message + ' Redirecting...</div>';
+                    setTimeout(() => {
+                        window.location.href = '/marketplace.html';
+                    }, 1500);
+                } else {
+                    messageDiv.innerHTML = '<div class="error-message">' + result.message + '</div>';
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Create Account';
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                messageDiv.innerHTML = '<div class="error-message">An error occurred during registration. Please try again.</div>';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Create Account';
             }
         }
 
-        // Check if already logged in
-        if (window.auth.isLoggedIn()) {
-            window.location.href = '/profile.html';
-        }
+        // Check if already logged in (when auth system is ready)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a moment for auth system to initialize
+            setTimeout(() => {
+                if (window.auth && window.auth.isLoggedIn()) {
+                    window.location.href = '/marketplace.html';
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>

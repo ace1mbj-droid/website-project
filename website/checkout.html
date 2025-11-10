@@ -25,7 +25,7 @@
                 DO NOT enter real payment information. For testing purposes only.
             </p>
             <p style="margin: 10px 0 0 0; color: white; font-size: 14px; opacity: 0.9;">
-                💡 To place a real order, please contact us at <strong>ace1mbj@gmail.com</strong> or call <strong>9167575121</strong>
+                💡 To place a real order, please contact us at <strong>hello@ace1.in</strong> or call <strong>9167575121</strong>
             </p>
         </div>
         
@@ -398,46 +398,71 @@
             button.textContent = 'Processing...';
 
             const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
-            let paymentMethodId = null;
+
+            // Compute order details first
+            const cartItems = window.cart.getItems();
+            const subtotal = window.cart.getTotal();
+            const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
+            const shipping = shippingMethod === 'express' ? CONFIG.shipping.express.price : CONFIG.shipping.standard.price;
+            const tax = subtotal * CONFIG.tax.rate;
+            const total = subtotal + shipping + tax;
 
             try {
-                // Only process card payment through Stripe
-                if (selectedPayment === 'card') {
-                    const {error, paymentMethod} = await stripe.createPaymentMethod({
-                        type: 'card',
-                        card: cardElement,
-                    });
+                // Server-side Stripe (industry standard) if API is configured
+                if (selectedPayment === 'card' && window.ENV && window.ENV.API_BASE_URL) {
+                    const email = document.getElementById('ship-email').value;
+                    const name = `${document.getElementById('ship-firstName').value} ${document.getElementById('ship-lastName').value}`.trim();
+                    const phone = document.getElementById('ship-phone').value;
 
+                    const resp = await fetch(`${window.ENV.API_BASE_URL}/api/checkout/create-payment-intent`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            amount: Math.round(total * 100),
+                            currency: (CONFIG.currency.code || 'INR').toLowerCase(),
+                            receipt_email: email,
+                            metadata: { orderId: 'ORD-' + Date.now() }
+                        })
+                    });
+                    if (!resp.ok) throw new Error('Failed to initialize payment');
+                    const { clientSecret } = await resp.json();
+
+                    const { error } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: { name, email, phone }
+                        }
+                    });
+                    if (error) {
+                        document.getElementById('card-errors').textContent = error.message || 'Payment failed';
+                        button.disabled = false;
+                        button.textContent = 'Place Order';
+                        return;
+                    }
+                } else if (selectedPayment === 'card') {
+                    // Demo-only fallback (no server) – validates card element
+                    const { error } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
                     if (error) {
                         document.getElementById('card-errors').textContent = error.message;
                         button.disabled = false;
                         button.textContent = 'Place Order';
                         return;
                     }
-                    paymentMethodId = paymentMethod.id;
                 }
-
-                // Create order
-                const cartItems = window.cart.getItems();
-                const subtotal = window.cart.getTotal();
-                const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
-                const shipping = shippingMethod === 'express' ? CONFIG.shipping.express.price : CONFIG.shipping.standard.price;
-                const tax = subtotal * CONFIG.tax.rate;
-                const total = subtotal + shipping + tax;
 
                 const order = {
                     id: 'ORD-' + Date.now(),
                     date: new Date().toISOString(),
                     items: cartItems,
-                    subtotal: subtotal,
-                    shipping: shipping,
-                    shippingMethod: shippingMethod,
-                    tax: tax,
-                    total: total,
+                    subtotal,
+                    shipping,
+                    shippingMethod,
+                    tax,
+                    total,
                     paymentMethod: selectedPayment,
-                    paymentMethodId: paymentMethodId,
-                    status: selectedPayment === 'cod' ? 'Confirmed - Awaiting Delivery' : 
-                           (selectedPayment === 'card' ? 'Processing' : 'Awaiting Payment Confirmation'),
+                    status: selectedPayment === 'cod' ? 'Confirmed - Awaiting Delivery'
+                          : (selectedPayment === 'card' && window.ENV && window.ENV.API_BASE_URL) ? 'Paid - Processing'
+                          : (selectedPayment === 'card' ? 'Processing (Demo)' : 'Awaiting Payment Confirmation'),
                     shippingAddress: {
                         firstName: document.getElementById('ship-firstName').value,
                         lastName: document.getElementById('ship-lastName').value,
@@ -451,12 +476,10 @@
                     }
                 };
 
-                // Save order
+                // Save order locally (front-end demo persistence)
                 window.auth.addOrder(order);
-                
                 // Clear cart
                 window.cart.clearCart();
-                
                 // Redirect to confirmation
                 window.location.href = '/order-confirmation.html?orderId=' + order.id;
             } catch (err) {

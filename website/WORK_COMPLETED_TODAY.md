@@ -207,7 +207,7 @@ SSL/HTTPS: ✅ Handled by Paytm payment page
 
 **Business Details:**
 - Name: Ace#1 - Health | Comfort | Innovation
-- Email: ace1mbj@gmail.com
+- Email: hello@ace1.in
 - Phone: 9167575121 (Paytm Business)
 - UPI ID: jaidas1994-1@okicici
 

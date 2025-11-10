@@ -1,25 +1,70 @@
 // Shopping Cart Management
 class ShoppingCart {
   constructor() {
-    this.items = this.loadCart();
+    this.encryptionEnabled = false;
+    this.storageKey = 'ace1_cart_encryption_key';
+    this.init();
+  }
+
+  // Initialize cart system
+  async init() {
+    // Wait for crypto utilities to be available
+    if (window.cryptoUtils) {
+      this.encryptionEnabled = true;
+      // Generate or retrieve storage encryption key
+      let key = localStorage.getItem(this.storageKey);
+      if (!key) {
+        key = window.cryptoUtils.generateRandomKey();
+        localStorage.setItem(this.storageKey, key);
+      }
+      this.storageEncryptionKey = key;
+    }
+    
+    this.items = await this.loadCart();
     this.updateCartCount();
   }
 
-  // Load cart from localStorage
-  loadCart() {
+  // Load cart from localStorage (encrypted)
+  async loadCart() {
     const cart = localStorage.getItem('ace1_cart');
-    return cart ? JSON.parse(cart) : [];
+    if (!cart) return [];
+    
+    if (this.encryptionEnabled && this.storageEncryptionKey) {
+      try {
+        const decrypted = await window.cryptoUtils.decrypt(cart, this.storageEncryptionKey);
+        return JSON.parse(decrypted);
+      } catch (e) {
+        console.warn('Failed to decrypt cart, returning raw data');
+        return JSON.parse(cart);
+      }
+    }
+    
+    return JSON.parse(cart);
   }
 
-  // Save cart to localStorage
-  saveCart() {
+  // Save cart to localStorage (encrypted)
+  async saveCart() {
+    const cartJson = JSON.stringify(this.items);
+    
+    if (this.encryptionEnabled && this.storageEncryptionKey) {
+      try {
+        const encrypted = await window.cryptoUtils.encrypt(cartJson, this.storageEncryptionKey);
+        localStorage.setItem('ace1_cart', encrypted);
+        this.updateCartCount();
+        this.dispatchCartUpdateEvent();
+        return;
+      } catch (e) {
+        console.error('Failed to encrypt cart, saving unencrypted');
+      }
+    }
+    
     localStorage.setItem('ace1_cart', JSON.stringify(this.items));
     this.updateCartCount();
     this.dispatchCartUpdateEvent();
   }
 
   // Add item to cart
-  addItem(product, quantity = 1) {
+  async addItem(product, quantity = 1) {
     const existingItem = this.items.find(item => item.id === product.id);
     
     if (existingItem) {
@@ -34,25 +79,25 @@ class ShoppingCart {
       });
     }
     
-    this.saveCart();
+    await this.saveCart();
     this.showNotification(`${product.name} added to cart!`);
   }
 
   // Remove item from cart
-  removeItem(productId) {
+  async removeItem(productId) {
     this.items = this.items.filter(item => item.id !== productId);
-    this.saveCart();
+    await this.saveCart();
   }
 
   // Update item quantity
-  updateQuantity(productId, quantity) {
+  async updateQuantity(productId, quantity) {
     const item = this.items.find(item => item.id === productId);
     if (item) {
       if (quantity <= 0) {
-        this.removeItem(productId);
+        await this.removeItem(productId);
       } else {
         item.quantity = quantity;
-        this.saveCart();
+        await this.saveCart();
       }
     }
   }
@@ -73,9 +118,9 @@ class ShoppingCart {
   }
 
   // Clear cart
-  clearCart() {
+  async clearCart() {
     this.items = [];
-    this.saveCart();
+    await this.saveCart();
   }
 
   // Update cart count badge in navigation

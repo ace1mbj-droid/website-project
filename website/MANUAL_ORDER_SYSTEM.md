@@ -230,7 +230,7 @@ Tracking: AWB123
     </ul>
     
     <h2>Contact</h2>
-    <p>For privacy concerns: <strong>9167575121</strong> or <strong>ace1mbj@gmail.com</strong></p>
+    <p>For privacy concerns: <strong>9167575121</strong> or <strong>hello@ace1.in</strong></p>
     
     <h2>Data Retention</h2>
     <p>We retain order information only as long as necessary for business purposes and legal requirements (typically 3 years for tax purposes).</p>
@@ -263,7 +263,7 @@ Tracking: AWB123
 <p>See our Privacy Policy for how we handle your information.</p>
 
 <h2>6. Contact</h2>
-<p>WhatsApp: 9167575121 | Email: ace1mbj@gmail.com</p>
+<p>WhatsApp: 9167575121 | Email: hello@ace1.in</p>
 ```
 
 ---

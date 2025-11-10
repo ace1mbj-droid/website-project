@@ -83,7 +83,7 @@
 ## 📞 Contact Info
 
 **Business:** Ace#1 - Health | Comfort | Innovation  
-**Email:** ace1mbj@gmail.com  
+**Email:** hello@ace1.in  
 **Phone:** 9167575028  
 **UPI:** jaidas1994-1@okicici  
 **Bank:** Kotak Mahindra Bank (KKBK0001416)

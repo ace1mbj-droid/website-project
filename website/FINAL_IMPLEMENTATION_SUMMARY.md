@@ -253,7 +253,7 @@ Evening:
 ### Current Configuration:
 ```javascript
 Business Phone: 9167575121
-Business Email: ace1mbj@gmail.com
+Business Email: hello@ace1.in
 UPI ID: paytmqr5na93v@ptys
 Admin Email: admin@ace1mbj.com
 Admin Password: Mobilaeiou@9898 (hashed in code)
@@ -480,7 +480,7 @@ UPI ID: paytmqr5na93v@ptys
 ### Key Contacts:
 ```
 WhatsApp: +91 9167575121
-Email: ace1mbj@gmail.com
+Email: hello@ace1.in
 ```
 
 ---

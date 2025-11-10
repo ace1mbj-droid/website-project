@@ -1,7 +1,7 @@
 # Paytm Business Integration Guide - Ace#1
 
 **Business Phone:** 9167575121  
-**Business Email:** ace1mbj@gmail.com  
+**Business Email:** hello@ace1.in  
 **Date:** November 9, 2025
 
 ---
@@ -249,7 +249,7 @@ When customer pays:
 
 **1. Notification** (Instant)
 - SMS to 9167575121
-- Email to ace1mbj@gmail.com
+- Email to hello@ace1.in
 - Paytm app notification
 
 **2. Verify Payment** (1 minute)
@@ -344,7 +344,7 @@ prod-002: https://paytm.me/your-link-2
 
 ### Customer Support:
 - WhatsApp: +91 9167575121
-- Email: ace1mbj@gmail.com
+- Email: hello@ace1.in
 - Response time: Within 24 hours
 
 ---

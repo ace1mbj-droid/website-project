@@ -1,37 +1,106 @@
-// User Authentication System
+// User Authentication System with Encryption
 class AuthSystem {
   constructor() {
-    this.currentUser = this.loadSession();
-    this.users = this.loadUsers();
+    this.encryptionEnabled = false;
+    this.storageKey = 'ace1_secure_storage_key';
+    this.init();
+  }
+
+  // Initialize auth system
+  async init() {
+    // Wait for crypto utilities to be available
+    if (window.cryptoUtils) {
+      this.encryptionEnabled = true;
+      // Generate or retrieve storage encryption key
+      let key = localStorage.getItem(this.storageKey);
+      if (!key) {
+        key = window.cryptoUtils.generateRandomKey();
+        localStorage.setItem(this.storageKey, key);
+      }
+      this.storageEncryptionKey = key;
+    }
+    
+    this.currentUser = await this.loadSession();
+    this.users = await this.loadUsers();
     this.updateUI();
   }
 
-  // Load users from localStorage (in production, this would be server-side)
-  loadUsers() {
+  // Load users from localStorage (encrypted)
+  async loadUsers() {
     const users = localStorage.getItem('ace1_users');
-    return users ? JSON.parse(users) : [];
+    if (!users) return [];
+    
+    if (this.encryptionEnabled && this.storageEncryptionKey) {
+      try {
+        const decrypted = await window.cryptoUtils.decrypt(users, this.storageEncryptionKey);
+        return JSON.parse(decrypted);
+      } catch (e) {
+        console.warn('Failed to decrypt users, returning raw data');
+        return JSON.parse(users);
+      }
+    }
+    
+    return JSON.parse(users);
   }
 
-  // Save users to localStorage
-  saveUsers() {
-    localStorage.setItem('ace1_users', JSON.stringify(this.users));
+  // Save users to localStorage (encrypted)
+  async saveUsers() {
+    const usersJson = JSON.stringify(this.users);
+    
+    if (this.encryptionEnabled && this.storageEncryptionKey) {
+      try {
+        const encrypted = await window.cryptoUtils.encrypt(usersJson, this.storageEncryptionKey);
+        localStorage.setItem('ace1_users', encrypted);
+        return;
+      } catch (e) {
+        console.error('Failed to encrypt users, saving unencrypted');
+      }
+    }
+    
+    localStorage.setItem('ace1_users', usersJson);
   }
 
-  // Load current session
-  loadSession() {
+  // Load current session (encrypted)
+  async loadSession() {
     const session = localStorage.getItem('ace1_session');
-    return session ? JSON.parse(session) : null;
+    if (!session) return null;
+    
+    if (this.encryptionEnabled && this.storageEncryptionKey) {
+      try {
+        const decrypted = await window.cryptoUtils.decrypt(session, this.storageEncryptionKey);
+        return JSON.parse(decrypted);
+      } catch (e) {
+        console.warn('Failed to decrypt session, returning raw data');
+        return JSON.parse(session);
+      }
+    }
+    
+    return JSON.parse(session);
   }
 
-  // Save session
-  saveSession(user) {
-    localStorage.setItem('ace1_session', JSON.stringify(user));
+  // Save session (encrypted)
+  async saveSession(user) {
+    const userJson = JSON.stringify(user);
+    
+    if (this.encryptionEnabled && this.storageEncryptionKey) {
+      try {
+        const encrypted = await window.cryptoUtils.encrypt(userJson, this.storageEncryptionKey);
+        localStorage.setItem('ace1_session', encrypted);
+        this.currentUser = user;
+        this.updateUI();
+        return;
+      } catch (e) {
+        console.error('Failed to encrypt session, saving unencrypted');
+      }
+    }
+    
+    localStorage.setItem('ace1_session', userJson);
     this.currentUser = user;
     this.updateUI();
   }
 
   // Register new user
-  register(userData) {
+  async register(userData) {
     const { email, password, firstName, lastName, phone } = userData;
 
     // Validate email format
@@ -49,11 +118,14 @@ class AuthSystem {
       return { success: false, message: 'Password must be at least 6 characters' };
     }
 
+    // Hash password securely
+    const passwordHash = await this.hashPassword(password);
+
     // Create new user
     const newUser = {
       id: 'user_' + Date.now(),
       email,
-      password: this.hashPassword(password), // In production, use proper encryption
+      password: passwordHash,
       firstName,
       lastName,
       phone,
@@ -66,32 +138,50 @@ class AuthSystem {
     };
 
     this.users.push(newUser);
-    this.saveUsers();
+    await this.saveUsers();
 
     // Auto-login after registration
     const userSession = { ...newUser };
     delete userSession.password;
-    this.saveSession(userSession);
+    await this.saveSession(userSession);
 
     return { success: true, message: 'Registration successful!', user: userSession };
   }
 
-  // Login user
-  login(email, password) {
+  // Login user with rate limiting and secure password verification
+  async login(email, password) {
+    // Check for account lockout
+    if (window.configManager && window.configManager.isLockedOut(email)) {
+      return { success: false, message: 'Account locked due to too many failed attempts. Try again in 15 minutes.' };
+    }
+
     const user = this.users.find(u => u.email === email);
 
     if (!user) {
-      return { success: false, message: 'User not found' };
+      if (window.configManager) {
+        window.configManager.recordFailedLogin(email);
+      }
+      return { success: false, message: 'Invalid email or password' };
     }
 
-    if (user.password !== this.hashPassword(password)) {
-      return { success: false, message: 'Incorrect password' };
+    // Verify password securely
+    const passwordHash = await this.hashPassword(password);
+    if (user.password !== passwordHash) {
+      if (window.configManager) {
+        window.configManager.recordFailedLogin(email);
+      }
+      return { success: false, message: 'Invalid email or password' };
+    }
+
+    // Clear failed login attempts on successful login
+    if (window.configManager) {
+      window.configManager.clearFailedLogins(email);
     }
 
     // Create session
     const userSession = { ...user };
     delete userSession.password;
-    this.saveSession(userSession);
+    await this.saveSession(userSession);
 
     return { success: true, message: 'Login successful!', user: userSession };
   }
@@ -115,7 +205,7 @@ class AuthSystem {
   }
 
   // Update user profile
-  updateProfile(updates) {
+  async updateProfile(updates) {
     if (!this.isLoggedIn()) {
       return { success: false, message: 'Not logged in' };
     }
@@ -127,18 +217,18 @@ class AuthSystem {
 
     // Update user data
     this.users[userIndex] = { ...this.users[userIndex], ...updates };
-    this.saveUsers();
+    await this.saveUsers();
 
     // Update session
     const updatedUser = { ...this.users[userIndex] };
     delete updatedUser.password;
-    this.saveSession(updatedUser);
+    await this.saveSession(updatedUser);
 
     return { success: true, message: 'Profile updated successfully' };
   }
 
   // Add order to user history
-  addOrder(order) {
+  async addOrder(order) {
     if (!this.isLoggedIn()) {
       return { success: false, message: 'Not logged in' };
     }
@@ -149,12 +239,12 @@ class AuthSystem {
     }
 
     this.users[userIndex].orders.push(order);
-    this.saveUsers();
+    await this.saveUsers();
 
     // Update session
     const updatedUser = { ...this.users[userIndex] };
     delete updatedUser.password;
-    this.saveSession(updatedUser);
+    await this.saveSession(updatedUser);
 
     return { success: true, message: 'Order saved' };
   }
@@ -180,7 +270,7 @@ class AuthSystem {
   }
 
   // Add money to wallet
-  addToWallet(amount, description = 'Added funds') {
+  async addToWallet(amount, description = 'Added funds') {
     if (!this.isLoggedIn()) {
       return { success: false, message: 'Not logged in' };
     }
@@ -207,18 +297,18 @@ class AuthSystem {
 
     this.users[userIndex].wallet.balance += amount;
     this.users[userIndex].wallet.transactions.push(transaction);
-    this.saveUsers();
+    await this.saveUsers();
 
     // Update session
     const updatedUser = { ...this.users[userIndex] };
     delete updatedUser.password;
-    this.saveSession(updatedUser);
+    await this.saveSession(updatedUser);
 
     return { success: true, message: 'Wallet updated', balance: this.users[userIndex].wallet.balance };
   }
 
   // Deduct from wallet
-  deductFromWallet(amount, description = 'Purchase') {
+  async deductFromWallet(amount, description = 'Purchase') {
     if (!this.isLoggedIn()) {
       return { success: false, message: 'Not logged in' };
     }
@@ -250,12 +340,12 @@ class AuthSystem {
 
     this.users[userIndex].wallet.balance -= amount;
     this.users[userIndex].wallet.transactions.push(transaction);
-    this.saveUsers();
+    await this.saveUsers();
 
     // Update session
     const updatedUser = { ...this.users[userIndex] };
     delete updatedUser.password;
-    this.saveSession(updatedUser);
+    await this.saveSession(updatedUser);
 
     return { success: true, message: 'Payment successful', balance: this.users[userIndex].wallet.balance };
   }
@@ -272,10 +362,13 @@ class AuthSystem {
     return this.currentUser.wallet.transactions || [];
   }
 
-  // Simple password hashing (In production, use bcrypt or similar)
-  hashPassword(password) {
-    // This is NOT secure - just for demonstration
-    // In production, use proper server-side hashing
+  // Secure password hashing using SHA-256
+  async hashPassword(password) {
+    if (window.cryptoUtils) {
+      return await window.cryptoUtils.hashPassword(password);
+    }
+    
+    // Fallback to simple hash (not recommended)
     let hash = 0;
     for (let i = 0; i < password.length; i++) {
       const char = password.charCodeAt(i);

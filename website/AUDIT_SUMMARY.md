@@ -183,7 +183,7 @@ hashPassword(password) {
 3. Add "Contact to Order" buttons instead
 4. Process orders manually via:
    - WhatsApp: +91 9167575028
-   - Email: ace1mbj@gmail.com
+   - Email: hello@ace1.in
 5. Send payment links manually (Google Pay, PhonePe link)
 6. Track orders in Excel/Google Sheets
 

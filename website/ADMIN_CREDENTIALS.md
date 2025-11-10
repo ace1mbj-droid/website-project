@@ -25,7 +25,7 @@ Password: Mobilaeiou@9898
 ```
 Business Name: Ace#1 - Health | Comfort | Innovation
 Business Phone: 9167575121
-Business Email: ace1mbj@gmail.com
+Business Email: hello@ace1.in
 ```
 
 ### Payment Information:
@@ -148,7 +148,7 @@ Branch: Dombivili
 ### For Customers:
 ```
 WhatsApp: 9167575121
-Email: ace1mbj@gmail.com
+Email: hello@ace1.in
 Website: [Your Domain]
 ```
 

@@ -46,42 +46,71 @@
         </div>
     </div>
 
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/cart.js"></script>
-    <script src="/assets/js/auth.js"></script>
+    <!-- Security Scripts (Load in correct order!) -->
+    <script src="/js/crypto-utils.js"></script>
+    <script src="/js/env-config.js"></script>
+    <script src="/js/auth.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/cart.js"></script>
+    
     <script>
-        function handleLogin(event) {
+        // Handle login with async/await
+        async function handleLogin(event) {
             event.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const messageDiv = document.getElementById('message');
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            
+            // Disable button during login
+            submitButton.disabled = true;
+            submitButton.textContent = 'Logging in...';
+            
+            try {
+                // Use await since login is now async
+                const result = await window.auth.login(email, password);
 
-            const result = window.auth.login(email, password);
-
-            if (result.success) {
-                messageDiv.innerHTML = '<div class="success-message">' + result.message + '</div>';
-                
-                // Check for redirect parameter
-                const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect');
-                
-                setTimeout(() => {
-                    if (redirect === 'checkout') {
-                        window.location.href = '/checkout.html';
-                    } else {
-                        window.location.href = '/profile.html';
-                    }
-                }, 1000);
-            } else {
-                messageDiv.innerHTML = '<div class="error-message">' + result.message + '</div>';
+                if (result.success) {
+                    messageDiv.innerHTML = '<div class="success-message">' + result.message + '</div>';
+                    
+                    // Check for redirect parameter
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirect = urlParams.get('redirect');
+                    
+                    setTimeout(() => {
+                        if (redirect === 'checkout') {
+                            window.location.href = '/checkout.html';
+                        } else if (redirect === 'admin') {
+                            window.location.href = '/admin-panel.html';
+                        } else {
+                            window.location.href = '/marketplace.html';
+                        }
+                    }, 1000);
+                } else {
+                    messageDiv.innerHTML = '<div class="error-message">' + result.message + '</div>';
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Login';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                messageDiv.innerHTML = '<div class="error-message">An error occurred during login. Please try again.</div>';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Login';
             }
         }
 
-        // Check if already logged in
-        if (window.auth.isLoggedIn()) {
-            window.location.href = '/profile.html';
-        }
+        // Check if already logged in (when auth system is ready)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a moment for auth system to initialize
+            setTimeout(() => {
+                if (window.auth && window.auth.isLoggedIn()) {
+                    window.location.href = '/marketplace.html';
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>

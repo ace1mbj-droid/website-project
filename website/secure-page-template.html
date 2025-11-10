@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <!-- Content Security Policy (CSP) -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://www.youtube.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    img-src 'self' data: https:;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self' https://maps.googleapis.com;
+    frame-src 'self' https://www.google.com https://www.youtube.com https://maps.googleapis.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    upgrade-insecure-requests;
+  ">
+  
+  <title>Secure Page Template - Ace#1</title>
+</head>
+<body>
+  
+  <h1>Secure Page Template</h1>
+  <p>This template shows proper security script loading order.</p>
+  
+  <div id="user-info">
+    <p>Loading user information...</p>
+  </div>
+  
+  <!-- 
+    CRITICAL: Scripts MUST be loaded in this exact order!
+    1. Crypto utilities (provides encryption)
+    2. Environment config (provides configuration)
+    3. Authentication system (uses crypto + config)
+    4. Other application scripts
+  -->
+  
+  <!-- Step 1: Load Crypto Utilities FIRST -->
+  <script src="/assets/js/crypto-utils.js"></script>
+  
+  <!-- Step 2: Load Environment Configuration SECOND -->
+  <script src="/assets/js/env-config.js"></script>
+  
+  <!-- Step 3: Load Authentication System THIRD -->
+  <script src="/assets/js/auth.js"></script>
+  
+  <!-- Step 4: Other application scripts AFTER -->
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/cart.js"></script>
+  
+  <!-- Step 5: Page-specific logic LAST -->
+  <script>
+    // Wait for all systems to initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('🔒 Security systems loaded');
+      
+      // Example: Check if user is logged in
+      if (window.auth && window.auth.isLoggedIn()) {
+        const user = window.auth.getCurrentUser();
+        document.getElementById('user-info').innerHTML = `
+          <p>Welcome back, ${user.firstName || user.email}!</p>
+          <p>Wallet Balance: ₹${window.auth.getWalletBalance()}</p>
+        `;
+      } else {
+        document.getElementById('user-info').innerHTML = `
+          <p>Not logged in. <a href="/login.html">Login here</a></p>
+        `;
+      }
+      
+      // Example: Test encryption
+      if (window.cryptoUtils) {
+        console.log('✅ Encryption available');
+        const testKey = window.cryptoUtils.generateRandomKey();
+        console.log('Generated encryption key sample:', testKey.substring(0, 16) + '...');
+      }
+      
+      // Example: Check configuration
+      if (window.configManager && window.configManager.initialized) {
+        console.log('✅ Configuration loaded');
+        const publicConfig = window.configManager.getPublicConfig();
+        console.log('Bank:', publicConfig.bank.name);
+        console.log('Business Email:', publicConfig.business.email);
+      }
+    });
+    
+    // Example: Secure login function
+    async function secureLogin(email, password) {
+      try {
+        const result = await window.auth.login(email, password);
+        if (result.success) {
+          console.log('✅ Login successful!');
+          location.reload();
+        } else {
+          console.error('❌ Login failed:', result.message);
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('An error occurred during login');
+      }
+    }
+    
+    // Example: Test encryption/decryption
+    async function testEncryption() {
+      const testData = 'Sensitive user information';
+      const password = 'test-encryption-key';
+      
+      console.log('Original:', testData);
+      
+      const encrypted = await window.cryptoUtils.encrypt(testData, password);
+      console.log('Encrypted:', encrypted);
+      
+      const decrypted = await window.cryptoUtils.decrypt(encrypted, password);
+      console.log('Decrypted:', decrypted);
+      
+      console.log('Match:', testData === decrypted ? '✅' : '❌');
+    }
+  </script>
+  
+</body>
+</html>

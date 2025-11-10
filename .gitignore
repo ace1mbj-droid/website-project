@@ -14,6 +14,10 @@ eval "*"
 # Sensitive directories
 LOCAL-ONLY-DO-NOT-UPLOAD/
 secure-ready/
+backend/
+ftp-ready/
+UPLOAD-TO-SERVER/
+extracted/
 
 # Node modules (if using Node.js)
 node_modules/
@@ -68,3 +72,16 @@ recentservers.xml
 # Database
 *.sqlite
 *.db
+
+# Credentials and sensitive docs
+*CREDENTIALS*.md
+*_CREDENTIALS.md
+
+# Deployment artifacts
+*.sh
+ftp-ready/
+UPLOAD-TO-SERVER/
+
+# Temp/cache files
+.!*
+*.tmp

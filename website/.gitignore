@@ -37,9 +37,12 @@ desktop.ini
 *-old.html
 *-backup.*
 
-# Sensitive config (uncomment when you move config to separate file)
-# config.private.js
-# secrets.json
+# Sensitive config and credentials
+ADMIN_CREDENTIALS.md
+config.private.js
+secrets.json
+private/
+credentials/
 
 # Build files (if you add build process)
 dist/

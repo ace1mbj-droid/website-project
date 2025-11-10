@@ -31,7 +31,7 @@ The checkout now supports **4 payment methods**:
 - Displays full bank account details
 - Supports NEFT/RTGS/IMPS
 - Copy account number with one click
-- Instructions: "Please transfer the order amount to the above account and share the transaction reference number with us at ace1mbj@gmail.com"
+- Instructions: "Please transfer the order amount to the above account and share the transaction reference number with us at hello@ace1.in"
 
 ### 4. 💵 Cash on Delivery (COD)
 - Pay in cash on delivery
@@ -103,14 +103,14 @@ wallet: {
 1. Customer selects "Bank Transfer" at checkout
 2. Bank details are displayed with copy buttons
 3. Customer transfers money to your account
-4. Customer emails transaction reference to ace1mbj@gmail.com
+4. Customer emails transaction reference to hello@ace1.in
 5. Admin verifies and updates order status
 
 ### For UPI Payments
 1. Customer selects "UPI / Wallet" at checkout
 2. UPI ID is displayed with copy button
 3. Customer pays via their UPI app
-4. Customer emails payment screenshot to ace1mbj@gmail.com
+4. Customer emails payment screenshot to hello@ace1.in
 5. Admin verifies and updates order status
 
 ### For Wallet Usage (Future Implementation)
@@ -189,5 +189,5 @@ To test the new payment options:
 ## Support
 
 For payment-related queries:
-- Email: ace1mbj@gmail.com
+- Email: hello@ace1.in
 - Phone: 9321486256
