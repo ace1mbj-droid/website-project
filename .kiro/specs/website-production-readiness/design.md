@@ -1162,90 +1162,103 @@ module.exports = {
 
 ### Environment Variables
 
+**Railway/Render Configuration:**
+
 ```bash
-# .env.production
+# .env (Set in Railway/Render dashboard)
 NODE_ENV=production
 PORT=3000
 
-# Database
-DB_HOST=localhost
+# Database (Railway auto-sets DATABASE_URL)
+# If using separate variables:
+DB_HOST=provided_by_railway
 DB_PORT=3306
-DB_NAME=ace1_production
-DB_USER=ace1_user
-DB_PASSWORD=secure_password
+DB_NAME=railway
+DB_USER=provided_by_railway
+DB_PASSWORD=provided_by_railway
 
 # JWT
-JWT_SECRET=your_jwt_secret_key_here
+JWT_SECRET=your_jwt_secret_key_here_min_32_chars
 JWT_EXPIRES_IN=24h
-JWT_REFRESH_SECRET=your_refresh_secret_key
+JWT_REFRESH_SECRET=your_refresh_secret_key_min_32_chars
 JWT_REFRESH_EXPIRES_IN=7d
 
 # Paytm
 PAYTM_MERCHANT_ID=your_merchant_id
 PAYTM_MERCHANT_KEY=your_merchant_key
 PAYTM_WEBSITE=WEBPROD
-PAYTM_CALLBACK_URL=https://ace1.in/api/payment/callback
+PAYTM_CALLBACK_URL=https://yourdomain.com/api/payment/callback
 
 # Email
 SMTP_HOST=smtp.sendgrid.net
 SMTP_PORT=587
 SMTP_USER=apikey
 SMTP_PASSWORD=your_sendgrid_api_key
-SMTP_FROM=noreply@ace1.in
+SMTP_FROM=noreply@yourdomain.com
 
-# Redis
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
+# Redis (Optional - Railway auto-sets if added)
+REDIS_URL=provided_by_railway
 
 # Security
-ENCRYPTION_KEY=your_32_character_encryption_key
+ENCRYPTION_KEY=your_32_character_encryption_key_here
 RATE_LIMIT_WINDOW=900000
 RATE_LIMIT_MAX=100
 
 # Frontend URL
-FRONTEND_URL=https://ace1.in
+FRONTEND_URL=https://yourdomain.com
+```
+
+**Frontend Configuration:**
+
+```javascript
+// docs/assets/js/config.js
+const API_CONFIG = {
+  baseURL: 'https://your-backend-url.railway.app/api',
+  timeout: 10000
+};
 ```
 
 ### Backup Strategy
 
-**Database Backups:**
-```bash
-# Daily backup script
-#!/bin/bash
-BACKUP_DIR="/var/backups/mysql"
-DATE=$(date +%Y%m%d_%H%M%S)
-mysqldump -u ace1_user -p ace1_production | gzip > $BACKUP_DIR/ace1_$DATE.sql.gz
+**Managed Database Backups:**
+- Railway/Render provide automatic daily backups
+- Point-in-time recovery available
+- Backups retained for 7 days (free tier)
+- Upgrade to paid tier for longer retention
 
-# Keep only last 7 days
-find $BACKUP_DIR -name "ace1_*.sql.gz" -mtime +7 -delete
-```
-
-**Automated Backup with Cron:**
+**Manual Backup Options:**
 ```bash
-# Add to crontab
-0 2 * * * /usr/local/bin/backup-database.sh
+# Railway CLI backup
+railway run mysqldump -u root railway > backup_$(date +%Y%m%d).sql
+
+# Download and compress
+gzip backup_$(date +%Y%m%d).sql
 ```
 
 **Backup to Cloud Storage:**
-- Use AWS S3 or Google Cloud Storage
+- Use AWS S3 or Google Cloud Storage for long-term backups
 - Encrypt backups before upload
 - Implement 3-2-1 backup rule
 - Test restore process monthly
 
 ### Monitoring and Logging
 
+**Platform Monitoring:**
+- Railway/Render provide built-in monitoring dashboards
+- View logs in real-time via web interface
+- CPU, memory, and network metrics
+- Automatic alerts for crashes
+
 **Application Monitoring:**
-- PM2 monitoring dashboard
 - Custom health check endpoint
-- Error tracking (Sentry)
-- Performance monitoring (New Relic)
+- Error tracking (optional: Sentry)
+- Performance monitoring (optional: New Relic)
 
 **Log Management:**
-- Centralized logging (Winston)
-- Log rotation (daily)
-- Error alerting
-- Audit trail for admin actions
+- Railway/Render capture all console output
+- View logs via dashboard or CLI
+- Search and filter logs
+- Download logs for analysis
 
 **Health Check Endpoint:**
 ```javascript
@@ -1260,25 +1273,43 @@ Response:
 }
 ```
 
+**Railway CLI Commands:**
+```bash
+# View logs
+railway logs
+
+# View logs with follow
+railway logs --follow
+
+# View specific service logs
+railway logs --service backend
+```
+
 ### Scaling Considerations
 
 **Horizontal Scaling:**
-- Use PM2 cluster mode (2-4 instances)
-- Load balancer (Nginx or AWS ALB)
+- Railway/Render handle scaling automatically
+- Upgrade to paid tier for more resources
 - Session storage in Redis (not memory)
 - Stateless API design
 
 **Database Scaling:**
-- Read replicas for heavy read operations
-- Connection pooling
+- Connection pooling (built-in)
 - Query optimization
 - Caching frequently accessed data
+- Upgrade to larger database plan when needed
 
 **CDN Integration:**
-- Serve static assets via CDN
+- Serve static assets via CDN (Cloudflare free tier)
 - Cache product images
 - Reduce server load
 - Improve global performance
+
+**Cost Scaling Path:**
+- **Start**: Free tier ($0/month)
+- **Growing**: Railway Hobby ($5/month) or Render Starter ($7/month)
+- **Production**: Railway Pro ($20/month) or Render Standard ($25/month)
+- **Enterprise**: Custom plans with dedicated resources
 
 
 ## Migration Strategy

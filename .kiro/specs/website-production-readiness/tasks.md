@@ -604,104 +604,130 @@
   - _Requirements: 3.1, 5.1, 8.1_
 
 
-## Phase 9: Deployment and Infrastructure (Week 9)
+## Phase 9: Hybrid Deployment (Week 9)
 
-- [ ] 11. Setup production server
-  - Provision Ubuntu 22.04 server with adequate resources (4GB RAM, 2 CPU cores)
-  - Configure firewall rules (allow 80, 443, SSH)
-  - Setup SSH key authentication and disable password login
-  - Install Node.js 18 LTS
-  - Install MySQL 8.0 and run mysql_secure_installation
-  - Install Redis 7.0
-  - Install Nginx 1.24
-  - Install PM2 globally
-  - Install Certbot for SSL certificates
-  - _Requirements: 2.1, 2.6_
+- [ ] 11. Prepare backend for Railway/Render deployment
+  - Create railway.json configuration file in backend directory
+  - Update package.json with correct start script
+  - Ensure all environment variables are documented in .env.example
+  - Test backend runs locally with production-like environment
+  - Commit and push backend code to GitHub repository
+  - _Requirements: 2.1, 3.1, 4.1_
 
-- [ ] 11.1 Configure production database
-  - Create production database and user
-  - Set strong database password
-  - Configure database connection limits
-  - Run all database migrations
-  - Create database backup user with limited permissions
-  - Test database connectivity
-  - _Requirements: 4.1, 12.1_
-
-- [ ] 11.2 Deploy backend application
-  - Clone repository to server
-  - Install production dependencies (npm install --production)
-  - Create .env.production file with all environment variables
-  - Build application if using TypeScript
-  - Configure PM2 ecosystem file
-  - Start application with PM2 in cluster mode
-  - Configure PM2 to start on system boot
-  - Test backend API endpoints
+- [ ] 11.1 Deploy backend to Railway (Option A - Recommended)
+  - Sign up for Railway account at railway.app
+  - Create new project and deploy from GitHub repository
+  - Add MySQL database service in Railway dashboard
+  - Railway automatically sets DATABASE_URL environment variable
+  - Verify backend deployment is successful
+  - Get backend URL (e.g., https://your-backend.up.railway.app)
   - _Requirements: 3.1, 4.1_
 
-- [ ] 11.3 Configure Nginx reverse proxy
-  - Create Nginx configuration file for domain
-  - Configure proxy_pass to Node.js application
-  - Add proxy headers (Host, X-Real-IP, X-Forwarded-For)
-  - Configure static file serving for frontend
-  - Enable gzip compression
-  - Test Nginx configuration
-  - Reload Nginx
-  - _Requirements: 2.1_
+- [ ] 11.2 Configure Railway environment variables
+  - Set NODE_ENV=production
+  - Set JWT_SECRET (generate secure 32+ character string)
+  - Set JWT_EXPIRES_IN=7d
+  - Set ENCRYPTION_KEY (generate secure 32 character string)
+  - Set FRONTEND_URL=https://yourdomain.com
+  - Set Paytm credentials (PAYTM_MERCHANT_ID, PAYTM_MERCHANT_KEY, PAYTM_WEBSITE)
+  - Set SMTP credentials for email (SMTP_HOST, SMTP_USER, SMTP_PASSWORD)
+  - Verify all environment variables are set correctly
+  - _Requirements: 3.2, 4.2, 5.1, 8.1_
 
-- [ ] 11.4 Setup SSL certificate
-  - Run Certbot to obtain Let's Encrypt certificate
-  - Configure Nginx to use SSL certificate
-  - Add SSL configuration (protocols, ciphers)
-  - Setup automatic certificate renewal
-  - Test HTTPS access
-  - Verify SSL configuration with SSL Labs
-  - _Requirements: 2.1, 2.6_
+- [ ] 11.3 Run database migrations on Railway
+  - Use Railway CLI to run migrations: railway run node migrations/run.js
+  - Or configure custom start command: node migrations/run.js && node src/app.js
+  - Verify all tables are created correctly
+  - Test database connectivity from backend
+  - Seed initial data if needed (admin user, sample products)
+  - _Requirements: 4.1, 4.2_
 
-- [ ] 11.5 Deploy frontend application
-  - Upload frontend files to server
-  - Configure Nginx to serve static files
-  - Update API base URL in frontend configuration
-  - Test frontend loads correctly
-  - Test frontend can communicate with backend API
-  - _Requirements: 3.1_
+- [ ] 11.4 Alternative: Deploy backend to Render (Option B)
+  - Sign up for Render account at render.com
+  - Create new Web Service from GitHub repository
+  - Configure build command: npm install
+  - Configure start command: node migrations/run.js && node src/app.js
+  - Add PostgreSQL database (note: requires converting MySQL migrations)
+  - Set environment variables in Render dashboard
+  - Get backend URL (e.g., https://ace1-backend.onrender.com)
+  - _Requirements: 3.1, 4.1_
 
-- [ ] 11.6 Configure monitoring and logging
-  - Setup PM2 monitoring
-  - Configure application logging with Winston
-  - Setup log rotation
-  - Create health check endpoint
-  - Configure error tracking (optional: Sentry)
-  - Setup uptime monitoring (optional: UptimeRobot)
+- [ ] 11.5 Test backend API endpoints
+  - Test health check endpoint: GET /api/health
+  - Test authentication endpoints (register, login, logout)
+  - Test product endpoints (list, get single product)
+  - Test cart endpoints (add, update, remove items)
+  - Test order endpoints (create order, get orders)
+  - Verify CORS is configured correctly for your domain
+  - Check Railway/Render logs for any errors
+  - _Requirements: 3.1, 4.3, 5.1_
+
+- [ ] 11.6 Update frontend configuration for production
+  - Create docs/assets/js/config.js with backend API URL
+  - Update all frontend JavaScript files to use API_CONFIG.baseURL
+  - Update CORS settings in backend to allow your domain
+  - Test API calls work from localhost first
+  - Verify no hardcoded localhost URLs remain in frontend
+  - _Requirements: 3.1, 9.1_
+
+- [ ] 11.7 Deploy frontend to FTP host
+  - Prepare FTP upload package with all docs/ files
+  - Ensure .htaccess file is included for security headers
+  - Upload all files via FTP to your hosting provider
+  - Verify all files uploaded successfully
+  - Clear browser cache and test website loads
+  - Test API calls work from production domain
+  - Verify no CORS errors in browser console
+  - _Requirements: 2.1, 2.2, 2.3, 2.4, 3.1_
+
+- [ ] 11.8 Configure monitoring and logging
+  - Access Railway/Render dashboard for logs and metrics
+  - Setup log viewing via CLI (railway logs or render logs)
+  - Configure error alerts in Railway/Render dashboard
+  - Test health check endpoint is accessible
+  - Optional: Setup Sentry for error tracking
+  - Optional: Setup UptimeRobot for uptime monitoring
   - _Requirements: 6.4_
 
-- [ ] 11.7 Setup automated backups
-  - Create database backup script
-  - Configure daily backup cron job (2 AM)
-  - Setup backup retention policy (7 daily, 4 weekly, 12 monthly)
-  - Test backup creation
-  - Test backup restoration
-  - Configure backup to cloud storage (optional)
+- [ ] 11.9 Setup database backups
+  - Verify Railway/Render automatic daily backups are enabled
+  - Document backup retention policy (7 days on free tier)
+  - Create manual backup script using Railway CLI if needed
+  - Test database backup and restore process
+  - Optional: Setup automated backups to cloud storage (S3, Google Cloud)
+  - Document backup and restore procedures
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-- [ ] 11.8 Perform production deployment testing
+- [ ] 11.10 Perform production deployment testing
   - Test complete user registration and login flow
   - Test product browsing and cart operations
-  - Test order creation and payment with real Paytm account
+  - Test order creation flow (without payment initially)
+  - Test admin panel authentication and functionality
   - Test email delivery for all scenarios
-  - Test admin panel functionality
-  - Monitor error logs for any issues
-  - Test performance under load
-  - Verify security headers are present
+  - Monitor Railway/Render logs for any errors
+  - Test performance and response times
+  - Verify security headers are present (use securityheaders.com)
+  - Test on multiple devices and browsers
   - _Requirements: 3.1, 5.1, 6.1, 8.1_
 
-- [ ] 11.9 Create rollback plan and documentation
-  - Document rollback procedure
-  - Create rollback script
-  - Test rollback on staging environment
-  - Document all environment variables
-  - Document deployment process
-  - Create troubleshooting guide
-  - Document monitoring and alerting setup
+- [ ] 11.11 Setup custom domain for backend (Optional)
+  - Purchase or configure subdomain (api.yourdomain.com)
+  - Add custom domain in Railway/Render dashboard
+  - Update DNS CNAME record to point to Railway/Render URL
+  - Wait for DNS propagation (up to 48 hours)
+  - Update FRONTEND_URL in backend environment variables
+  - Update API_CONFIG.baseURL in frontend configuration
+  - Test API calls work with custom domain
+  - _Requirements: 2.1, 2.6_
+
+- [ ] 11.12 Create deployment documentation
+  - Document Railway/Render deployment process
+  - Document all environment variables and their purposes
+  - Create troubleshooting guide for common issues
+  - Document how to view logs and monitor application
+  - Document how to rollback deployment if needed
+  - Document how to scale up when traffic grows
+  - Create quick reference guide for future deployments
   - _Requirements: 12.5_
 
 
@@ -714,61 +740,77 @@
   - Create script to migrate product ratings
   - Create script to import products from JSON to database
   - Add data validation in migration scripts
+  - Test migration scripts with sample data locally
   - _Requirements: 4.1, 4.2_
 
-- [ ] 12.1 Perform data migration
-  - Backup current localStorage data
-  - Run user migration script
-  - Verify user data in database
-  - Run product migration script
+- [ ] 12.1 Perform data migration to Railway/Render
+  - Backup current localStorage data to JSON files
+  - Run user migration script via Railway CLI: railway run node scripts/migrate-users.js
+  - Verify user data in Railway/Render database
+  - Run product migration script via Railway CLI
   - Verify product data in database
   - Run wallet transaction migration
   - Run ratings migration
-  - Verify all data migrated correctly
+  - Verify all data migrated correctly using database queries
   - _Requirements: 4.1, 4.2, 4.3_
 
 - [ ] 12.2 Final pre-launch checklist
-  - Verify all security headers are active
-  - Verify HTTPS is enforced
-  - Verify rate limiting is working
-  - Verify email notifications are sending
-  - Verify payment flow works end-to-end
-  - Verify admin panel is functional
-  - Verify backups are running
-  - Verify monitoring is active
-  - Review all environment variables
-  - Test on multiple devices and browsers
+  - Verify all security headers are active (test with securityheaders.com)
+  - Verify HTTPS is enforced on both frontend and backend
+  - Verify rate limiting is working (test with multiple rapid requests)
+  - Verify email notifications are sending (test all email types)
+  - Verify payment flow works end-to-end with Paytm sandbox
+  - Verify admin panel is functional and secure
+  - Verify Railway/Render backups are enabled
+  - Verify monitoring and logging are active
+  - Review all environment variables are set correctly
+  - Test on multiple devices (desktop, mobile, tablet)
+  - Test on multiple browsers (Chrome, Firefox, Safari, Edge)
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 3.1, 5.1, 8.1, 12.1_
 
 - [ ] 12.3 Go-live deployment
-  - Schedule maintenance window
+  - Schedule maintenance window (if needed)
   - Notify users of upcoming changes (if applicable)
-  - Create final backup of current system
-  - Deploy backend to production
-  - Deploy frontend to production
-  - Run data migration
-  - Update DNS if needed
-  - Monitor error logs closely
+  - Create final backup of current localStorage data
+  - Verify backend is deployed and running on Railway/Render
+  - Verify database migrations are complete
+  - Deploy updated frontend to FTP host
+  - Update DNS if using custom domain for backend
+  - Monitor Railway/Render logs closely for first hour
   - Test critical paths immediately after deployment
+  - Verify API calls work from production domain
   - _Requirements: 3.1, 4.1_
 
 - [ ] 12.4 Post-launch monitoring
-  - Monitor application logs for errors
-  - Monitor server resources (CPU, memory, disk)
-  - Monitor database performance
-  - Monitor payment success rate
+  - Monitor Railway/Render application logs for errors
+  - Monitor Railway/Render metrics (CPU, memory, response times)
+  - Monitor database performance and connection pool
+  - Monitor payment success rate (if payments are live)
   - Monitor email delivery rate
   - Check user feedback and support requests
   - Monitor for 24-48 hours continuously
+  - Document any issues and resolutions
   - _Requirements: 5.1, 8.1_
 
 - [ ] 12.5 Post-launch optimization
-  - Analyze performance metrics
-  - Optimize slow database queries
-  - Adjust rate limits if needed
+  - Analyze Railway/Render performance metrics
+  - Optimize slow database queries identified in logs
+  - Adjust rate limits if needed based on actual traffic
   - Fine-tune caching strategies
   - Address any user-reported issues
   - Update documentation based on learnings
+  - Plan for scaling (upgrade to paid tier if needed)
+  - Document lessons learned and best practices
   - Plan for future enhancements
   - _Requirements: 4.3, 9.1_
+
+- [ ] 12.6 Cost optimization and scaling plan
+  - Monitor Railway/Render usage hours (free tier: 500-750 hours/month)
+  - Calculate actual monthly costs based on usage
+  - Plan upgrade path if approaching free tier limits
+  - Document when to upgrade to paid tier ($5-7/month)
+  - Setup billing alerts in Railway/Render dashboard
+  - Plan for adding Redis if session performance becomes an issue
+  - Document scaling strategy for future growth
+  - _Requirements: 4.1, 9.1_
 

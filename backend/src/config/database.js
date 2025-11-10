@@ -1,19 +1,47 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
+/**
+ * Parse DATABASE_URL if provided (Railway/Render format)
+ * Format: mysql://user:password@host:port/database
+ */
+const parseDatabaseUrl = (url) => {
+  if (!url) return null;
+  
+  try {
+    const urlObj = new URL(url);
+    return {
+      host: urlObj.hostname,
+      port: parseInt(urlObj.port, 10) || 3306,
+      user: urlObj.username,
+      password: urlObj.password,
+      database: urlObj.pathname.slice(1), // Remove leading slash
+    };
+  } catch (error) {
+    console.error('Failed to parse DATABASE_URL:', error.message);
+    return null;
+  }
+};
+
 // Database configuration
-const dbConfig = {
+// Priority: DATABASE_URL (Railway/Render) > Individual env vars
+const parsedUrl = parseDatabaseUrl(process.env.DATABASE_URL);
+const dbConfig = parsedUrl || {
   host: process.env.DB_HOST || '127.0.0.1', // Use 127.0.0.1 instead of localhost to force IPv4
   port: parseInt(process.env.DB_PORT, 10) || 3306,
   user: process.env.DB_USER || 'ace1_user',
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME || 'ace1_development',
+};
+
+// Add connection pool settings
+Object.assign(dbConfig, {
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
-};
+});
 
 // Create connection pool
 let pool = null;
