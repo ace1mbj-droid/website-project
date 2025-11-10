@@ -1,0 +1,70 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# SSH keys and credentials
+*.pub
+*.pem
+*.key
+id_rsa*
+eval "*"
+
+# Sensitive directories
+LOCAL-ONLY-DO-NOT-UPLOAD/
+secure-ready/
+
+# Node modules (if using Node.js)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using Python backend)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Build outputs
+dist/
+build/
+*.zip
+*.tar.gz
+
+# FTP configurations (may contain credentials)
+*.ftp
+filezilla.xml
+recentservers.xml
+
+# Database
+*.sqlite
+*.db
